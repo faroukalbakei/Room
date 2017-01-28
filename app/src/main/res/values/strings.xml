@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Roomx</string>
+    <string name="Email">Email</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="Confirm">Confirm password</string>
+    <string name="name">Name</string>
+    <string name="mobile">mobile Number</string>
+    <string name="date">18-4-2017</string>
+    <string name="tag">tagname</string>
+    <string name="city">gaza</string>
+    <string name="info">room info </string>
+</resources>
