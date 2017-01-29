@@ -1,1 +1,1 @@
-include ':app', ':smilebar', ':circleimageview'
+include ':app'
