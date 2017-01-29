@@ -1,89 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:weightSum="1">
-<!--
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="197dp">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:id="@+id/im_custem_image"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/unliike"
-            android:background="@null"
-            android:id="@+id/ibt_custem_like"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
-
-    </RelativeLayout>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
 
-        <TextView
-            android:text="Title"
+        android:layout_marginTop="85dp"
+       >
+
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/titel_list"
-            android:id="@+id/tv_custem_Title" />
+            android:layout_height="256dp"
+            app:srcCompat="@drawable/building"
+            android:id="@+id/img_picRoom" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:text="cost"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="@dimen/cost_list"
+            >
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                app:srcCompat="@drawable/unliike"
+                android:id="@+id/imge_love"
+                android:layout_weight="3" />
 
-            android:id="@+id/tv_custem_cost" />
-
-        <com.eugeneek.smilebar.SmileBar
-            android:id="@+id/starBar"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:smileWidth="30dp"
-            app:smileHeight="30dp"
-            app:smileDefault="@drawable/starr"
-            app:smileRate1="@drawable/star"
-            app:smileRate2="@drawable/star"
-            app:smileRate3="@drawable/star"
-            app:smileRate4="@drawable/star"
-            app:smileRate5="@drawable/star"
-            app:horizontalSpacing="8dp"
-            app:rating="1"
-
-             />
-
+            <TextView
+                android:text="@string/info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_inf"
+                android:layout_weight="1"
+                android:textSize="@dimen/big_font_size"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
     </LinearLayout>
--->
-
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:layout_gravity="top">
 
+        android:layout_marginTop="8dp">
 
         <ImageView
             android:layout_width="35dp"
@@ -138,6 +108,7 @@
                     android:textColor="@color/orang"
                     android:textStyle="bold"
                     android:textSize="17dp"
+                    android:paddingLeft="8dp"
                     />
 
                 <TextView
@@ -152,15 +123,7 @@
 
             </LinearLayout>
         </LinearLayout>
-<!--
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:id="@+id/imv_userphoto"
-            android:layout_marginRight="3dp" />
 
-            -->
         <RelativeLayout
             android:layout_width="100dp"
             android:layout_height="match_parent"
@@ -176,42 +139,6 @@
                 app:civ_border_color="#FFEEEEEE" />
 
         </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="256dp"
-            app:srcCompat="@drawable/building"
-            android:id="@+id/img_picRoom" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                app:srcCompat="@drawable/unliike"
-                android:id="@+id/imge_love"
-                android:layout_weight="3" />
-
-            <TextView
-                android:text="@string/info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/tv_inf"
-                android:layout_weight="1" />
-        </LinearLayout>
     </LinearLayout>
 
 
