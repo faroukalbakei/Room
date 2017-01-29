@@ -17,17 +17,20 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class explore extends AppCompatActivity {
 
 private List<Room> roommList = new ArrayList<>();
     private RecyclerView recyclerView;
     private DetailAdapter mAdapter;
+    public ImageButton btlike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore);
+        btlike = (ImageButton) findViewById(R.id.imge_love);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
        // recyclerView.setHasFixedSize(true);
@@ -41,8 +44,11 @@ private List<Room> roommList = new ArrayList<>();
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Room roomm = roommList.get(position);
-                Toast.makeText(getApplicationContext(), roomm.getUserName() + " is selected!", Toast.LENGTH_SHORT).show();
+
+                    Room roomm = roommList.get(position);
+                    Toast.makeText(getApplicationContext(), roomm.getUserName() + " is selected!", Toast.LENGTH_SHORT).show();
+
+              //  Toast.makeText(getApplicationContext(), (String) btlike.getTag(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

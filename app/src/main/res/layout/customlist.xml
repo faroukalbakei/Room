@@ -8,46 +8,6 @@
     >
 
 
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_marginTop="85dp"
-       >
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="256dp"
-            app:srcCompat="@drawable/building"
-            android:id="@+id/img_picRoom" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null"
-                app:srcCompat="@drawable/unliike"
-                android:id="@+id/imge_love"
-                android:layout_weight="3" />
-
-            <TextView
-                android:text="@string/info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/tv_inf"
-                android:layout_weight="1"
-                android:textSize="@dimen/big_font_size"
-                android:textStyle="bold"
-                />
-        </LinearLayout>
-    </LinearLayout>
-
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -139,6 +99,46 @@
                 app:civ_border_color="#FFEEEEEE" />
 
         </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="85dp"
+       >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="256dp"
+            app:srcCompat="@drawable/building"
+            android:id="@+id/img_picRoom" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                app:srcCompat="@drawable/unliike"
+                android:id="@+id/imge_love"
+                android:layout_weight="3"
+                />
+
+            <TextView
+                android:text="@string/info"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_inf"
+                android:layout_weight="1"
+                android:textSize="@dimen/big_font_size"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
     </LinearLayout>
 
 
