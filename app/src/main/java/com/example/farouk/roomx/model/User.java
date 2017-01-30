@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.model;
 
 /**
  * Created by farouk on 1/26/17.

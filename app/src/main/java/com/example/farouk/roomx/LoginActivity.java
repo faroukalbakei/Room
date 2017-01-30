@@ -7,12 +7,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.model.User;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity {
-
-
+public class LoginActivity extends AppCompatActivity {
 
     EditText Email;
     EditText Password;
@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Email = (EditText) findViewById(R.id.et_login_email);
         Password = (EditText) findViewById(R.id.et_login_password);
+        Email.setText("farouk.h@hotmai.com");
+        Password.setText("1234567");
     }
 
 
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
         }else {
 
+            Requests requests = new Requests();
+            requests.makeLogin(getApplicationContext(),email, password);
             user = new User();
             user.setlogin(email, password);
             boolean x = user.Verification();

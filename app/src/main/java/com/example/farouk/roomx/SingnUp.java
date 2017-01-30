@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.model.User;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -106,7 +108,7 @@ public class SingnUp extends AppCompatActivity {
                     Confirm.setText("");
                     Mobile.setText("");
                     Toast.makeText(this, "done", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(this, MainActivity.class);
+                    Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
                     finish();
 
