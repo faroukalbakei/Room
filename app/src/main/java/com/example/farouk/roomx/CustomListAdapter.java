@@ -60,8 +60,6 @@ public class CustomListAdapter extends ArrayAdapter<String> {
         TextView taguserl = (TextView) rowView.findViewById(R.id.tv_tag);
 
 
-
-
         infoRoom.setText(Titel[position]);
         picRoom.setImageResource(imgid[position]);
         picuser.setImageResource(imguser[position]);
