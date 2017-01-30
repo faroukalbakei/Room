@@ -34,8 +34,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:background="@android:color/transparent"
-                android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha" />
-
+                 />
+            <!--android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"-->
             <ImageView
                 android:id="@+id/imageView_place"
                 android:layout_width="match_parent"
