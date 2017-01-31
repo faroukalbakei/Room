@@ -53,11 +53,6 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
 
 
         }
-
-
-        //
-
-
     }
 
 

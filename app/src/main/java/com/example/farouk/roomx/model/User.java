@@ -61,8 +61,6 @@ public class User {
         this.token = token;
     }
 
-
-
     public void setdata(String name , String email , String password, String mobile){
         setName(name);
         setEmail(email);
