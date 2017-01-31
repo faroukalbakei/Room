@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/Roomx.iml" filepath="$PROJECT_DIR$/Roomx.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/circleimageview/circleimageview.iml" filepath="$PROJECT_DIR$/circleimageview/circleimageview.iml" />
-      <module fileurl="file://$PROJECT_DIR$/smilebar/smilebar.iml" filepath="$PROJECT_DIR$/smilebar/smilebar.iml" />
     </modules>
   </component>
 </project>

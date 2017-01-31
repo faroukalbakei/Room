@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            Intent intent = new Intent(this, explore.class);
+            Intent intent = new Intent(this, Acounting.class);
             startActivity(intent);
             finish();
 /*

@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".SingnUp" />
-        <activity android:name=".explore"></activity>
+        <activity android:name=".explore" />
+        <activity android:name=".Acounting" />
     </application>
 
 </manifest>
