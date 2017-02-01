@@ -32,7 +32,7 @@
         android:layout_height="120dp">
 
         <TextView
-            android:text="TextView"
+            android:text="@string/name"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:id="@+id/tv_NameUser"
