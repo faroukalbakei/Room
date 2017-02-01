@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_window"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom|center"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="12dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textPersonName"
+            android:hint="@string/name"
+            android:gravity="center"
+            android:ems="10"
+            android:id="@+id/et_dilog_name"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textEmailAddress"
+            android:hint="@string/Email"
+            android:ems="10"
+            android:gravity="center"
+            android:id="@+id/et_dilog_Email"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="phone"
+            android:hint="@string/mobile"
+            android:ems="10"
+            android:gravity="center"
+            android:id="@+id/et_dilog_mobile" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="55dp">
+
+        <TextView
+            android:text="@string/city"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_dialog_City"
+            android:gravity="center"
+            android:textSize="@dimen/big_font_size"
+            android:layout_weight="1" />
+
+        <ImageButton
+            android:text="@string/city"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/bt_dilog_city"
+            android:src="@drawable/city"
+            android:background="@null"
+            android:layout_weight="6" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        >
+
+        <TextView
+            android:text="@string/date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_dialog_date"
+            android:gravity="center"
+            android:textSize="@dimen/big_font_size"
+            android:layout_weight="1" />
+        <ImageButton
+            android:text="@string/date"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:src="@drawable/calendar"
+            android:id="@+id/bt_dilog_date"
+            android:background="@null"
+            android:onClick="calendar"
+            android:layout_weight="6" />
+    </LinearLayout>
+
+
+    <Button
+        android:text="@string/save"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:id="@+id/bt_dilog_save"
+        android:background="@color/Navy"
+        android:textColor="@color/white"
+        android:textStyle="italic"
+        android:textSize="18dp"
+        />
+
+
+</LinearLayout>

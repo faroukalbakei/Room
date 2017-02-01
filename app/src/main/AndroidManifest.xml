@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".SingnUp" />
         <activity android:name=".explore" />
+        <activity android:name=".Acounting" />
         <activity android:name=".PlaceDetailsActivity"></activity>
     </application>
 
