@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +21,10 @@
         <activity android:name=".SingnUp" />
         <activity android:name=".explore" />
         <activity android:name=".Acounting" />
+        <activity
+            android:name=".IconTextTabsActivity"
+            >
+        </activity>
         <activity android:name=".PlaceDetailsActivity"></activity>
     </application>
 
