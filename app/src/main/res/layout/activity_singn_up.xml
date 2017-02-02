@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_singn_up"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Blue"
-
+    android:background="@drawable/login"
     tools:context="com.example.farouk.roomx.SingnUp">
 
 
@@ -21,8 +21,10 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:layout_marginTop="60dp"
+        android:layout_marginStart="@dimen/margin_login"
+        android:layout_marginEnd="@dimen/margin_login"
         android:layout_gravity="center_horizontal|center"
-        android:layout_width="@dimen/layout_width"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/root">
 
@@ -73,7 +75,7 @@
             android:inputType="textPassword"
             android:layout_marginTop="2dp"
 
-            android:drawablePadding="5dip"
+            android:drawablePadding="5dp"
             android:ems="10"
             android:textColorHint="@color/Blue"
             android:textColor="@color/Blue"
@@ -103,7 +105,6 @@
             android:layout_height="wrap_content"
             android:inputType="phone"
             android:layout_marginTop="2dp"
-            android:gravity="center"
             android:drawablePadding="5dip"
             android:ems="10"
             android:textColorHint="@color/Blue"

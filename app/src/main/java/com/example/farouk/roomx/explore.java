@@ -2,6 +2,9 @@ package com.example.farouk.roomx;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -9,112 +12,66 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+
 public class explore extends AppCompatActivity {
 
-    ListView list;
-    CustomListAdapter adapter;
-    ImageButton love ;
-
-    String[] titel ={
-            "new flate fdsdfm bdfkfg 120 m can play what you want fsdfsdfsdfsf",
-            "new Room fdsdfm bdfkfg 120 m can play what you want fsdfsdfsdfsf",
-            "Global",
-            "FireFox",
-            "UC Browser",
-            "Android Folder",
-            "VLC Player",
-            "Cold War"
-    };
-    String[] NMEE ={
-            "farouk h albakri",
-            "abir",
-            "ahmad",
-            "amera",
-            "most",
-            "ssds",
-            "sdf",
-            "dfsdfwe"
-    };
-    String[] ss ={
-            "23/2/2017",
-            "22/1/2018",
-            "22/1/2020",
-            "22/1/2020",
-            "22/1/2020",
-            "22/1/2020",
-            "22/1/2020",
-            "22/1/2020"
-    };
-    String[] cityy ={
-            "gaza",
-            "cairo",
-            "Egypt",
-            "maroco",
-            "sdfsdf",
-            "sdff",
-            "sdffsd",
-            "2ewr"
-    };
-    Integer[] imgid={
-            R.drawable.flate,
-            R.drawable.room,
-            R.drawable.building,
-            R.drawable.building,
-            R.drawable.building,
-            R.drawable.building,
-            R.drawable.building,
-            R.drawable.building
-    };
-    Integer[] imd={
-            R.drawable.ttt,
-            R.drawable.tttt,
-            R.drawable.angry,
-            R.drawable.confused,
-            R.drawable.like,
-            R.drawable.happy,
-            R.drawable.confused,
-            R.drawable.angry
-    };
-
-
-    Integer[] like={
-            R.drawable.like,
-            R.drawable.unliike,
-            R.drawable.like,
-            R.drawable.like,
-            R.drawable.unliike,
-            R.drawable.unliike,
-            R.drawable.like,
-            R.drawable.unliike
-    };
-
-
+private List<Room> roommList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private DetailAdapter mAdapter;
+    public ImageButton btlike;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore);
-        love = (ImageButton)findViewById(R.id.imge_love);
-        list=(ListView)findViewById(R.id.ep_list);
-         adapter=new CustomListAdapter(this, titel, imgid,like,NMEE,ss,cityy,NMEE,imd);
+        btlike = (ImageButton) findViewById(R.id.imge_love);
 
-        list.setAdapter(adapter);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+       // recyclerView.setHasFixedSize(true);
+        mAdapter = new DetailAdapter(roommList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
 
-        list.setOnItemClickListener(new  OnItemClickListener() {
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+                    Room roomm = roommList.get(position);
+                    Toast.makeText(getApplicationContext(), roomm.getUserName() + " is selected!", Toast.LENGTH_SHORT).show();
+
+              //  Toast.makeText(getApplicationContext(), (String) btlike.getTag(), Toast.LENGTH_SHORT).show();
+            }
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                // TODO Auto-generated method stub
-                String Slecteditem= titel[+position];
-                Toast.makeText(getApplicationContext(),"fff"+ Slecteditem, Toast.LENGTH_SHORT).show();
+            public void onLongClick(View view, int position) {
 
             }
-        });
+        }));
+
+        prepareDetailData();
+    }
+
+    private void prepareDetailData() {
+        Room  rroom = new Room(R.drawable.ttt,"farouk albakri","@farouk","1990","gaza",R.drawable.room,1,"new flate you want to rent 120 m have agood beed ");
+        roommList.add(rroom);
+
+        rroom = new Room(R.drawable.tttt,"abir","@devabir","1993","gaza",R.drawable.flate,0,"new flate you want to rent 120 m have agood beed ");
+        roommList.add(rroom);
+
+        rroom = new Room(R.drawable.tttt,"abir","@devabir","1993","gaza",R.drawable.flate,0,"new flate you want to rent 120 m have agood beed ");
+        roommList.add(rroom);
 
 
-
-
+        mAdapter.notifyDataSetChanged();
     }
 
 }

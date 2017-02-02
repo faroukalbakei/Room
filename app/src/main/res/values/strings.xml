@@ -7,8 +7,17 @@
     <string name="Confirm">Confirm password</string>
     <string name="name">Name</string>
     <string name="mobile">mobile Number</string>
-    <string name="date">18-4-2017</string>
+    <string name="date">Date</string>
     <string name="tag">tagname</string>
-    <string name="city">gaza</string>
+    <string name="city">City</string>
     <string name="info">room info </string>
+    <string name="EditAccount">Edit Account</string>
+    <string name="gifts">RoomX Gifts</string>
+    <string name="host">Be the Host</string>
+    <string name="Invite">Invite Friends</string>
+    <string name="Help">Help</string>
+    <string name="save">Save</string>
+    <string name="dateofbirth">BirthDay</string>
+
+
 </resources>

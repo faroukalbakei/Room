@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.model;
 
 /**
  * Created by farouk on 1/26/17.
@@ -9,6 +9,8 @@ public class User {
     private String Email;
     private String password;
     private String mobile;
+    private String city;
+    private String birthday;
     private String token;
     private boolean Validation = true;
 
@@ -52,6 +54,21 @@ public class User {
         Validation = validation;
     }
 
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
 
     public String getToken() {
         return token;
@@ -60,8 +77,6 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
-
-
 
     public void setdata(String name , String email , String password, String mobile){
         setName(name);
@@ -83,6 +98,17 @@ public class User {
         }else {
             return false;
         }
+    }
+
+
+    public void SetDialogData(String name , String Email,String mobile,String city, String Birthday){
+        setName(name);
+        setEmail(Email);
+        setMobile(mobile);
+        setCity(city);
+        setBirthday(Birthday);
+
+
     }
 
 }
