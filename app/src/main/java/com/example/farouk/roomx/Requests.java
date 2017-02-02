@@ -34,7 +34,7 @@ public class Requests {
     User userObject;
     Response responseObject;
 
-    public void makeLogin(final VolleyCallback callback, Context context, final String email, final String password) {
+    public void makeLogin(final VolleyCallback callback, final Context context, final String email, final String password) {
         responseObject = new Response();
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
@@ -63,7 +63,7 @@ public class Requests {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        //Prefs.with(context).setUser(userObject);
+                        Prefs.with(context).setUser(userObject);
                     }
                 }, new com.android.volley.Response.ErrorListener() {
 
@@ -166,12 +166,12 @@ public class Requests {
         VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
 
     }
-    public void get(final VolleyCallback callback,final Context context, final String name, final String email, final String password, final String passwordConfirm, final String phone) {
+    public void getUserProfile(final Context context) {
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
         StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
-                Const.BASE_URL + "Register?",
+                Const.BASE_URL + "getuserprofile?",
                 new com.android.volley.Response.Listener<String>() {
 
                     @Override
@@ -192,7 +192,7 @@ public class Requests {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        //Prefs.with(context).setUser(userObject);
+
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
@@ -219,11 +219,7 @@ public class Requests {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("name", name);
-                params.put("email", email);
-                params.put("password", password);
-                params.put("password_confirmation ", passwordConfirm);
-                params.put("phone ", phone);
+                params.put("token", name);
                 return params;
             }
         };
