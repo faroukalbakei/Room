@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.model;
 
 /**
  * Created by farouk on 1/26/17.
@@ -77,8 +77,6 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
-
-
 
     public void setdata(String name , String email , String password, String mobile){
         setName(name);

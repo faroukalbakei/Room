@@ -3,24 +3,27 @@ package com.example.farouk.roomx;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.model.Response;
+import com.example.farouk.roomx.model.User;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SingnUp extends AppCompatActivity {
+public class SingnUp extends AppCompatActivity implements VolleyCallback {
 
 
-
-    EditText Name ;
+    EditText Name;
     EditText Email;
     EditText Password;
     EditText Confirm;
     EditText Mobile;
     User user;
-
+    String name,email,password,mobile,confirm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,12 +33,15 @@ public class SingnUp extends AppCompatActivity {
         Password = (EditText) findViewById(R.id.et_Singnup_password);
         Confirm = (EditText) findViewById(R.id.et_Singnup_ConfirmPassword);
         Mobile = (EditText) findViewById(R.id.et_Singnup_mobile);
+        Name.setText("ahmed");
+        Email.setText("ahmed@ahmad.com");
+        Password.setText("12345678");
+        Confirm.setText("12345678");
+        Mobile.setText("12345678");
     }
 
 
-
-
-    public void  Singe(View view){
+    public void Singe(View view) {
 
         sendData();
     }
@@ -55,14 +61,13 @@ public class SingnUp extends AppCompatActivity {
     }
 
 
-
     public void sendData() {
 
-        String name = Name.getText().toString();
-        String email = Email.getText().toString();
-        String password = Password.getText().toString();
-        String confirm = Confirm.getText().toString();
-        String mobile = Mobile.getText().toString();
+        name = Name.getText().toString();
+        email = Email.getText().toString();
+        password = Password.getText().toString();
+        confirm = Confirm.getText().toString();
+        mobile = Mobile.getText().toString();
 
         boolean a = isEmailValid(email);
 
@@ -74,7 +79,7 @@ public class SingnUp extends AppCompatActivity {
             if (name.matches("")) {
 
                 Toast.makeText(this, "name : ", Toast.LENGTH_LONG).show();
-            }  else if (password.matches("")) {
+            } else if (password.matches("")) {
                 Toast.makeText(this, "password : ", Toast.LENGTH_LONG).show();
 
 
@@ -94,27 +99,44 @@ public class SingnUp extends AppCompatActivity {
 
                 } else {
 
+                    Requests requests = new Requests();
+                    requests.makeRegister(this,this, name, email, password, confirm, mobile);
 
 
-
-                    user = new User();
-
-                    user.setdata(name, email, password, mobile);
-                    Name.setText("");
-                    Email.setText("");
-                    Password.setText("");
-                    Confirm.setText("");
-                    Mobile.setText("");
-                    Toast.makeText(this, "done", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
 
 
                 }
 
 
             }
-        }}
+        }
+    }
+    @Override
+    public void onSuccess(Response response) {
+        Requests requests = new Requests();
+        if (response.getResult() == 1) {
+
+
+            requests.makeLogin(new VolleyCallback(){
+                @Override
+                public void onSuccess(Response response){
+                    int isValid = response.getResult();
+
+                    if (isValid == 1) {
+
+                        // Toast.makeText(this, "^_^", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), explore.class);
+                        startActivity(intent);
+                        finish();
+
+                    } else {
+                        Toast.makeText(getApplicationContext(), response.getMessage() + "", Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            }, this, email, password);
+
+        }
+    }
 
 }
