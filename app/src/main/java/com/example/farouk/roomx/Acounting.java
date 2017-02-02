@@ -54,29 +54,17 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
          rootView =inflater.inflate(R.layout.activity_acounting, container, false);
         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-
-        return rootView;
-
-
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.);
-
-        //-------
         user = new User();
 
         mBottomSheetDialog = new Dialog(getActivity(), R.style.MaterialDialogSheet);
-       // tvDAte =(TextView) dialogv.findViewById(R.id.tv_dialog_farouk);
+        // tvDAte =(TextView) dialogv.findViewById(R.id.tv_dialog_farouk);
         DName = (EditText) dialogv.findViewById(R.id.et_dilog_name);
         DEmail = (EditText) dialogv.findViewById(R.id.et_dilog_Email);
         Dmobile = (EditText) dialogv.findViewById(R.id.et_dilog_mobile);
-       //  Ddate = (ImageButton) dialogv.findViewById(R.id.bt_dilog_date);
+        //  Ddate = (ImageButton) dialogv.findViewById(R.id.bt_dilog_date);
         Dcity =(EditText) dialogv.findViewById(R.id.ed_dialog_City);
         Ddatte =(EditText) dialogv.findViewById(R.id.ed_dialog_test);
-         Dsave = (Button) dialogv.findViewById(R.id.bt_dilog_save);
+        Dsave = (Button) dialogv.findViewById(R.id.bt_dilog_save);
         Ddatte.setRawInputType(InputType.TYPE_NULL);
         //-------
 
@@ -86,7 +74,7 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
         // recyclerView.setHasFixedSize(true);
         mAdapter = new AcountingAdapter(detelsitem);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-       recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setLayoutManager(mLayoutManager);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
@@ -120,6 +108,15 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
         prepareDetailData();
 
         tv_name.setText(user.getName());
+
+        return rootView;
+
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
 
 

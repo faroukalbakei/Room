@@ -96,9 +96,9 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
            // Intent intent = new Intent(this, Acounting.class);
           //  startActivity(intent);
 
-            FragmentManager fm = getSupportFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             Acounting fragment = new Acounting();
-            FragmentTransaction fragmentTransaction = fm.beginTransaction();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.activity_acounting,fragment);
             fragmentTransaction.commit();
            // finish();
