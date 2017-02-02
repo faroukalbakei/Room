@@ -14,9 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
-
-import static android.R.attr.key;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+//
+//import static android.R.attr.key;
+//import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 /**
  * Created by farouk on 1/29/17.
@@ -53,11 +53,6 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
 
 
         }
-
-
-        //
-
-
     }
 
 
