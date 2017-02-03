@@ -1,14 +1,17 @@
 package com.example.farouk.roomx;
 
 import android.app.Dialog;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Acounting extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class Acounting extends Fragment implements DatePickerDialog.OnDateSetListener{
 
 
     private List<Detelsitem> detelsitem = new ArrayList<>();
@@ -34,10 +37,11 @@ public class Acounting extends AppCompatActivity implements DatePickerDialog.OnD
 
      Dialog mBottomSheetDialog;
     View dialogv;
+    View rootView;
     EditText DName;
     EditText DEmail;
     EditText Dmobile;
-    ImageButton Ddate;
+
     Button Dsave;
     EditText Dcity;
     TextView tvDAte;
@@ -45,54 +49,51 @@ public class Acounting extends AppCompatActivity implements DatePickerDialog.OnD
     TextView tv_name;
     User user ;
 
-
-
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_acounting);
-
-        //-------
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+         rootView =inflater.inflate(R.layout.activity_acounting, container, false);
+        dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
         user = new User();
-        dialogv = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-        mBottomSheetDialog = new Dialog(Acounting.this, R.style.MaterialDialogSheet);
-       // tvDAte =(TextView) dialogv.findViewById(R.id.tv_dialog_farouk);
+
+        mBottomSheetDialog = new Dialog(getActivity(), R.style.MaterialDialogSheet);
+        // tvDAte =(TextView) dialogv.findViewById(R.id.tv_dialog_farouk);
         DName = (EditText) dialogv.findViewById(R.id.et_dilog_name);
         DEmail = (EditText) dialogv.findViewById(R.id.et_dilog_Email);
         Dmobile = (EditText) dialogv.findViewById(R.id.et_dilog_mobile);
-       //  Ddate = (ImageButton) dialogv.findViewById(R.id.bt_dilog_date);
+        //  Ddate = (ImageButton) dialogv.findViewById(R.id.bt_dilog_date);
         Dcity =(EditText) dialogv.findViewById(R.id.ed_dialog_City);
         Ddatte =(EditText) dialogv.findViewById(R.id.ed_dialog_test);
-         Dsave = (Button) dialogv.findViewById(R.id.bt_dilog_save);
+        Dsave = (Button) dialogv.findViewById(R.id.bt_dilog_save);
         Ddatte.setRawInputType(InputType.TYPE_NULL);
         //-------
 
-        tv_name = (TextView) findViewById(R.id.tv_NameUser);
+        tv_name = (TextView) rootView.findViewById(R.id.tv_NameUser);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         // recyclerView.setHasFixedSize(true);
         mAdapter = new AcountingAdapter(detelsitem);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Detelsitem roomm = detelsitem.get(position);
                 if (position == 0) {
-                    Toast.makeText(getApplicationContext(), "invite friend", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "invite friend", Toast.LENGTH_SHORT).show();
                 } else if (position == 1) {
-                    Toast.makeText(getApplicationContext(), "RoomX Gifts", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "RoomX Gifts", Toast.LENGTH_SHORT).show();
 
                 } else if (position == 2) {
-                    Toast.makeText(getApplicationContext(), "Be Host", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Be Host", Toast.LENGTH_SHORT).show();
 
                 } else if (position == 3) {
 
-                    Toast.makeText(getApplicationContext(), "Help", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Help", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -107,6 +108,15 @@ public class Acounting extends AppCompatActivity implements DatePickerDialog.OnD
         prepareDetailData();
 
         tv_name.setText(user.getName());
+
+        return rootView;
+
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
 
 
@@ -134,19 +144,7 @@ public class Acounting extends AppCompatActivity implements DatePickerDialog.OnD
     }
 
     public void openBottomSheet(View v) {
-/*
-         dialogv = getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-         DName = (EditText) dialogv.findViewById(R.id.et_dilog_name);
-         DEmail = (EditText) dialogv.findViewById(R.id.et_dilog_Email);
-         Dmobile = (EditText) dialogv.findViewById(R.id.et_dilog_mobile);
 
-
-
-        ImageButton Ddate = (ImageButton) findViewById(R.id.bt_dilog_date);
-
-        ImageButton Dcity = (ImageButton) findViewById(R.id.bt_dilog_city);
-        Button Dsave = (Button) findViewById(R.id.bt_dilog_save);
-*/
 
 
         mBottomSheetDialog.setContentView(dialogv);
@@ -165,7 +163,7 @@ public class Acounting extends AppCompatActivity implements DatePickerDialog.OnD
 
 
          newInstance();
-        Toast.makeText(getApplicationContext(), "Clicked Backup", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Clicked Backup", Toast.LENGTH_SHORT).show();
        // Ddatte.setEnabled(true);
 
     }
@@ -173,7 +171,7 @@ public class Acounting extends AppCompatActivity implements DatePickerDialog.OnD
         indata();
 
        // newInstance();
-        Toast.makeText(getApplicationContext(), "Clicked Backup", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "Clicked Backup", Toast.LENGTH_SHORT).show();
 
 
     }
@@ -205,7 +203,7 @@ public class Acounting extends AppCompatActivity implements DatePickerDialog.OnD
                 now.get(Calendar.DAY_OF_MONTH)
         );
         dpd.setAccentColor(getResources().getColor(R.color.Navy));
-        dpd.show(getFragmentManager(), "Datepickerdialog");
+      dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
 
 
 

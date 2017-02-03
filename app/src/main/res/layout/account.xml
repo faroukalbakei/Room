@@ -21,7 +21,7 @@
         android:textStyle="italic"
         android:layout_width="match_parent"
         android:layout_height="75dp"
-        android:gravity="right"
+        android:gravity="center"
         android:paddingRight="8dp"
         android:id="@+id/tv_acounting_Features"
         android:layout_weight="1"
