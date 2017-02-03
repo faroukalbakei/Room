@@ -1,10 +1,11 @@
 package com.example.farouk.roomx;
 
+
+
 import android.content.Intent;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -58,7 +59,10 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
 
 
     public void login(View view) {
-        sendData();
+
+        Intent intent = new Intent(this, IconTextTabsActivity.class);
+        startActivity(intent);
+        //sendData();
 
     }
 
@@ -93,18 +97,8 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
         if (isValid==1) {
 
             // Toast.makeText(this, "^_^", Toast.LENGTH_LONG).show();
-           // Intent intent = new Intent(this, Acounting.class);
-          //  startActivity(intent);
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            Acounting fragment = new Acounting();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.activity_acounting,fragment);
-            fragmentTransaction.commit();
-           // finish();
-
-
-
+         Intent intent = new Intent(this, IconTextTabsActivity.class);
+          startActivity(intent);
 
 
 

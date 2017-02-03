@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Acounting extends Fragment implements DatePickerDialog.OnDateSetListener{
+public class Acounting extends Fragment implements DatePickerDialog.OnDateSetListener {
 
 
     private List<Detelsitem> detelsitem = new ArrayList<>();
@@ -35,42 +35,46 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
     private AcountingAdapter mAdapter;
     private RecyclerView recyclerView;
 
-     Dialog mBottomSheetDialog;
-    View dialogv;
-    View rootView;
-    EditText DName;
+    Dialog mBottomSheetDialog;
+    View dialogv ;
+
+            EditText DName;
     EditText DEmail;
     EditText Dmobile;
 
     Button Dsave;
+    Button Editeb;
     EditText Dcity;
-    TextView tvDAte;
+
     EditText Ddatte;
     TextView tv_name;
-    User user ;
+    User user;
+
+    public Acounting() {
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-         rootView =inflater.inflate(R.layout.activity_acounting, container, false);
-        dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
+        final View rootView= inflater.inflate(R.layout.activity_acounting, container, false);
+         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
         user = new User();
 
-        mBottomSheetDialog = new Dialog(getActivity(), R.style.MaterialDialogSheet);
-        // tvDAte =(TextView) dialogv.findViewById(R.id.tv_dialog_farouk);
+        mBottomSheetDialog = new Dialog(getContext(), R.style.MaterialDialogSheet);
+
         DName = (EditText) dialogv.findViewById(R.id.et_dilog_name);
         DEmail = (EditText) dialogv.findViewById(R.id.et_dilog_Email);
         Dmobile = (EditText) dialogv.findViewById(R.id.et_dilog_mobile);
-        //  Ddate = (ImageButton) dialogv.findViewById(R.id.bt_dilog_date);
-        Dcity =(EditText) dialogv.findViewById(R.id.ed_dialog_City);
-        Ddatte =(EditText) dialogv.findViewById(R.id.ed_dialog_test);
+        Dcity = (EditText) dialogv.findViewById(R.id.ed_dialog_City);
+        Ddatte = (EditText) dialogv.findViewById(R.id.ed_dialog_test);
         Dsave = (Button) dialogv.findViewById(R.id.bt_dilog_save);
+        Editeb = (Button) rootView.findViewById(R.id.bt_EditAccount);
         Ddatte.setRawInputType(InputType.TYPE_NULL);
         //-------
 
         tv_name = (TextView) rootView.findViewById(R.id.tv_NameUser);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_viewAcount);
         // recyclerView.setHasFixedSize(true);
         mAdapter = new AcountingAdapter(detelsitem);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
@@ -109,6 +113,24 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
         tv_name.setText(user.getName());
 
+        Editeb.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                mBottomSheetDialog.setContentView(dialogv);
+                mBottomSheetDialog.setCancelable(true);
+                mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+
+                mBottomSheetDialog.show();
+            }
+        });
+
+        Ddatte.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                newInstance();
+            }
+        });
+
+
         return rootView;
 
 
@@ -117,6 +139,8 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
 
 
@@ -143,53 +167,26 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
         mAdapter.notifyDataSetChanged();
     }
 
-    public void openBottomSheet(View v) {
 
 
-
-        mBottomSheetDialog.setContentView(dialogv);
-        mBottomSheetDialog.setCancelable(true);
-        mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
-
-        mBottomSheetDialog.show();
-
-
-
-}
-
-    public void calendar(View v) {
-
-
-
-         newInstance();
-        Toast.makeText(getActivity(), "Clicked Backup", Toast.LENGTH_SHORT).show();
-       // Ddatte.setEnabled(true);
-
-    }
     public void save(View v) {
         indata();
 
-       // newInstance();
+        // newInstance();
         Toast.makeText(getActivity(), "Clicked Backup", Toast.LENGTH_SHORT).show();
 
 
     }
-
-
-
 
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
 
-        String date = dayOfMonth+"/"+(monthOfYear+1)+"/"+year;
+        String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
 
 
-
-
-       // mBottomSheetDialog.setContentView(dialogv);
+        // mBottomSheetDialog.setContentView(dialogv);
         Ddatte.setText(date);
     }
 
@@ -197,36 +194,40 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
         Calendar now = Calendar.getInstance();
         DatePickerDialog dpd = DatePickerDialog.newInstance(
-               this,
+                this,
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
         );
         dpd.setAccentColor(getResources().getColor(R.color.Navy));
-      dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
-
+        dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
 
 
     }
 
 
-    public  void indata() {
+    public void indata() {
 
         String name = DName.getText().toString();
         String email = DEmail.getText().toString();
         String mob = Dmobile.getText().toString();
-        String date = tvDAte.getText().toString();
+        String date = Ddatte.getText().toString();
         String city = Dcity.getText().toString();
         user.SetDialogData(name, email, mob, city, date);
 
         DName.setText("");
         DEmail.setText("");
         Dmobile.setText("");
-        tvDAte.setText("");
+        Ddatte.setText("");
         Dcity.setText("");
         mBottomSheetDialog.setContentView(dialogv);
         mBottomSheetDialog.dismiss();
 
 
     }
+
+
+
+
+
 }
