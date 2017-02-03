@@ -18,9 +18,6 @@ public class AcountingAdapter  extends RecyclerView.Adapter<AcountingAdapter.MyV
 
     private List<Detelsitem> detelsList;
 
-
-
-
     public class MyViewHolderr extends RecyclerView.ViewHolder {
         public TextView name;
         public ImageView userpic;

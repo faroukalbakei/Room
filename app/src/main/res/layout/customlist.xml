@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="256dp"
-            app:srcCompat="@drawable/building"
+            android:src="@drawable/building"
             android:id="@+id/img_picRoom" />
 
         <LinearLayout
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
-                app:srcCompat="@drawable/unliike"
+                android:src="@drawable/unliike"
                 android:id="@+id/imge_love"
                 android:layout_weight="3"
                 />
@@ -58,7 +58,7 @@
         <ImageView
             android:layout_width="35dp"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/map"
+            android:src="@drawable/map"
             android:id="@+id/imageView5"
             android:layout_marginRight="3dp" />
 
