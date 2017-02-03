@@ -74,7 +74,7 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
         tv_name = (TextView) rootView.findViewById(R.id.tv_NameUser);
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_viewAcount);
         // recyclerView.setHasFixedSize(true);
         mAdapter = new AcountingAdapter(detelsitem);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());

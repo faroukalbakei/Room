@@ -20,7 +20,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
     private int[] tabIcons = {
             R.drawable.ontacts,
             R.drawable.useer
-           // ,R.drawable.ic_tab_contacts
+            ,R.drawable.like
     };
 
     @Override
@@ -40,19 +40,19 @@ public class IconTextTabsActivity extends AppCompatActivity {
     private void setupTabIcons() {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-       // tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(2).setIcon(tabIcons[2]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFrag(new explore(), "ONE");
+        adapter.addFrag(new Reservations(), "ONE");
 
         adapter.addFrag(new Acounting(), "TWO");
+
+
+        adapter.addFrag(new explore(), "THREE");
         viewPager.setAdapter(adapter);
-
-       // adapter.addFrag(new ThreeFragment(), "THREE");
-
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
