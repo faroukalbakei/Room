@@ -42,10 +42,15 @@ private List<Room> roommList = new ArrayList<>();
         recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view);
         // recyclerView.setHasFixedSize(true);
         mAdapter = new DetailAdapter(roommList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+       // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        //final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
 
+       // recyclerView.setLayoutManager(mLayoutManager);
 
-        recyclerView.setLayoutManager(mLayoutManager);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+
 
 
 
