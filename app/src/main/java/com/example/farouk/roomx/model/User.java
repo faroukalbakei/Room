@@ -12,8 +12,35 @@ public class User {
     private String city;
     private String birthday;
     private String token;
+    private int photo;
+    private String Tag;
     private boolean Validation = true;
 
+    public User() {
+
+    }
+
+    public User(String name, String city, int photo) {
+        this.name = name;
+        this.city = city;
+        this.photo = photo;
+    }
+
+    public int getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(int photo) {
+        this.photo = photo;
+    }
+
+    public String getTag() {
+        return Tag;
+    }
+
+    public void setTag(String tag) {
+        Tag = tag;
+    }
 
     public String getName() {
         return name;
