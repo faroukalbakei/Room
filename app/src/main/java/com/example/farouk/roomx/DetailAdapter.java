@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.model.PlaceObject;
+
 import java.util.List;
 //
 //import static android.R.attr.key;
@@ -25,7 +27,7 @@ import java.util.List;
 public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHolder> {
 
 
-    private List<Room> roomList;
+    private List<PlaceObject> roomList;
 
     public ImageButton btlike;
 
@@ -56,7 +58,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
     }
 
 
-    public DetailAdapter(List<Room> roomList) {
+    public DetailAdapter(List<PlaceObject> roomList) {
         this.roomList = roomList;
     }
 
@@ -73,20 +75,20 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
 
-        Room rooom = roomList.get(position);
+        PlaceObject placeObject = roomList.get(position);
 
 
 
-        holder.userpic.setImageResource((rooom.getUserPic()));
-        holder.name.setText(rooom.getUserName());
-        holder.tag.setText(rooom.getTag());
-        holder.date.setText(rooom.getDateup() + "");
-        holder.city.setText(rooom.getCity());
+       // holder.userpic.setImageResource((placeObject.getUserPic()));
+        holder.name.setText(placeObject.getName());
+       // holder.tag.setText(placeObject.getTag());
+        //holder.date.setText(placeObject.getDateup() + "");
+        //holder.city.setText(placeObject.get);
 
-        holder.roompic.setImageResource((rooom.getRoomPic()));
-        holder.detale.setText(rooom.getDetail());
+       // holder.roompic.setImageResource((placeObject.getRoomPic()));
+        holder.detale.setText(placeObject.getDescription());
 
-        lik=rooom.getLike();
+        //lik=placeObject.getLike();
 
 
         if(lik==1){

@@ -2,10 +2,7 @@ package com.example.farouk.roomx;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -14,12 +11,18 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.example.farouk.roomx.app.Prefs;
 import com.example.farouk.roomx.app.VolleySingleton;
+import com.example.farouk.roomx.model.PlaceObject;
 import com.example.farouk.roomx.model.Response;
-import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.model.UserinfoLogin;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +34,7 @@ import static android.content.ContentValues.TAG;
 
 public class Requests {
     ProgressDialog pDialog;
-    User userObject;
+    UserinfoLogin userinfoLoginObject;
     Response responseObject;
 
     public Requests() {
@@ -57,18 +60,18 @@ public class Requests {
 
                         try {
                             JSONObject callNode = new JSONObject(responsee.toString());
-                            userObject = new User();
-                            userObject.setToken(callNode.optString("token"));
+                            userinfoLoginObject = new UserinfoLogin();
+                            userinfoLoginObject.setToken(callNode.optString("token"));
                             responseObject.setResult(callNode.optInt("result"));
                             responseObject.setOnError(callNode.optString("error"));
-                            responseObject.setObject(userObject);
+                            responseObject.setObject(userinfoLoginObject);
                             Log.d("getResult1", String.valueOf(responseObject.getResult()));
                             if(responseObject!=null)
                                 callback.onSuccess(responseObject);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Prefs.with(context).setUser(userObject);
+                        Prefs.with(context).setUser(userinfoLoginObject);
                     }
                 }, new com.android.volley.Response.ErrorListener() {
 
@@ -122,8 +125,8 @@ public class Requests {
 
                         try {
                             JSONObject callNode = new JSONObject(responsee.toString());
-                            userObject = new User();
-                            userObject.setToken(callNode.optString("token"));
+                            userinfoLoginObject = new UserinfoLogin();
+                            userinfoLoginObject.setToken(callNode.optString("token"));
                             responseObject.setResult(callNode.optInt("result"));
                             responseObject.setMessage(callNode.optString("msg"));
                             if(responseObject!=null)
@@ -131,7 +134,7 @@ public class Requests {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        //Prefs.with(context).setUser(userObject);
+                        //Prefs.with(context).setUserinfoLogin(userinfoLoginObject);
 
                     }
                 }, new com.android.volley.Response.ErrorListener() {
@@ -173,8 +176,8 @@ public class Requests {
     }
     public void getUserProfile(final VolleyCallback callback,final Context context) {
 
-        User user= Prefs.with(context).getUser();
-        final String token = user.getToken();
+        UserinfoLogin userinfoLogin = Prefs.with(context).getUser();
+        final String token = userinfoLogin.getToken();
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -191,8 +194,8 @@ public class Requests {
 
                         try {
                             JSONObject callNode = new JSONObject(responsee.toString());
-                            userObject = new User();
-//                            userObject.setToken(callNode.optString("token"));
+                            userinfoLoginObject = new UserinfoLogin();
+//                            userinfoLoginObject.setToken(callNode.optString("token"));
 //                            responseObject.setResult(callNode.optInt("result"));
 //                            responseObject.setMessage(callNode.optString("msg"));
                             if(responseObject!=null)
@@ -238,8 +241,8 @@ public class Requests {
     }
     public void getExploreList(final VolleyCallback callback,final Context context) {
 
-        User user= Prefs.with(context).getUser();
-        final String token = user.getToken();
+        UserinfoLogin userinfoLogin = Prefs.with(context).getUser();
+        final String token = userinfoLogin.getToken();
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -256,8 +259,8 @@ public class Requests {
 
                         try {
                             JSONObject callNode = new JSONObject(responsee.toString());
-                            userObject = new User();
-//                            userObject.setToken(callNode.optString("token"));
+                            userinfoLoginObject = new UserinfoLogin();
+//                            userinfoLoginObject.setToken(callNode.optString("token"));
 //                            responseObject.setResult(callNode.optInt("result"));
 //                            responseObject.setMessage(callNode.optString("msg"));
                             if(responseObject!=null)

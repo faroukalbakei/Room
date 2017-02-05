@@ -3,13 +3,12 @@ package com.example.farouk.roomx;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.farouk.roomx.model.Response;
-import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.model.UserinfoLogin;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,7 +21,7 @@ public class SingnUp extends AppCompatActivity implements VolleyCallback {
     EditText Password;
     EditText Confirm;
     EditText Mobile;
-    User user;
+    UserinfoLogin userinfoLogin;
     String name,email,password,mobile,confirm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

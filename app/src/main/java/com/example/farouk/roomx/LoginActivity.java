@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.farouk.roomx.model.Response;
-import com.example.farouk.roomx.model.User;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
