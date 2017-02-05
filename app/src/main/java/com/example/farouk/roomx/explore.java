@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.model.Response;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class explore extends Fragment {
+public class explore extends Fragment implements VolleyCallback{
 
 
 private List<Room> roommList = new ArrayList<>();
@@ -43,19 +45,9 @@ private List<Room> roommList = new ArrayList<>();
         // recyclerView.setHasFixedSize(true);
         mAdapter = new DetailAdapter(roommList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        //final LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-
        recyclerView.setLayoutManager(mLayoutManager);
-
-
-
-
-
-
-
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -73,6 +65,8 @@ private List<Room> roommList = new ArrayList<>();
         }));
 
         prepareDetailData();
+        Requests requests =new Requests();
+        requests.getExploreList(this,getContext());
         return rootView;
     }
 
@@ -97,4 +91,8 @@ private List<Room> roommList = new ArrayList<>();
         mAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onSuccess(Response response) {
+
+    }
 }

@@ -33,8 +33,8 @@ public class BookigAdabter  extends RecyclerView.Adapter<BookigAdabter.MyViewHol
         public MyViewHolder(View view) {
             super(view);
             PlaceName = (TextView) view.findViewById(R.id.tv_resrv_place);
-            StartDAy = (TextView) view.findViewById(R.id.tv_resrv_StartDate);
-            EndDay = (TextView) view.findViewById(R.id.tv_resrv_EndDate);
+            StartDAy = (TextView) view.findViewById(R.id.tv_resrv_Start);
+            EndDay = (TextView) view.findViewById(R.id.tv_resrv_End);
         }
     }
 

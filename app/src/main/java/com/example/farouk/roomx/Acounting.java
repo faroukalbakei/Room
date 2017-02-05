@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.User;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Acounting extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class Acounting extends Fragment implements DatePickerDialog.OnDateSetListener ,VolleyCallback{
 
 
     private List<Detelsitem> detelsitem = new ArrayList<>();
@@ -129,7 +130,8 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
                 newInstance();
             }
         });
-
+        Requests requests =new Requests();
+        requests.getUserProfile(this,getContext());
 
         return rootView;
 
@@ -227,7 +229,8 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
     }
 
 
+    @Override
+    public void onSuccess(Response response) {
 
-
-
+    }
 }
