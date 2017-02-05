@@ -21,6 +21,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
             R.drawable.ontacts,
             R.drawable.useer
             ,R.drawable.like
+            ,R.drawable.happy
     };
 
     @Override
@@ -41,6 +42,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+        tabLayout.getTabAt(3).setIcon(tabIcons[3]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -52,6 +54,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
 
 
         adapter.addFrag(new explore(), "THREE");
+        adapter.addFrag(new Inbox(), "four");
         viewPager.setAdapter(adapter);
     }
 

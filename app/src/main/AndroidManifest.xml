@@ -21,9 +21,10 @@
         <activity android:name=".SingnUp" />
         <activity android:name=".explore" />
         <activity android:name=".Acounting" />
-        <activity android:name=".IconTextTabsActivity"></activity>
+        <activity android:name=".IconTextTabsActivity" />
         <activity android:name=".PlaceDetailsActivity" />
-        <activity android:name=".Reservations"></activity>
+        <activity android:name=".Reservations" />
+        <activity android:name=".Inbox"></activity>
     </application>
 
 </manifest>
