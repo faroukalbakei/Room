@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.model.Response;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,7 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class explore extends Fragment {
+public class explore extends Fragment implements VolleyCallback{
 
 
 private List<Room> roommList = new ArrayList<>();
@@ -36,17 +38,16 @@ private List<Room> roommList = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-      View rootView =inflater.inflate(R.layout.activity_explore, container, false);
-        btlike = (ImageButton) rootView.findViewById(R.id.imge_love);
+      View   rootView =inflater.inflate(R.layout.activity_explore, container, false);
+        btlike = (ImageButton) getActivity().findViewById(R.id.imge_love);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         // recyclerView.setHasFixedSize(true);
         mAdapter = new DetailAdapter(roommList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+       recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
-
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -64,6 +65,8 @@ private List<Room> roommList = new ArrayList<>();
         }));
 
         prepareDetailData();
+        Requests requests =new Requests();
+        requests.getExploreList(this,getContext());
         return rootView;
     }
 
@@ -88,4 +91,8 @@ private List<Room> roommList = new ArrayList<>();
         mAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onSuccess(Response response) {
+
+    }
 }

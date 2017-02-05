@@ -30,11 +30,13 @@ import java.util.List;
 public class Acounting extends Fragment implements DatePickerDialog.OnDateSetListener, VolleyCallback {
 
     private List<Detelsitem> detelsitem = new ArrayList<>();
+
+
     private AcountingAdapter mAdapter;
     private RecyclerView recyclerView;
 
     Dialog mBottomSheetDialog;
-    View dialogv;
+    View dialogv ;
 
             EditText DName;
     EditText DEmail;
@@ -127,7 +129,8 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
                 newInstance();
             }
         });
-
+        Requests requests =new Requests();
+        requests.getUserProfile(this,getContext());
 
         return rootView;
 
@@ -164,6 +167,7 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
         mAdapter.notifyDataSetChanged();
     }
+
 
 
     public void save(View v) {

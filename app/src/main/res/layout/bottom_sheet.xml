@@ -105,7 +105,6 @@
         android:id="@+id/bt_dilog_save"
         android:background="@color/Navy"
         android:textColor="@color/white"
-        android:textStyle="italic"
         android:textSize="18dp"
         android:onClick="save"
         />

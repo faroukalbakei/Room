@@ -60,9 +60,9 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
 
     public void login(View view) {
 
-        Intent intent = new Intent(this, IconTextTabsActivity.class);
-        startActivity(intent);
-        //sendData();
+       // Intent intent = new Intent(this, IconTextTabsActivity.class);
+      //  startActivity(intent);
+        sendData();
 
     }
 

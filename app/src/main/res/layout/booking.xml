@@ -1,81 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="2dp"
-    android:padding="8dp"
-    android:background="@color/white"
-    >
-
-    <TextView
-        android:id="@+id/tv_resrv_place"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:text="@string/Place_bookings"
-        android:textColor="#000000"
-        android:textSize="@dimen/big_font_size" />
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_resrv_place"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+            <TextView
+                android:text="@string/Place_bookings"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_resrv_place"
+                android:textSize="@dimen/big_font_size"/>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
 
-            <TextView
-                android:id="@+id/tv_resrv_End"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="@string/date"
-                android:textColor="@color/blue_list"
-                android:textSize="@dimen/bt_txt_size"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/tv_resrv_EndDate"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="@string/End_booking" />
-        </LinearLayout>
+                <TextView
+                    android:text="@string/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_End"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_list"
+                    android:textSize="@dimen/bt_txt_size"/>
 
-        <View
-            android:id="@+id/innerLine"
-            android:layout_width="1dp"
-            android:layout_height="80dp"
-            android:background="#cfcfcf" />
+                <TextView
+                    android:text="@string/End_booking"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_EndDate"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <View
+                android:id="@+id/innerLine"
+                android:layout_width="1dp"
+                android:layout_height="80dp"
+                android:background="#cfcfcf" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
+                <TextView
+                    android:text="@string/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_Start"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_list"
+                    android:textSize="@dimen/bt_txt_size"/>
 
-            <TextView
-                android:id="@+id/tv_resrv_Start"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="@string/date"
-                android:textColor="@color/blue_list"
-                android:textSize="@dimen/bt_txt_size"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_resrv_StartDate"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="@string/start_booking" />
+                <TextView
+                    android:text="@string/start_booking"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_StartDate"
+                    android:gravity="center"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
