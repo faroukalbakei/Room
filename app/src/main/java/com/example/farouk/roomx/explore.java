@@ -36,20 +36,14 @@ private List<Room> roommList = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-      View rootView=  rootView =inflater.inflate(R.layout.activity_acounting, container, false);
-        btlike = (ImageButton) getActivity().findViewById(R.id.imge_love);
+      View rootView =inflater.inflate(R.layout.activity_explore, container, false);
+        btlike = (ImageButton) rootView.findViewById(R.id.imge_love);
 
-        recyclerView = (RecyclerView) getActivity().findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         // recyclerView.setHasFixedSize(true);
         mAdapter = new DetailAdapter(roommList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-
-
         recyclerView.setLayoutManager(mLayoutManager);
-
-
-
-
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
