@@ -8,34 +8,18 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.farouk.roomx.app.Prefs;
-import com.example.farouk.roomx.model.LoginResponse;
-import com.example.farouk.roomx.model.Movie;
-import com.example.farouk.roomx.model.MoviesResponse;
 import com.example.farouk.roomx.model.PlaceObject;
 import com.example.farouk.roomx.model.Response;
-import com.example.farouk.roomx.model.ResponsePlace;
-import com.example.farouk.roomx.model.User;
-import com.example.farouk.roomx.model.UserinfoLogin;
-import com.example.farouk.roomx.service.ApiClient;
-import com.example.farouk.roomx.service.ApiInterface;
+import com.example.farouk.roomx.util.NetworkConnection;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -107,6 +91,7 @@ public class explore extends Fragment implements VolleyCallback {
 //        });
 
 
+/*
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -122,10 +107,15 @@ public class explore extends Fragment implements VolleyCallback {
 
             }
         }));
+*/
+        if(NetworkConnection.isInternetAvailable()){
+            Requests requests = new Requests();
+            requests.getExploreList(this, getContext());
+        }else
+            Toast.makeText(getContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
 
         //  prepareDetailData();
-        Requests requests = new Requests();
-        requests.getExploreList(this, getContext());
+
         return rootView;
     }
 
@@ -152,7 +142,6 @@ public class explore extends Fragment implements VolleyCallback {
 
     @Override
     public void onSuccess(Response response) {
-
         List<PlaceObject> placeObjects = (List<PlaceObject>) response.getObject();
         recyclerView.setAdapter(new DetailAdapter(placeObjects,getContext()));
     }

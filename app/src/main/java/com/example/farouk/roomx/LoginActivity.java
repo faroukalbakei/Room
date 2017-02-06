@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.farouk.roomx.model.Response;
+import com.example.farouk.roomx.util.NetworkConnection;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,8 +82,13 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
 
 
         } else {
-            Requests requests = new Requests();
-            requests.makeLogin(this,this, email, password);
+
+            if(NetworkConnection.isInternetAvailable()){
+                Requests requests = new Requests();
+                requests.makeLogin(this,this, email, password);
+            }else
+                Toast.makeText(getApplicationContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
+
         }
 
 

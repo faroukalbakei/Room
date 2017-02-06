@@ -17,6 +17,9 @@ import com.example.farouk.roomx.model.PlaceObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import timber.log.Timber;
 //
 //import static android.R.attr.key;
 //import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
@@ -33,13 +36,13 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
     Context context;
     public ImageButton btlike;
 
-    int lik= -1;
+    int lik = -1;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, tag, date, city, detale;
-        public ImageView userpic, roompic;
+        public ImageView roompic;
+        CircleImageView userpic;
         public ImageButton btlike;
-
 
         public MyViewHolder(View view) {
             super(view);
@@ -49,20 +52,18 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
             city = (TextView) view.findViewById(R.id.tv_cantry);
             detale = (TextView) view.findViewById(R.id.tv_inf);
 
-            userpic = (ImageView) view.findViewById(R.id.imv_userphoto);
+            userpic = (CircleImageView) view.findViewById(R.id.imv_userphoto);
             roompic = (ImageView) view.findViewById(R.id.img_picRoom);
-
             btlike = (ImageButton) view.findViewById(R.id.imge_love);
-
 
 
         }
     }
 
 
-    public DetailAdapter(List<PlaceObject> roomList,Context context) {
+    public DetailAdapter(List<PlaceObject> roomList, Context context) {
         this.roomList = roomList;
-        this.context= context;
+        this.context = context;
     }
 
     @Override
@@ -79,49 +80,16 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
 
 
         PlaceObject placeObject = roomList.get(position);
-
-
-
-       // holder.userpic.setImageResource((placeObject.getUserPic()));
+        Log.i(" photo user",placeObject.getUser().getPhotolink());
+        Picasso.with(context).load("https://scontent.xx.fbcdn.net/v/t1.0-9/11254501_1088638317826615_623270386122890787_n.jpg?oh=57d697fb1c5d3df4220e6e2d07a03544&oe=591120AE").resize(70, 70).into(holder.userpic);
         holder.name.setText(placeObject.getName());
-       // holder.tag.setText(placeObject.getTag());
-        //holder.date.setText(placeObject.getDateup() + "");
-        //holder.city.setText(placeObject.get);
-
-       // holder.roompic.setImageResource((placeObject.getRoomPic()));
+        holder.tag.setText(placeObject.getUser().getEmail());
+        holder.date.setText(placeObject.getCreatedAt());
+        holder.city.setText(placeObject.getUser().getCountry() + placeObject.getUser().getCity());
         holder.detale.setText(placeObject.getDescription());
-        Picasso.with(context).load(placeObject.getRoomPhoto().get(0).getPhotolink()).resize(120, 60).into(holder.roompic);
-
-        //lik=placeObject.getLike();
-
-
-        if(lik==1){
-            holder.btlike.setImageResource(R.drawable.like);
-        }else {
-            holder.btlike.setImageResource(R.drawable.unliike);
-        }
-     //   holder.btlike.setImageResource();
-
-
-        holder.btlike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("farouk", "onClick: ");
-
-
-                if(lik==1){
-                    lik=0;
-                    holder.btlike.setImageResource(R.drawable.like);
-                }else {
-                    lik=1;
-                    holder.btlike.setImageResource(R.drawable.unliike);
-                }
-            }
-        });
-
-}
-
-
+        Picasso.with(context).load(placeObject.getRoomPhoto().get(1).getPhotolink()).resize(200, 85).into(holder.roompic);
+        holder.btlike.setImageResource(R.drawable.like);
+    }
 
 
     @Override

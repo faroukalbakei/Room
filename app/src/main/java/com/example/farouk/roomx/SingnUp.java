@@ -36,7 +36,7 @@ public class SingnUp extends AppCompatActivity implements VolleyCallback {
         Email.setText("ahmed@ahmad.com");
         Password.setText("12345678");
         Confirm.setText("12345678");
-        Mobile.setText("12345678");
+        Mobile.setText("0511111111");
     }
 
 

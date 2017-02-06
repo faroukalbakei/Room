@@ -35,9 +35,9 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
     private RecyclerView recyclerView;
 
     Dialog mBottomSheetDialog;
-    View dialogv ;
+    View dialogv;
 
-            EditText DName;
+    EditText DName;
     EditText DEmail;
     EditText Dmobile;
 
@@ -55,8 +55,8 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView= inflater.inflate(R.layout.activity_acounting, container, false);
-         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
+        final View rootView = inflater.inflate(R.layout.activity_acounting, container, false);
+        dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
         userinfoLogin = new UserinfoLogin();
 
         mBottomSheetDialog = new Dialog(getContext(), R.style.MaterialDialogSheet);
@@ -75,12 +75,10 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_viewAcount);
         // recyclerView.setHasFixedSize(true);
-        mAdapter = new AcountingAdapter(detelsitem);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -108,10 +106,7 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
             }
         }));
 
-        prepareDetailData();
-
-        tv_name.setText(userinfoLogin.getName());
-
+/*
         Editeb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 mBottomSheetDialog.setContentView(dialogv);
@@ -122,32 +117,35 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
                 mBottomSheetDialog.show();
             }
         });
+*/
 
+/*
         Ddatte.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 newInstance();
             }
         });
-        Requests requests =new Requests();
-        requests.getUserProfile(this,getContext());
+*/
+        Requests requests = new Requests();
+        requests.getUserProfile(this, getContext());
 
         return rootView;
-
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-
-
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter = new AcountingAdapter(detelsitem);
+        recyclerView.setAdapter(mAdapter);
+        prepareDetailData();
     }
 
     private void prepareDetailData() {
-
 
         Detelsitem detailing = new Detelsitem(R.drawable.frin, getString(R.string.Invite));
         detelsitem.add(detailing);
@@ -166,7 +164,6 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
         mAdapter.notifyDataSetChanged();
     }
-
 
 
     public void save(View v) {

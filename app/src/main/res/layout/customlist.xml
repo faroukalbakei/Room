@@ -5,143 +5,143 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:layoutDirection="ltr"
     >
-
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="70dp"
        >
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="256dp"
+            android:layout_height="200dp"
             android:src="@drawable/building"
+            android:scaleType="fitXY"
             android:id="@+id/img_picRoom" />
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
             >
             <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@null"
-                android:src="@drawable/unliike"
+                android:src="@drawable/like"
                 android:id="@+id/imge_love"
-                android:layout_weight="3"
+                android:layout_marginEnd="12dp"
                 />
 
             <TextView
                 android:text="@string/info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:textDirection="rtl"
                 android:id="@+id/tv_inf"
-                android:layout_weight="1"
                 android:textSize="@dimen/big_font_size"
                 android:textStyle="bold"
                 />
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="50dp"
+        >
+        <!--<de.hdodenhof.circleimageview.CircleImageView-->
 
-        android:layout_marginTop="8dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imv_userphoto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:src="@mipmap/ic_launcher"
+ />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="match_parent"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@drawable/map"
             android:id="@+id/imageView5"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginRight="3dp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imageView5"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:text="@string/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_date"
+                android:textSize="12dp"
+                android:layout_weight="1"
+                android:textColor="@color/blue_list"/>
+            <TextView
+                android:text="@string/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_cantry"
+                android:textColor="@color/orang"
+                android:textSize="12dp"
+                />
+
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_toStartOf="@+id/imv_userphoto"
+            android:layoutDirection="rtl"
+            >
+            <TextView
+                android:textDirection="rtl"
+                android:text="@string/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_name"
+                android:layout_weight="1"
+                android:textSize="@dimen/big_font_size"
+                android:textStyle="italic"
+                android:gravity="right"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
 
-                <TextView
-                    android:text="@string/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tv_date"
-                    android:layout_weight="1"
-                    android:textColor="@color/blue_list"/>
+            <TextView
+                android:text="@string/tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_tag"
+                android:textColor="@color/blue_list"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:gravity="right"/>
 
-                <TextView
-                    android:text="@string/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tv_name"
-                    android:layout_weight="1"
-                    android:textSize="@dimen/big_font_size"
-                    android:textStyle="italic"
-                    android:gravity="right"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
-
-                <TextView
-                    android:text="@string/city"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tv_cantry"
-                    android:layout_weight="1"
-                    android:textColor="@color/orang"
-                    android:textStyle="bold"
-                    android:textSize="17dp"
-                    android:paddingLeft="8dp"
-                    />
-
-                <TextView
-                    android:text="@string/tag"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tv_tag"
-                    android:layout_weight="1"
-                    android:textColor="@color/blue_list"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:gravity="right"/>
-
-            </LinearLayout>
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            >
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imv_userphoto"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_centerInParent="true"
-                app:srcCompat="@mipmap/ic_launcher"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FFEEEEEE" />
-
-        </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 
+    <View
+        android:layout_marginTop="8dp"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_300"/>
 </FrameLayout>

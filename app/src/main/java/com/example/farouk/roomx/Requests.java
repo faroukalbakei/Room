@@ -123,7 +123,7 @@ public class Requests {
         pDialog.setMessage("Loading...");
         pDialog.show();
         StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
-                Const.BASE_URL + "Register?",
+                Const.BASE_URL + "Register",
                 new com.android.volley.Response.Listener<String>() {
 
                     @Override
@@ -175,7 +175,7 @@ public class Requests {
                 params.put("email", email);
                 params.put("password", password);
                 params.put("password_confirmation ", passwordConfirm);
-                params.put("phone ", phone);
+                params.put("phone", phone);
                 return params;
             }
         };
