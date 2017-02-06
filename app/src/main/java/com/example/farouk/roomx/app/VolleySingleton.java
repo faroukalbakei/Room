@@ -8,6 +8,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.orm.SugarContext;
 
 import java.net.CookieHandler;
 import java.net.CookieManager;
@@ -31,8 +32,14 @@ public class VolleySingleton extends Application {
         super.onCreate();
         CookieHandler.setDefault(new CookieManager(null, CookiePolicy.ACCEPT_ALL));
         mInstance = this;
-    }
+        SugarContext.init(this);
 
+    }
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        SugarContext.terminate();
+    }
     public static synchronized VolleySingleton getInstance() {
         return mInstance;
     }

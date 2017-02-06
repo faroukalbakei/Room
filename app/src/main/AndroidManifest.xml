@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.farouk.roomx">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <application
@@ -20,12 +21,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".SingnUp" />
-        <activity android:name=".explore" />
-        <activity android:name=".Acounting" />
         <activity android:name=".IconTextTabsActivity" />
         <activity android:name=".PlaceDetailsActivity" />
-        <activity android:name=".Reservations" />
-        <activity android:name=".Inbox"></activity>
+
+
+        <meta-data android:name="DATABASE" android:value="sugar_example.db" />
+        <meta-data android:name="VERSION" android:value="2" />
+        <meta-data android:name="QUERY_LOG" android:value="true" />
+        <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="com.example.farouk.roomx" />
     </application>
 
 </manifest>

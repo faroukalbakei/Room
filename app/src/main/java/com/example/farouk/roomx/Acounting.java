@@ -14,21 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.farouk.roomx.model.Response;
-import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.model.UserinfoLogin;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Acounting extends Fragment implements DatePickerDialog.OnDateSetListener ,VolleyCallback{
-
+public class Acounting extends Fragment implements DatePickerDialog.OnDateSetListener, VolleyCallback {
 
     private List<Detelsitem> detelsitem = new ArrayList<>();
 
@@ -49,7 +47,7 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
     EditText Ddatte;
     TextView tv_name;
-    User user;
+    UserinfoLogin userinfoLogin;
 
     public Acounting() {
     }
@@ -59,7 +57,7 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView= inflater.inflate(R.layout.activity_acounting, container, false);
          dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-        user = new User();
+        userinfoLogin = new UserinfoLogin();
 
         mBottomSheetDialog = new Dialog(getContext(), R.style.MaterialDialogSheet);
 
@@ -112,7 +110,7 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
         prepareDetailData();
 
-        tv_name.setText(user.getName());
+        tv_name.setText(userinfoLogin.getName());
 
         Editeb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -215,7 +213,7 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
         String mob = Dmobile.getText().toString();
         String date = Ddatte.getText().toString();
         String city = Dcity.getText().toString();
-        user.SetDialogData(name, email, mob, city, date);
+        userinfoLogin.SetDialogData(name, email, mob, city, date);
 
         DName.setText("");
         DEmail.setText("");

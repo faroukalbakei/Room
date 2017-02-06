@@ -1,45 +1,49 @@
+
 package com.example.farouk.roomx.model;
 
-/**
- * Created by farouk on 1/26/17.
- */
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class User {
-   private String name ;
-    private String Email;
-    private String password;
-    private String mobile;
+
+
+    @SerializedName("id")
+    @Expose
+    private Integer mid;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("dob")
+    @Expose
+    private String dob;
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+    @SerializedName("photolink")
+    @Expose
+    private String photolink;
+    @SerializedName("city")
+    @Expose
     private String city;
-    private String birthday;
-    private String token;
-    private int photo;
-    private String Tag;
-    private boolean Validation = true;
+    @SerializedName("country")
+    @Expose
+    private String country;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+    @SerializedName("updated_at")
+    @Expose
+    private String updatedAt;
 
-    public User() {
-
+    public Integer getMid() {
+        return mid;
     }
 
-    public User(String name, String city, int photo) {
-        this.name = name;
-        this.city = city;
-        this.photo = photo;
-    }
-
-    public int getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(int photo) {
-        this.photo = photo;
-    }
-
-    public String getTag() {
-        return Tag;
-    }
-
-    public void setTag(String tag) {
-        Tag = tag;
+    public void setMid(Integer mid) {
+        this.mid = mid;
     }
 
     public String getName() {
@@ -51,34 +55,35 @@ public class User {
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        Email = email;
+        this.email = email;
     }
 
-    public String getPassword() {
-        return password;
+    public String getDob() {
+        return dob;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setDob(String dob) {
+        this.dob = dob;
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-    public boolean isValidation() {
-        return Validation;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public void setValidation(boolean validation) {
-        Validation = validation;
+    public String getPhotolink() {
+        return photolink;
+    }
+
+    public void setPhotolink(String photolink) {
+        this.photolink = photolink;
     }
 
     public String getCity() {
@@ -89,53 +94,44 @@ public class User {
         this.city = city;
     }
 
-    public String getBirthday() {
-        return birthday;
+    public String getCountry() {
+        return country;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
-    public String getToken() {
-        return token;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public void setdata(String name , String email , String password, String mobile){
-        setName(name);
-        setEmail(email);
-        setPassword(password);
-        setMobile(mobile);
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setlogin(String email , String password){
-        setEmail(email);
-        setPassword(password);
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 
 
-    public boolean Verification (){
-        if (isValidation()){
-            getToken();
-            return true;
-        }else {
-            return false;
-        }
+    @Override
+    public String toString() {
+        return "User{" +
+                "mid=" + mid +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", dob='" + dob + '\'' +
+                ", phone='" + phone + '\'' +
+                ", photolink='" + photolink + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                '}';
     }
-
-
-    public void SetDialogData(String name , String Email,String mobile,String city, String Birthday){
-        setName(name);
-        setEmail(Email);
-        setMobile(mobile);
-        setCity(city);
-        setBirthday(Birthday);
-
-
-    }
-
 }
