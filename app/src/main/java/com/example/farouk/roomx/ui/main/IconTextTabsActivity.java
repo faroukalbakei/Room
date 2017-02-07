@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.main;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -7,6 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.farouk.roomx.R;
+import com.example.farouk.roomx.ui.chat.InboxFragment;
+import com.example.farouk.roomx.ui.explore.ExploreFragment;
+import com.example.farouk.roomx.ui.profile.ProfileFragment;
+import com.example.farouk.roomx.ui.reservation.ReservationsFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,13 +54,13 @@ public class IconTextTabsActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        adapter.addFrag(new Reservations(), "الحجوزات");
+        adapter.addFrag(new ReservationsFragment(), "الحجوزات");
 
-        adapter.addFrag(new Acounting(), "حسابي");
+        adapter.addFrag(new ProfileFragment(), "حسابي");
 
 
-        adapter.addFrag(new explore(), "إستكشف");
-        adapter.addFrag(new Inbox(), "الوارد");
+        adapter.addFrag(new ExploreFragment(), "إستكشف");
+        adapter.addFrag(new InboxFragment(), "الوارد");
         viewPager.setAdapter(adapter);
     }
 

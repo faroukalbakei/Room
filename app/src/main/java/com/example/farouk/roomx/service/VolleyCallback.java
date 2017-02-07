@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.service;
 
 import com.example.farouk.roomx.model.Response;
 

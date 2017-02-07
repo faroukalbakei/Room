@@ -1,7 +1,6 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.explore;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -10,16 +9,14 @@ import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.PlaceObject;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import timber.log.Timber;
 //
 //import static android.R.attr.key;
 //import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
@@ -28,7 +25,7 @@ import timber.log.Timber;
  * Created by farouk on 1/29/17.
  */
 
-public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHolder> {
+public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHolder> {
 
 
     private List<PlaceObject> roomList;
@@ -61,7 +58,7 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
     }
 
 
-    public DetailAdapter(List<PlaceObject> roomList, Context context) {
+    public ExploreAdapter(List<PlaceObject> roomList, Context context) {
         this.roomList = roomList;
         this.context = context;
     }

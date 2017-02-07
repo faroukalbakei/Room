@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar">
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.main.LoginActivity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SingnUp" />
-        <activity android:name=".IconTextTabsActivity" />
-        <activity android:name=".PlaceDetailsActivity" />
+        <activity android:name=".ui.main.SignUpActivity" />
+        <activity android:name=".ui.main.IconTextTabsActivity" />
+        <activity android:name=".ui.explore.PlaceDetailsActivity" />
 
 
         <meta-data android:name="DATABASE" android:value="sugar_example.db" />

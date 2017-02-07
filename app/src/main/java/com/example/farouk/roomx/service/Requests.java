@@ -1,16 +1,15 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.service;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.app.Prefs;
 import com.example.farouk.roomx.app.VolleySingleton;
 import com.example.farouk.roomx.model.PlaceObject;
@@ -18,15 +17,10 @@ import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.UserinfoLogin;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;

@@ -1,9 +1,8 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.explore;
 
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,26 +13,26 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.PlaceObject;
 import com.example.farouk.roomx.model.Response;
+import com.example.farouk.roomx.model.Room;
+import com.example.farouk.roomx.service.Requests;
+import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.util.NetworkConnection;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import timber.log.Timber;
-
-public class explore extends Fragment implements VolleyCallback {
+public class ExploreFragment extends Fragment implements VolleyCallback {
 
     private final static String API_KEY = "7e8f60e325cd06e164799af1e317d7a7";
 
     private List<Room> roommList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private DetailAdapter mAdapter;
+    private ExploreAdapter mAdapter;
     public ImageButton btlike;
-    private static final String TAG = explore.class.getSimpleName();
+    private static final String TAG = ExploreFragment.class.getSimpleName();
 
     @Nullable
     @Override
@@ -78,7 +77,7 @@ public class explore extends Fragment implements VolleyCallback {
 //            public void onResponse(Call<ResponsePlace> call, retrofit2.Response<ResponsePlace> response) {
 //                int statusCode = response.code();
 //                List<PlaceObject> placeObjectList = response.body().getValue();
-//                recyclerView.setAdapter(new DetailAdapter(placeObjectList));
+//                recyclerView.setAdapter(new ExploreAdapter(placeObjectList));
 //                Log.e(TAG, placeObjectList.toString());
 //
 //            }
@@ -143,6 +142,6 @@ public class explore extends Fragment implements VolleyCallback {
     @Override
     public void onSuccess(Response response) {
         List<PlaceObject> placeObjects = (List<PlaceObject>) response.getObject();
-        recyclerView.setAdapter(new DetailAdapter(placeObjects,getContext()));
+        recyclerView.setAdapter(new ExploreAdapter(placeObjects,getContext()));
     }
 }

@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        tools:context="com.example.farouk.roomx.PlaceDetailsActivity">
+        tools:context="com.example.farouk.roomx.ui.explore.PlaceDetailsActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.chat;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.UserinfoLogin;
 
 import java.util.ArrayList;
