@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white"
-    android:layoutDirection="rtl"
-    >
+    android:layoutDirection="rtl">
 
     <FrameLayout
         android:layout_width="120dp"
@@ -18,14 +18,17 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="bottom|center_horizontal"
+            app:civ_border_color="@color/blue_500"
             android:src="@drawable/ttt" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_camera"
+            app:civ_border_color="@color/blue_500"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="top|right"
             android:layout_marginTop="30dp"
+            android:padding="5dp"
             android:src="@android:drawable/ic_menu_edit" />
     </FrameLayout>
 
