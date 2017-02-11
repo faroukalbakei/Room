@@ -28,4 +28,11 @@
     <string name="End_booking">End booking</string>
 
     <string name="Place_bookings">Place bookings</string>
+
+
+    <!--profile layout-->
+    <string name="username_lable">Username</string>
+    <string name="mobile_lable">Mobile</string>
+    <string name="address_lable">Adress</string>
+    <string name="email_lable">Email Adress</string>
 </resources>

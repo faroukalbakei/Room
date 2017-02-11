@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.ui.chat.InboxFragment;
 import com.example.farouk.roomx.ui.explore.ExploreFragment;
-import com.example.farouk.roomx.ui.profile.ProfileFragment;
+import com.example.farouk.roomx.ui.profile.AccountFragment;
 import com.example.farouk.roomx.ui.reservation.ReservationsFragment;
 
 import java.util.ArrayList;
@@ -56,7 +56,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
 
         adapter.addFrag(new ReservationsFragment(), "الحجوزات");
 
-        adapter.addFrag(new ProfileFragment(), "حسابي");
+        adapter.addFrag(new AccountFragment(), "حسابي");
 
 
         adapter.addFrag(new ExploreFragment(), "إستكشف");

@@ -16,7 +16,7 @@ import java.util.List;
  * Created by farouk on 1/30/17.
  */
 
-public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHolderr> {
+public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyViewHolderr> {
 
     private List<ExtrasItem> detelsList;
 
@@ -33,7 +33,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.MyViewHo
         }
     }
 
-    public ProfileAdapter(List<ExtrasItem> detelsList) {
+    public AccountAdapter(List<ExtrasItem> detelsList) {
         this.detelsList = detelsList;
     }
 

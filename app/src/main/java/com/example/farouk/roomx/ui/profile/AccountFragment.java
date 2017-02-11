@@ -29,12 +29,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ProfileFragment extends Fragment implements DatePickerDialog.OnDateSetListener, VolleyCallback {
+public class AccountFragment extends Fragment implements DatePickerDialog.OnDateSetListener, VolleyCallback {
 
     private List<ExtrasItem> extrasItem = new ArrayList<>();
 
 
-    private ProfileAdapter mAdapter;
+    private AccountAdapter mAdapter;
     private RecyclerView recyclerView;
 
     Dialog mBottomSheetDialog;
@@ -52,13 +52,13 @@ public class ProfileFragment extends Fragment implements DatePickerDialog.OnDate
     TextView tv_name;
     UserinfoLogin userinfoLogin;
 
-    public ProfileFragment() {
+    public AccountFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.activity_acounting, container, false);
+        final View rootView = inflater.inflate(R.layout.activity_acount, container, false);
         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
         userinfoLogin = new UserinfoLogin();
 
@@ -143,7 +143,7 @@ public class ProfileFragment extends Fragment implements DatePickerDialog.OnDate
     @Override
     public void onResume() {
         super.onResume();
-        mAdapter = new ProfileAdapter(extrasItem);
+        mAdapter = new AccountAdapter(extrasItem);
         recyclerView.setAdapter(mAdapter);
         prepareDetailData();
     }
