@@ -20,6 +20,16 @@ public class User {
 
     }
 
+    public User(int photo) {
+        this.photo = photo;
+    }
+    public User(int photo,String name,String Tag) {
+        this.photo = photo;
+        this.name=name;
+        this.Tag=Tag;
+    }
+
+
     public User(String name, String city, int photo) {
         this.name = name;
         this.city = city;

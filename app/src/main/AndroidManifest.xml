@@ -24,7 +24,9 @@
         <activity android:name=".IconTextTabsActivity" />
         <activity android:name=".PlaceDetailsActivity" />
         <activity android:name=".Reservations" />
-        <activity android:name=".Inbox"></activity>
+        <activity android:name=".Inbox" />
+        <activity android:name=".ChatRooming" />
+        <activity android:name=".Profil"></activity>
     </application>
 
 </manifest>

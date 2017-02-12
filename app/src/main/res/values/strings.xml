@@ -28,4 +28,14 @@
     <string name="End_booking">End booking</string>
 
     <string name="Place_bookings">Place bookings</string>
+    <string name="sender"> Sender Name</string>
+
+    <string name="Talk">Talk with the host</string>
+    <string name="msg">Massage</string>
+    
+    
+    
+    
+    <string name="user_name">Name of User</string>
+
 </resources>
