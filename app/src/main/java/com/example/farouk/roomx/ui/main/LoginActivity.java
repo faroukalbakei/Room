@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
 
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
-        finish();
     }
 
     public static boolean isEmailValid(String email) {

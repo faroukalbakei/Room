@@ -36,4 +36,7 @@
     <string name="mobile_lable">Mobile</string>
     <string name="address_lable">Adress</string>
     <string name="email_lable">Email Adress</string>
+    <string name="done">Done</string>
+    <string name="title_activity_edit_profile">Edit profile</string>
+    <string name="done_succefully">Update Profile Successfully!</string>
 </resources>

@@ -5,7 +5,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 //    extends SugarRecord
 
     @SerializedName("id")

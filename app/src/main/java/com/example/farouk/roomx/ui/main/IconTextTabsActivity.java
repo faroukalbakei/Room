@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.ui.chat.InboxFragment;
@@ -17,10 +18,14 @@ import com.example.farouk.roomx.ui.reservation.ReservationsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 public class IconTextTabsActivity extends AppCompatActivity {
 
-
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private int[] tabIcons = {
@@ -34,7 +39,8 @@ public class IconTextTabsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_icon_text_tabs);
-
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);

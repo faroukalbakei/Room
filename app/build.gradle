@@ -9,6 +9,8 @@ android {
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -41,4 +43,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     //compile 'com.google.android.gms:play-services:10.0.1'
+    compile files('libs/httpmime-4.3.5.jar')
+    compile files('libs/httpcore-4.3.2.jar')
+
 }
