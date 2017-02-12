@@ -18,7 +18,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private int[] tabIcons = {
-            R.drawable.ontacts,
+            R.drawable.unliike,
             R.drawable.useer
             ,R.drawable.like
             ,R.drawable.happy
