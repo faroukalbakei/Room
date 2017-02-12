@@ -109,26 +109,24 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
             }
         }));
 
-/*
         Editeb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mBottomSheetDialog.setContentView(dialogv);
-                mBottomSheetDialog.setCancelable(true);
-                mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
 
-                mBottomSheetDialog.show();
+
+//                mBottomSheetDialog.setContentView(dialogv);
+//                mBottomSheetDialog.setCancelable(true);
+//                mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+//
+//                mBottomSheetDialog.show();
             }
         });
-*/
 
-/*
         Ddatte.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 newInstance();
             }
         });
-*/
         Requests requests = new Requests();
         requests.getUserProfile(this, getContext());
 

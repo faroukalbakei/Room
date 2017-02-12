@@ -86,21 +86,53 @@
             <TextView
                 android:textColor="@color/grey_500"
                 android:layout_alignBottom="@+id/icon2"
-                android:id="@+id/address_lable"
+                android:id="@+id/country_lable"
                 android:layout_marginStart="8dp"
                 android:layout_toEndOf="@+id/icon2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/address_lable"
+                android:text="@string/country"
                 />
 
             <EditText
-                android:id="@+id/address_edittext"
-                android:layout_below="@+id/address_lable"
+                android:id="@+id/country_edittext"
+                android:layout_below="@+id/country_lable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon5"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/box"
+                />
+
+            <TextView
+                android:textColor="@color/grey_500"
+                android:layout_alignBottom="@+id/icon5"
+                android:id="@+id/city_lable"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/icon5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/city"
+                />
+
+            <EditText
+                android:id="@+id/city_edittext"
+                android:layout_below="@+id/city_lable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_marginTop="4dp"
@@ -163,6 +195,37 @@
                 android:layout_height="wrap_content" />
 
         </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/icon6"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/box"
+                />
+
+            <TextView
+                android:textColor="@color/grey_500"
+                android:layout_alignBottom="@+id/icon6"
+                android:id="@+id/dob_lable"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@+id/icon6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dateofbirth"
+                />
+
+            <EditText
+                android:id="@+id/dob_edittext"
+                android:layout_below="@+id/dob_lable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
 
     </LinearLayout>
 

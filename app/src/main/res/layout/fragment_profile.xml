@@ -84,7 +84,7 @@
                     android:id="@+id/mobile_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="عصام محمود الوادية"
+                    android:text="0598745632"
                     android:layout_marginBottom="8dp"
                     />
                 <TextView
@@ -127,7 +127,7 @@
                     android:id="@+id/adress_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="عصام محمود الوادية"
+                    android:text="غزة-الرمال"
                     android:layout_marginBottom="8dp"
                     />
                 <TextView
@@ -170,7 +170,7 @@
                     android:id="@+id/email_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="عصام محمود الوادية"
+                    android:text="aaa@aa.com"
                     android:layout_marginBottom="8dp"
                     />
                 <TextView

@@ -45,6 +45,7 @@ public class Requests {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat("M/d/yy hh:mm a");
         gson = gsonBuilder.create();
+
     }
 
     public void makeLogin(final VolleyCallback callback, final Context context, final String email, final String password) {
@@ -201,7 +202,7 @@ public class Requests {
                         User user = gson.fromJson(response, User.class);
                         responseObject = new Response();
                         if(user!=null) {
-                            Log.i("PostActivity", user.getName());
+                            Log.d("PostActivity", user.getName());
 
                             responseObject.setObject(user);
                         }else
@@ -299,6 +300,79 @@ public class Requests {
         // Adding request to request queue
         VolleySingleton.getInstance().addToRequestQueue(req);
 
+    }
+
+    public void editProfile(final VolleyCallback callback, final Context context, final User user) {
+        UserinfoLogin userinfoLogin = Prefs.with(context).getUser();
+        final String token = userinfoLogin.getToken();
+        responseObject = new Response();
+        pDialog = new ProgressDialog(context);
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+        StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
+                Const.BASE_URL + "updateuserprofile",
+                new com.android.volley.Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String responsee) {
+
+                        Log.d("response", responsee.toString());
+                        pDialog.hide();
+                        //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+
+                        try {
+                            JSONObject callNode = new JSONObject(responsee.toString());
+                            userinfoLoginObject = new UserinfoLogin();
+                            userinfoLoginObject.setToken(callNode.optString("token"));
+                            responseObject.setResult(callNode.optInt("result"));
+                            responseObject.setOnError(callNode.optString("error"));
+                            responseObject.setObject(userinfoLoginObject);
+                            Log.d("getResult1", String.valueOf(responseObject.getResult()));
+                            if (responseObject != null)
+                                callback.onSuccess(responseObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Prefs.with(context).setUser(userinfoLoginObject);
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseObject.setOnError(error.getMessage());
+                //pDialog.dismiss();
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                pDialog.hide();
+                //login_button.setEnabled(true);
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                params.put("Accept", "application/json");
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+                params.put("name", user.getName());
+                params.put("city", user.getCity());
+                params.put("country", user.getCountry());
+                params.put("dob", user.getDob());
+                params.put("email", user.getEmail());
+                params.put("phone", user.getPhone());
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
     }
 
 
