@@ -1,7 +1,6 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.explore;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -10,10 +9,14 @@ import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.farouk.roomx.R;
+import com.example.farouk.roomx.model.PlaceObject;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 //
 //import static android.R.attr.key;
 //import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
@@ -22,20 +25,21 @@ import java.util.List;
  * Created by farouk on 1/29/17.
  */
 
-public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHolder> {
+public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHolder> {
 
 
-    private List<Room> roomList;
+    private List<PlaceObject> roomList;
 
+    Context context;
     public ImageButton btlike;
 
-    int lik= -1;
+    int lik = -1;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, tag, date, city, detale;
-        public ImageView userpic, roompic;
+        public ImageView roompic;
+        CircleImageView userpic;
         public ImageButton btlike;
-
 
         public MyViewHolder(View view) {
             super(view);
@@ -45,19 +49,18 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
             city = (TextView) view.findViewById(R.id.tv_cantry);
             detale = (TextView) view.findViewById(R.id.tv_inf);
 
-            userpic = (ImageView) view.findViewById(R.id.imv_userphoto);
+            userpic = (CircleImageView) view.findViewById(R.id.imv_userphoto);
             roompic = (ImageView) view.findViewById(R.id.img_picRoom);
-
             btlike = (ImageButton) view.findViewById(R.id.imge_love);
-
 
 
         }
     }
 
 
-    public DetailAdapter(List<Room> roomList) {
+    public ExploreAdapter(List<PlaceObject> roomList, Context context) {
         this.roomList = roomList;
+        this.context = context;
     }
 
     @Override
@@ -73,49 +76,17 @@ public class DetailAdapter extends RecyclerView.Adapter<DetailAdapter.MyViewHold
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
 
-        Room rooom = roomList.get(position);
-
-
-
-        holder.userpic.setImageResource((rooom.getUserPic()));
-        holder.name.setText(rooom.getUserName());
-        holder.tag.setText(rooom.getTag());
-        holder.date.setText(rooom.getDateup() + "");
-        holder.city.setText(rooom.getCity());
-
-        holder.roompic.setImageResource((rooom.getRoomPic()));
-        holder.detale.setText(rooom.getDetail());
-
-        lik=rooom.getLike();
-
-
-        if(lik==1){
-            holder.btlike.setImageResource(R.drawable.like);
-        }else {
-            holder.btlike.setImageResource(R.drawable.unliike);
-        }
-     //   holder.btlike.setImageResource();
-
-
-        holder.btlike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("farouk", "onClick: ");
-
-
-                if(lik==1){
-                    lik=0;
-                    holder.btlike.setImageResource(R.drawable.like);
-                }else {
-                    lik=1;
-                    holder.btlike.setImageResource(R.drawable.unliike);
-                }
-            }
-        });
-
-}
-
-
+        PlaceObject placeObject = roomList.get(position);
+        Log.i(" photo user",placeObject.getUser().getPhotolink());
+        Picasso.with(context).load("https://scontent.xx.fbcdn.net/v/t1.0-9/11254501_1088638317826615_623270386122890787_n.jpg?oh=57d697fb1c5d3df4220e6e2d07a03544&oe=591120AE").resize(70, 70).into(holder.userpic);
+        holder.name.setText(placeObject.getName());
+        holder.tag.setText(placeObject.getUser().getEmail());
+        holder.date.setText(placeObject.getCreatedAt());
+        holder.city.setText(placeObject.getUser().getCountry() + placeObject.getUser().getCity());
+        holder.detale.setText(placeObject.getDescription());
+        Picasso.with(context).load(placeObject.getRoomPhoto().get(1).getPhotolink()).resize(200, 85).into(holder.roompic);
+        holder.btlike.setImageResource(R.drawable.like);
+    }
 
 
     @Override

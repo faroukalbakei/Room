@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.util;
 
 /**
  * Created by AbAbdullah on 24/11/2016.

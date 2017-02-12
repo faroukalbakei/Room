@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.profile;
 
 import android.app.Dialog;
 import android.support.v4.app.Fragment;
@@ -8,37 +8,39 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.R;
+import com.example.farouk.roomx.model.ExtrasItem;
+import com.example.farouk.roomx.util.RecyclerTouchListener;
+import com.example.farouk.roomx.model.Response;
+import com.example.farouk.roomx.model.UserinfoLogin;
+import com.example.farouk.roomx.service.Requests;
+import com.example.farouk.roomx.service.VolleyCallback;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Acounting extends Fragment implements DatePickerDialog.OnDateSetListener {
+public class AccountFragment extends Fragment implements DatePickerDialog.OnDateSetListener, VolleyCallback {
+
+    private List<ExtrasItem> extrasItem = new ArrayList<>();
 
 
-    private List<Detelsitem> detelsitem = new ArrayList<>();
-
-
-    private AcountingAdapter mAdapter;
+    private AccountAdapter mAdapter;
     private RecyclerView recyclerView;
 
     Dialog mBottomSheetDialog;
-    View dialogv ;
+    View dialogv;
 
-            EditText DName;
+    EditText DName;
     EditText DEmail;
     EditText Dmobile;
 
@@ -48,17 +50,17 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
     EditText Ddatte;
     TextView tv_name;
-    User user;
+    UserinfoLogin userinfoLogin;
 
-    public Acounting() {
+    public AccountFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView= inflater.inflate(R.layout.activity_acounting, container, false);
-         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-        user = new User();
+        final View rootView = inflater.inflate(R.layout.activity_acount, container, false);
+        dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
+        userinfoLogin = new UserinfoLogin();
 
         mBottomSheetDialog = new Dialog(getContext(), R.style.MaterialDialogSheet);
 
@@ -76,17 +78,15 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_viewAcount);
         // recyclerView.setHasFixedSize(true);
-        mAdapter = new AcountingAdapter(detelsitem);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Detelsitem roomm = detelsitem.get(position);
+                ExtrasItem roomm = extrasItem.get(position);
                 if (position == 0) {
                     Toast.makeText(getActivity(), "invite friend", Toast.LENGTH_SHORT).show();
                 } else if (position == 1) {
@@ -109,18 +109,16 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
             }
         }));
 
-        prepareDetailData();
-
-        tv_name.setText(user.getName());
-
         Editeb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mBottomSheetDialog.setContentView(dialogv);
-                mBottomSheetDialog.setCancelable(true);
-                mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
 
-                mBottomSheetDialog.show();
+
+//                mBottomSheetDialog.setContentView(dialogv);
+//                mBottomSheetDialog.setCancelable(true);
+//                mBottomSheetDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//                mBottomSheetDialog.getWindow().setGravity(Gravity.BOTTOM);
+//
+//                mBottomSheetDialog.show();
             }
         });
 
@@ -129,44 +127,44 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
                 newInstance();
             }
         });
-
+        Requests requests = new Requests();
+        requests.getUserProfile(this, getContext());
 
         return rootView;
-
-
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
-
-
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        mAdapter = new AccountAdapter(extrasItem);
+        recyclerView.setAdapter(mAdapter);
+        prepareDetailData();
     }
 
     private void prepareDetailData() {
 
+        ExtrasItem detailing = new ExtrasItem(R.drawable.frin, getString(R.string.Invite));
+        extrasItem.add(detailing);
 
-        Detelsitem detailing = new Detelsitem(R.drawable.frin, getString(R.string.Invite));
-        detelsitem.add(detailing);
-
-        detailing = new Detelsitem(R.drawable.box, getString(R.string.gifts));
-        detelsitem.add(detailing);
-
-
-        detailing = new Detelsitem(R.drawable.home, getString(R.string.host));
-        detelsitem.add(detailing);
+        detailing = new ExtrasItem(R.drawable.box, getString(R.string.gifts));
+        extrasItem.add(detailing);
 
 
-        detailing = new Detelsitem(R.drawable.infoi, getString(R.string.Help));
-        detelsitem.add(detailing);
+        detailing = new ExtrasItem(R.drawable.home, getString(R.string.host));
+        extrasItem.add(detailing);
+
+
+        detailing = new ExtrasItem(R.drawable.infoi, getString(R.string.Help));
+        extrasItem.add(detailing);
 
 
         mAdapter.notifyDataSetChanged();
     }
-
 
 
     public void save(View v) {
@@ -213,7 +211,7 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
         String mob = Dmobile.getText().toString();
         String date = Ddatte.getText().toString();
         String city = Dcity.getText().toString();
-        user.SetDialogData(name, email, mob, city, date);
+        userinfoLogin.SetDialogData(name, email, mob, city, date);
 
         DName.setText("");
         DEmail.setText("");
@@ -227,7 +225,8 @@ public class Acounting extends Fragment implements DatePickerDialog.OnDateSetLis
     }
 
 
+    @Override
+    public void onSuccess(Response response) {
 
-
-
+    }
 }

@@ -1,7 +1,9 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.explore;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.farouk.roomx.R;
 
 public class PlaceDetailsActivity extends AppCompatActivity {
 

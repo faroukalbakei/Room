@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.chat;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.farouk.roomx.model.Bookings;
-import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.R;
+import com.example.farouk.roomx.model.UserinfoLogin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 
 public class ChatListAdabter extends RecyclerView.Adapter<ChatListAdabter.MyViewHolder> {
 
-    private List<User> CuserList = new ArrayList<>();
+    private List<UserinfoLogin> cuserList = new ArrayList<>();
     public class MyViewHolder extends RecyclerView.ViewHolder {
         TextView Name;
         TextView City;
@@ -34,8 +34,8 @@ public class ChatListAdabter extends RecyclerView.Adapter<ChatListAdabter.MyView
             pic = (ImageView) view.findViewById(R.id.imv_Chats_picUser);
         }
     }
-    public ChatListAdabter(List<User> CuserList) {
-        this.CuserList = CuserList;
+    public ChatListAdabter(List<UserinfoLogin> cuserList) {
+        this.cuserList = cuserList;
     }
 
     @Override
@@ -50,11 +50,11 @@ public class ChatListAdabter extends RecyclerView.Adapter<ChatListAdabter.MyView
     public void onBindViewHolder(final ChatListAdabter.MyViewHolder holder, int position) {
 
 
-        User user = CuserList.get(position);
+        UserinfoLogin userinfoLogin = cuserList.get(position);
 
-        holder.Name.setText(user.getName());
-        holder.City.setText(user.getCity());
-        holder.pic.setImageResource(user.getPhoto());
+        holder.Name.setText(userinfoLogin.getName());
+        holder.City.setText(userinfoLogin.getCity());
+        holder.pic.setImageResource(userinfoLogin.getPhoto());
 
     }
 
@@ -63,7 +63,7 @@ public class ChatListAdabter extends RecyclerView.Adapter<ChatListAdabter.MyView
 
     @Override
     public int getItemCount() {
-        return CuserList.size();
+        return cuserList.size();
     }
 
 
