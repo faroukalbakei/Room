@@ -22,44 +22,22 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="start_booking">Start booking</string>
-
-
     <string name="End_booking">End booking</string>
-
     <string name="Place_bookings">Place bookings</string>
-
 
     <!--profile layout-->
     <string name="username_lable">Username</string>
     <string name="mobile_lable">Mobile</string>
     <string name="address_lable">Adress</string>
     <string name="email_lable">Email Adress</string>
-
-
-    <string name="Talk">Talk to the host</string>
-    <string name="sender">Sender Name </string>
-
-    <string name="msg"> massage body</string>
-    
-    
-    
-    <string name="owner">The owner name</string>
-    <string name="guests">Number of guests</string>
-    <string name="beds">Number of beds</string>
-    <string name="bathrooms">Number of bathrooms</string>
-    <string name="mapLocation">Location on the map</string>
-    <string name="manuallyLocation">Enter data manually based on latitude and longitude</string>
-    <string name="descriptionp">Description of property</string>
-    <string name="detailed_description">Enter the detailed description of where they would like added</string>
-    <string name="features">Property features</string>
-    <string name="TV">TV</string>
-    <string name="pool">Swimming pool</string>
-    <string name="AirـConditioner">Air Conditioner</string>
-    <string name="Internet">Internet</string>
-    <string name="kitchen">kitchen</string>
-    <string name="Images_property">Images property</string>
-    <string name="add_photos">Click here to add photos</string>
-
+    <string name="done">Done</string>
+    <string name="title_activity_edit_profile">Edit profile</string>
+    <string name="title_activity_explore">Explore</string>
+    <string name="title_activity_account">Account</string>
+    <string name="title_activity_reserve">Reservation</string>
+    <string name="title_activity_inbox">Inbox</string>
+    <string name="title_activity_fav">Favorite</string>
+    <string name="empty_list">No Data!</string>
+    <string name="done_succefully">Update Profile Successfully!</string>
 </resources>

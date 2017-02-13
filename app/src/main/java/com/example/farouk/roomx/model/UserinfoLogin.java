@@ -112,14 +112,20 @@ public class UserinfoLogin {
         this.token = token;
     }
 
-    public void SetDialogData(String name , String Email,String mobile,String city, String Birthday){
-        setName(name);
-        setEmail(Email);
-        setMobile(mobile);
-        setCity(city);
-        setBirthday(Birthday);
-
-
+    @Override
+    public String toString() {
+        return "UserinfoLogin{" +
+                "name='" + name + '\'' +
+                ", Email='" + Email + '\'' +
+                ", password='" + password + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", city='" + city + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", photo=" + photo +
+                ", Tag='" + Tag + '\'' +
+                ", Validation=" + Validation +
+                ", token='" + token + '\'' +
+                ", result=" + result +
+                '}';
     }
-
 }

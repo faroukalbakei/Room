@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.farouk.roomx">
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -23,6 +24,7 @@
         <activity android:name=".ui.main.SignUpActivity" />
         <activity android:name=".ui.main.IconTextTabsActivity" />
         <activity android:name=".ui.explore.PlaceDetailsActivity" />
+        <activity android:name=".ui.profile.ActivityEditProfile" />
 
         <meta-data
             android:name="DATABASE"
@@ -37,7 +39,7 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.example.farouk.roomx" />
 
-        <activity android:name=".Behost"></activity>
+        <activity android:name=".ui.profile.ShowProfileActivity"></activity>
     </application>
 
 </manifest>

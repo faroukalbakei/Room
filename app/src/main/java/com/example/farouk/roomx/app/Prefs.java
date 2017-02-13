@@ -57,7 +57,7 @@ public class Prefs {
         Gson gson = new Gson();
         String json = sharedPreferences.getString(PRE_USER, "");
         UserinfoLogin userinfoLogin = gson.fromJson(json, UserinfoLogin.class);
-        Log.d("get userinfoLogin", userinfoLogin.toString());
+        //Log.d("get userinfoLogin", userinfoLogin.toString());
         return userinfoLogin;
     }
 

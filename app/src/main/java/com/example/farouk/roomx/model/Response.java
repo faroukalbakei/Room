@@ -21,6 +21,10 @@ public class Response {
         this.onError = onError;
     }
 
+    public Response(boolean isValid) {
+        this.isValid = isValid;
+    }
+
     public Object getObject() {
         return object;
     }
