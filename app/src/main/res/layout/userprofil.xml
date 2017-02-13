@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layoutDirection="locale"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -12,6 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:id="@+id/imb_userprofil_icon"
+            android:layout_weight="3" />
+
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
@@ -39,12 +47,6 @@
                 android:layout_height="1dp"
                 android:background="#cfcfcf" />
         </LinearLayout>
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@mipmap/ic_launcher"
-            android:id="@+id/imb_userprofil_icon"
-            android:layout_weight="3" />
 
     </LinearLayout>
 </LinearLayout>

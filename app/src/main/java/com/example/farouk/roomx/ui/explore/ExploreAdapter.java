@@ -78,7 +78,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
 
         PlaceObject placeObject = roomList.get(position);
         Log.i(" photo user",placeObject.getUser().getPhotolink());
-        Picasso.with(context).load("https://scontent.xx.fbcdn.net/v/t1.0-9/11254501_1088638317826615_623270386122890787_n.jpg?oh=57d697fb1c5d3df4220e6e2d07a03544&oe=591120AE").resize(70, 70).into(holder.userpic);
+        Picasso.with(context).load(placeObject.getUser().getPhotolink()).resize(70, 70).into(holder.userpic);
         holder.name.setText(placeObject.getName());
         holder.tag.setText(placeObject.getUser().getEmail());
         holder.date.setText(placeObject.getCreatedAt());

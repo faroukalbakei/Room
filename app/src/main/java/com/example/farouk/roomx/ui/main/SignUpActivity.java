@@ -102,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
 
                 } else {
 
-                    Requests requests = new Requests();
+                    Requests requests = new Requests(this);
                     requests.makeRegister(this,this, name, email, password, confirm, mobile);
 
 
@@ -116,7 +116,7 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
     }
     @Override
     public void onSuccess(Response response) {
-        Requests requests = new Requests();
+        Requests requests = new Requests(this);
         if (response.getResult() == 1) {
 
 

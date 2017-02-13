@@ -7,7 +7,7 @@ package com.example.farouk.roomx.model;
 public class chatroom extends User{
     String text_msg;
     public chatroom(int photo, String text_msg) {
-        super(photo);
+       // super(photo);
         this.text_msg = text_msg;
     }
 

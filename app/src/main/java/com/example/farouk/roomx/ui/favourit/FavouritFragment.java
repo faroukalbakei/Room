@@ -1,9 +1,9 @@
-package com.example.farouk.roomx.ui.explore;
+package com.example.farouk.roomx.ui.favourit;
 
 
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,27 +19,30 @@ import com.example.farouk.roomx.model.PlaceObject;
 import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
+import com.example.farouk.roomx.ui.explore.ExploreAdapter;
 import com.example.farouk.roomx.util.NetworkConnection;
 
 import java.util.List;
 
-public class ExploreFragment extends Fragment implements VolleyCallback {
+public class FavouritFragment extends Fragment implements VolleyCallback {
+
+    private final static String API_KEY = "7e8f60e325cd06e164799af1e317d7a7";
 
     private RecyclerView recyclerView;
-    private ExploreAdapter mAdapter;
+    private com.example.farouk.roomx.ui.explore.ExploreAdapter mAdapter;
     public ImageButton btlike;
-    private static final String TAG = ExploreFragment.class.getSimpleName();
+    private static final String TAG = FavouritFragment.class.getSimpleName();
     TextView emptyView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
-        btlike = (ImageButton) rootView.findViewById(R.id.imge_love);
-       // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
+        View rootView = inflater.inflate(R.layout.fragment_fav, container, false);
+        btlike = (ImageButton) getActivity().findViewById(R.id.imge_love);
+       // getActivity().setTitle(getResources().getString(R.string.title_activity_fav));
         emptyView=(TextView)rootView.findViewById(R.id.empty_list_textView);
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_fav);
         // recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -47,9 +50,11 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
 
         if(NetworkConnection.isInternetAvailable()){
             Requests requests = new Requests(getContext());
-            requests.getExploreList(this, getContext());
+            requests.getWishlistList(this, getContext());
         }else
             Toast.makeText(getContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
+
+        //  prepareDetailData();
 
         return rootView;
     }

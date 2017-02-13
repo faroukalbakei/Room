@@ -4,7 +4,8 @@
     android:id="@+id/activity_reservations"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_300"
+    android:layoutDirection="locale"
+    android:background="@color/white"
     tools:context="com.example.farouk.roomx.ui.reservation.ReservationsFragment">
 
     <android.support.design.widget.AppBarLayout
