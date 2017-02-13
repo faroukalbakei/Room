@@ -10,6 +10,7 @@
     <string name="date">Date</string>
     <string name="tag">tagname</string>
     <string name="city">City</string>
+    <string name="country">Country</string>
     <string name="info">room info </string>
     <string name="EditAccount">Edit Account</string>
     <string name="gifts">RoomX Gifts</string>
@@ -28,14 +29,11 @@
     <string name="End_booking">End booking</string>
 
     <string name="Place_bookings">Place bookings</string>
-    <string name="sender"> Sender Name</string>
 
-    <string name="Talk">Talk with the host</string>
-    <string name="msg">Massage</string>
-    
-    
-    
-    
-    <string name="user_name">Name of User</string>
 
+    <!--profile layout-->
+    <string name="username_lable">Username</string>
+    <string name="mobile_lable">Mobile</string>
+    <string name="address_lable">Adress</string>
+    <string name="email_lable">Email Adress</string>
 </resources>

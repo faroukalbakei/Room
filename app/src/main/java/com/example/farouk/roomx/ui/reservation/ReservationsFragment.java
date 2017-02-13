@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.reservation;
 
 
 
@@ -13,20 +13,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.R;
+import com.example.farouk.roomx.util.RecyclerTouchListener;
 import com.example.farouk.roomx.model.Bookings;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class Reservations extends Fragment {
+public class ReservationsFragment extends Fragment {
     private List<Bookings> bookingList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private BookigAdabter mAdapter;
+    private ReservationAdapter mAdapter;
 
 
     @Nullable
@@ -38,7 +39,7 @@ public class Reservations extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_viewBooking);
         //recyclerView.setHasFixedSize(true);
 
-        mAdapter = new BookigAdabter(bookingList);
+        mAdapter = new ReservationAdapter(bookingList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 

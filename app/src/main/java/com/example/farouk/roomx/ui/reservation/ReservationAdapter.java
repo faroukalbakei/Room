@@ -1,14 +1,13 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.reservation;
 
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.Bookings;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.List;
  * Created by farouk on 2/3/17.
  */
 
-public class BookigAdabter  extends RecyclerView.Adapter<BookigAdabter.MyViewHolder> {
+public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.MyViewHolder> {
 
     private List<Bookings> bookingList = new ArrayList<>();
 
@@ -33,12 +32,12 @@ public class BookigAdabter  extends RecyclerView.Adapter<BookigAdabter.MyViewHol
         public MyViewHolder(View view) {
             super(view);
             PlaceName = (TextView) view.findViewById(R.id.tv_resrv_place);
-            StartDAy = (TextView) view.findViewById(R.id.tv_resrv_StartDate);
-            EndDay = (TextView) view.findViewById(R.id.tv_resrv_EndDate);
+            StartDAy = (TextView) view.findViewById(R.id.tv_resrv_Start);
+            EndDay = (TextView) view.findViewById(R.id.tv_resrv_End);
         }
     }
 
-    public BookigAdabter(List<Bookings> bookingList) {
+    public ReservationAdapter(List<Bookings> bookingList) {
         this.bookingList = bookingList;
     }
 

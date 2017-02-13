@@ -1,20 +1,23 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.main;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.Response;
-import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.model.UserinfoLogin;
+import com.example.farouk.roomx.service.Requests;
+import com.example.farouk.roomx.service.VolleyCallback;
+import com.example.farouk.roomx.ui.explore.ExploreFragment;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SingnUp extends AppCompatActivity implements VolleyCallback {
+public class SignUpActivity extends AppCompatActivity implements VolleyCallback {
 
 
     EditText Name;
@@ -22,7 +25,7 @@ public class SingnUp extends AppCompatActivity implements VolleyCallback {
     EditText Password;
     EditText Confirm;
     EditText Mobile;
-    User user;
+    UserinfoLogin userinfoLogin;
     String name,email,password,mobile,confirm;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class SingnUp extends AppCompatActivity implements VolleyCallback {
         Email.setText("ahmed@ahmad.com");
         Password.setText("12345678");
         Confirm.setText("12345678");
-        Mobile.setText("12345678");
+        Mobile.setText("0511111111");
     }
 
 
@@ -125,7 +128,7 @@ public class SingnUp extends AppCompatActivity implements VolleyCallback {
                     if (isValid == 1) {
 
                         // Toast.makeText(this, "^_^", Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(getApplicationContext(), explore.class);
+                        Intent intent = new Intent(getApplicationContext(), ExploreFragment.class);
                         startActivity(intent);
                         finish();
 

@@ -1,9 +1,8 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.chat;
 
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,19 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.farouk.roomx.model.Bookings;
-import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.R;
+import com.example.farouk.roomx.model.UserinfoLogin;
+import com.example.farouk.roomx.ui.chat.ChatListAdabter;
+import com.example.farouk.roomx.util.RecyclerTouchListener;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-public class Inbox extends Fragment {
+public class InboxFragment extends Fragment {
 
-    private List<User> CuserList = new ArrayList<>();
+    private List<UserinfoLogin> cuserList = new ArrayList<>();
     private RecyclerView recyclerView;
     private ChatListAdabter mAdapter;
 
@@ -39,7 +36,7 @@ public class Inbox extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_Inbox);
         //recyclerView.setHasFixedSize(true);
 
-        mAdapter = new ChatListAdabter(CuserList);
+        mAdapter = new ChatListAdabter(cuserList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
@@ -56,7 +53,7 @@ public class Inbox extends Fragment {
             @Override
             public void onLongClick(View view, int position) {
 
-                User bookings = CuserList.get(position);
+                UserinfoLogin bookings = cuserList.get(position);
                 Toast.makeText(getActivity(), bookings.getName() + " is selected!", Toast.LENGTH_SHORT).show();
 
             }
@@ -82,11 +79,11 @@ public class Inbox extends Fragment {
         try {
 
 
-            User users = new User("farouk albakri ", "Egypt", R.drawable.ttt);
-            CuserList.add(users);
+            UserinfoLogin users = new UserinfoLogin("farouk albakri ", "Egypt", R.drawable.ttt);
+            cuserList.add(users);
 
-            users = new User("DEV aBir ", "gaza", R.drawable.tttt);
-            CuserList.add(users);
+            users = new UserinfoLogin("DEV aBir ", "gaza", R.drawable.tttt);
+            cuserList.add(users);
         }catch (Exception ex){
 
 

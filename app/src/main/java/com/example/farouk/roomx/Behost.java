@@ -3,11 +3,11 @@ package com.example.farouk.roomx;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class PlaceDetailsActivity extends AppCompatActivity {
+public class Behost extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_place_details);
+        setContentView(R.layout.activity_behost);
     }
 }

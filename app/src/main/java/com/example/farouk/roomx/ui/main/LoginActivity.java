@@ -1,4 +1,4 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.ui.main;
 
 
 
@@ -13,8 +13,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.Response;
-import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.service.Requests;
+import com.example.farouk.roomx.service.VolleyCallback;
+import com.example.farouk.roomx.util.NetworkConnection;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
 
     public void SingnUP(View view) {
 
-        Intent intent = new Intent(this, SingnUp.class);
+        Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
         finish();
     }
@@ -82,8 +85,13 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
 
 
         } else {
-            Requests requests = new Requests();
-            requests.makeLogin(this,this, email, password);
+
+            if(NetworkConnection.isInternetAvailable()){
+                Requests requests = new Requests();
+                requests.makeLogin(this,this, email, password);
+            }else
+                Toast.makeText(getApplicationContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
+
         }
 
 

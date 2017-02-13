@@ -1,21 +1,21 @@
-package com.example.farouk.roomx;
+package com.example.farouk.roomx.model;
 
 /**
  * Created by farouk on 1/30/17.
  */
 
-public class Detelsitem {
+public class ExtrasItem {
 
 
     int iconed;
     String textd;
 
-    public Detelsitem() {
+    public ExtrasItem() {
 
     }
 
 
-    public Detelsitem(int iconed, String textd) {
+    public ExtrasItem(int iconed, String textd) {
         this.iconed = iconed;
         this.textd = textd;
     }
