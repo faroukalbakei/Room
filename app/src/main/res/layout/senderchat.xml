@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="3">
+
+                <TextView
+                    android:text="@string/msg"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:id="@+id/tv_Chats_nameChate"
+                    android:textSize="@dimen/big_font_size"
+                    android:textColor="@color/blue_list"
+                    android:layout_marginRight="8dp"/>
+
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                >
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imv_Chats_picUser"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    app:srcCompat="@mipmap/ic_launcher"
+                    app:civ_border_width="2dp"
+                    app:civ_border_color="#FFEEEEEE"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+</RelativeLayout>
