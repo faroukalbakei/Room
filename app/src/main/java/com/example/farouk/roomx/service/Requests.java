@@ -77,8 +77,11 @@ public class Requests {
 
     public Requests(Context context) {
         mContext=context;
-        UserinfoLogin userinfoLogin = Prefs.with(context).getUser();
-        token = userinfoLogin.getToken();
+        userinfoLoginObject = Prefs.with(context).getUser();
+        if(userinfoLoginObject!=null){
+            token = userinfoLoginObject.getToken();
+        }
+
         responseObject = new com.example.farouk.roomx.model.Response();
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat("M/d/yy hh:mm a");

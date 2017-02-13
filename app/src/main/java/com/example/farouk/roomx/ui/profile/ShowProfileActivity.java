@@ -52,7 +52,6 @@ public class ShowProfileActivity extends AppCompatActivity implements VolleyCall
                 onBackPressed();
             }
         });
-
         Requests requests = new Requests(this);
         requests.getUserProfile(this, this);
     }

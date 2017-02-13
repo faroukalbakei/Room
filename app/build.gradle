@@ -44,13 +44,4 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.booking:rtlviewpager:1.0.1'
 
-    //compile 'com.google.android.gms:play-services:10.0.1'
-//        compile files('libs/httpmime-4.3.5.jar')
-//        compile files('libs/httpcore-4.3.2.jar')
-/*    compile group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
-    compile('org.apache.httpcomponents:httpmime:4.3') {
-        exclude module: "httpclient"
-    }
-    compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'*/
-
 }
