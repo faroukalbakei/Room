@@ -8,7 +8,7 @@ public class RoomPhoto {
 
     @SerializedName("id")
     @Expose
-    private Integer mid;
+    private Integer rpid;
     @SerializedName("photolink")
     @Expose
     private String photolink;
@@ -22,12 +22,12 @@ public class RoomPhoto {
     @Expose
     private Object updatedAt;
 
-    public Integer getMid() {
-        return mid;
+    public Integer getRpid() {
+        return rpid;
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public void setRpid(Integer rpid) {
+        this.rpid = rpid;
     }
 
     public String getPhotolink() {
@@ -65,7 +65,7 @@ public class RoomPhoto {
     @Override
     public String toString() {
         return "RoomPhoto{" +
-                "mid=" + mid +
+                "rpid=" + rpid +
                 ", photolink='" + photolink + '\'' +
                 ", rooid='" + rooid + '\'' +
                 ", createdAt=" + createdAt +

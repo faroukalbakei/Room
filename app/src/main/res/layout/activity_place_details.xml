@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
+    android:layoutDirection="locale"
     android:orientation="vertical">
 
     <LinearLayout
@@ -62,6 +62,7 @@
                 android:layout_marginStart="8dp"
                 android:textColor="@color/button_color"
                 android:text="الطابون"
+                android:textDirection="locale"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
 
             <RelativeLayout
@@ -79,6 +80,7 @@
 
                 <TextView
                     android:id="@+id/text_view_hosted_name"
+                    android:textDirection="locale"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/hosted_image"
@@ -222,6 +224,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:textDirection="locale"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:textColor="@color/button_color"
@@ -232,7 +235,6 @@
 
             </RelativeLayout>
             <RelativeLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp">
@@ -248,6 +250,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textDirection="locale"
                     android:textColor="@color/button_color"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
@@ -271,6 +274,7 @@
             android:id="@+id/text_view_room_price"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:textDirection="locale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#000000"
@@ -280,6 +284,7 @@
         <TextView
             android:id="@+id/text_view3"
             android:layout_alignParentStart="true"
+            android:textDirection="locale"
             android:layout_below="@+id/text_view_room_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

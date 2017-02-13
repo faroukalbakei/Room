@@ -50,6 +50,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.orm.SugarRecord;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -84,6 +85,7 @@ public class Requests {
 
         responseObject = new com.example.farouk.roomx.model.Response();
         GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
         gsonBuilder.setDateFormat("M/d/yy hh:mm a");
         gson = gsonBuilder.create();
 
@@ -301,6 +303,9 @@ public class Requests {
 
                         List<PlaceObject> posts = Arrays.asList(gson.fromJson(response, PlaceObject[].class));
                         responseObject = new Response();
+                        for (int i = 0; i <posts.size() ; i++) {
+                            PlaceObject.save(posts.get(i)); // if using the @Table annotation
+                        }
 
                         Log.i("PostActivity", posts.size() + " posts loaded.");
                         for (PlaceObject post : posts) {

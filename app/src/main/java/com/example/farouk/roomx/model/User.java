@@ -4,15 +4,16 @@ package com.example.farouk.roomx.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
+import com.orm.dsl.Table;
 
 import java.io.Serializable;
 
 public class User implements Serializable {
 //    extends SugarRecord
-
+@Table
     @SerializedName("id")
     @Expose
-    private Integer mid;
+    private Integer uid;
     @SerializedName("name")
     @Expose
     private String name;
@@ -41,12 +42,12 @@ public class User implements Serializable {
     @Expose
     private String updatedAt;
 
-    public Integer getMid() {
-        return mid;
+    public Integer getUid() {
+        return uid;
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public String getName() {
@@ -125,7 +126,7 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "mid=" + mid +
+                "uid=" + uid +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", dob='" + dob + '\'' +

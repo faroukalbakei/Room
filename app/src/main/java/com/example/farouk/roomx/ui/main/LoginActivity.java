@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NetworkConnection.changeLang(this,"ar");
         setContentView(R.layout.activity_main);
         Email = (EditText) findViewById(R.id.et_login_email);
         Password = (EditText) findViewById(R.id.et_login_password);

@@ -68,7 +68,13 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.customlist, parent, false);
 
-
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+/*                int itemPosition = mRecyclerView.getChildLayoutPosition(view);
+                String item = mList.get(itemPosition);*/
+            }
+        });
         return new MyViewHolder(itemView);
     }
 

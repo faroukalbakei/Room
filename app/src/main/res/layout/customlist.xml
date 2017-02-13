@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp"
-    android:layoutDirection="ltr"
+    android:layoutDirection="locale"
     >
 
     <LinearLayout
@@ -23,31 +23,33 @@
             android:scaleType="fitXY"
             android:id="@+id/img_picRoom" />
 
-        <LinearLayout
+        <RelativeLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             >
+            <TextView
+                android:layout_alignParentStart="true"
+                android:text="@string/info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textDirection="locale"
+                android:id="@+id/tv_inf"
+                android:textSize="@dimen/big_font_size"
+                android:textStyle="bold"
+                />
             <ImageButton
+                android:layout_toStartOf="@+id/tv_inf"
+                android:layout_alignParentEnd="true"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="@null"
                 android:src="@drawable/like"
                 android:id="@+id/imge_love"
-                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
                 />
-
-            <TextView
-                android:text="@string/info"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textDirection="rtl"
-                android:id="@+id/tv_inf"
-                android:textSize="@dimen/big_font_size"
-                android:textStyle="bold"
-                />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
     <RelativeLayout
@@ -61,8 +63,8 @@
             android:id="@+id/imv_userphoto"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:src="@mipmap/ic_launcher"
  />
@@ -72,14 +74,15 @@
             android:layout_height="20dp"
             android:src="@drawable/map"
             android:id="@+id/imageView5"
-            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginRight="3dp" />
+            android:layout_marginStart="3dp" />
         <LinearLayout
+            android:id="@+id/userinfo_layout"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageView5"
+            android:layout_toStartOf="@+id/imageView5"
             android:orientation="vertical"
             >
 
@@ -108,22 +111,24 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_toStartOf="@+id/imv_userphoto"
-            android:layoutDirection="rtl"
+            android:layout_toEndOf="@+id/imv_userphoto"
+            android:layout_toStartOf="@+id/userinfo_layout"
+            android:layout_marginEnd="12dp"
             >
             <TextView
-                android:textDirection="rtl"
-                android:text="@string/name"
+                android:textDirection="locale"
+                android:text="name name name name name name name name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_name"
                 android:layout_weight="1"
                 android:textSize="@dimen/big_font_size"
                 android:textStyle="italic"
-                android:gravity="right"/>
+                />
 
 
             <TextView
+                android:textDirection="locale"
                 android:text="@string/tag"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -131,7 +136,7 @@
                 android:textColor="@color/blue_list"
                 android:textSize="15dp"
                 android:textStyle="bold"
-                android:gravity="right"/>
+                />
 
         </LinearLayout>
 

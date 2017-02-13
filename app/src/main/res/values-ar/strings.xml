@@ -44,6 +44,10 @@
     <string name="title_activity_inbox">الوارد</string>
     <string name="title_activity_fav">المفضلة</string>
     <string name="empty_list">لا يوجد بيانات</string>
-
+    <string name="hosted_name"> %1$s المستضيف</string>
+    <string name="guest">%1$s ضيوف</string>
+    <string name="room">%1$s غرف</string>
+    <string name="beds">%1$s سرير</string>
+    <string name="bthroom">%1$s دورات مياه</string>
     <string name="done_succefully">تم تعديل الملف الشخصي بنجاح!</string>
 </resources>

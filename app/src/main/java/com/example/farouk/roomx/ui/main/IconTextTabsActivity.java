@@ -43,7 +43,6 @@ public class IconTextTabsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NetworkConnection.changeLang(this,"ar");
         setContentView(R.layout.activity_icon_text_tabs);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);

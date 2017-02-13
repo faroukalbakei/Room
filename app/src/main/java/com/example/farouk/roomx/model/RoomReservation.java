@@ -3,12 +3,15 @@ package com.example.farouk.roomx.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.orm.dsl.Table;
+
+@Table
 
 public class RoomReservation {
 
     @SerializedName("id")
     @Expose
-    private Integer mid;
+    private Integer rrid;
     @SerializedName("start")
     @Expose
     private String start;
@@ -28,12 +31,12 @@ public class RoomReservation {
     @Expose
     private Object updatedAt;
 
-    public Integer getMid() {
-        return mid;
+    public Integer getRrid() {
+        return rrid;
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public void setRrid(Integer rrid) {
+        this.rrid = rrid;
     }
 
     public String getStart() {
@@ -87,7 +90,7 @@ public class RoomReservation {
     @Override
     public String toString() {
         return "RoomReservation{" +
-                "mid=" + mid +
+                "rrid=" + rrid +
                 ", start='" + start + '\'' +
                 ", end='" + end + '\'' +
                 ", rooid='" + rooid + '\'' +
