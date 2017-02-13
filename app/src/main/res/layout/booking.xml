@@ -15,6 +15,7 @@
         android:layout_alignParentEnd="true">
 
             <TextView
+                android:textDirection="locale"
                 android:text="@string/Place_bookings"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -26,35 +27,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:text="@string/date"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/tv_resrv_End"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/blue_list"
-                    android:textSize="@dimen/bt_txt_size"/>
-
-                <TextView
-                    android:text="@string/End_booking"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:id="@+id/tv_resrv_EndDate"
-                    android:gravity="center"/>
-            </LinearLayout>
-            <View
-                android:id="@+id/innerLine"
-                android:layout_width="1dp"
-                android:layout_height="80dp"
-                android:background="#cfcfcf" />
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="0dp"
@@ -77,6 +49,35 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:id="@+id/tv_resrv_StartDate"
+                    android:gravity="center"/>
+            </LinearLayout>
+            <View
+                android:id="@+id/innerLine"
+                android:layout_width="1dp"
+                android:layout_height="80dp"
+                android:background="#cfcfcf" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="@string/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_End"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_list"
+                    android:textSize="@dimen/bt_txt_size"/>
+
+                <TextView
+                    android:text="@string/End_booking"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_EndDate"
                     android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
