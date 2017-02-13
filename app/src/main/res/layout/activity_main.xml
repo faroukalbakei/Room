@@ -8,18 +8,7 @@
     android:background="@drawable/login"
     android:scaleType="fitXY"
    >
-    <!--<android.support.design.widget.TextInputLayout-->
-        <!--android:id="@+id/input_layout_name"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
 
-        <!--<EditText-->
-            <!--android:id="@+id/input_name"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:singleLine="true"-->
-            <!--android:hint="@string/hint_name" />-->
-    <!--</android.support.design.widget.TextInputLayout>-->
 
     <LinearLayout
         android:gravity="center_horizontal"

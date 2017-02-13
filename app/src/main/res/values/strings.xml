@@ -36,4 +36,30 @@
     <string name="mobile_lable">Mobile</string>
     <string name="address_lable">Adress</string>
     <string name="email_lable">Email Adress</string>
+
+
+    <string name="Talk">Talk to the host</string>
+    <string name="sender">Sender Name </string>
+
+    <string name="msg"> massage body</string>
+    
+    
+    
+    <string name="owner">The owner name</string>
+    <string name="guests">Number of guests</string>
+    <string name="beds">Number of beds</string>
+    <string name="bathrooms">Number of bathrooms</string>
+    <string name="mapLocation">Location on the map</string>
+    <string name="manuallyLocation">Enter data manually based on latitude and longitude</string>
+    <string name="descriptionp">Description of property</string>
+    <string name="detailed_description">Enter the detailed description of where they would like added</string>
+    <string name="features">Property features</string>
+    <string name="TV">TV</string>
+    <string name="pool">Swimming pool</string>
+    <string name="AirـConditioner">Air Conditioner</string>
+    <string name="Internet">Internet</string>
+    <string name="kitchen">kitchen</string>
+    <string name="Images_property">Images property</string>
+    <string name="add_photos">Click here to add photos</string>
+
 </resources>

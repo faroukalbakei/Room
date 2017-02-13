@@ -1,6 +1,7 @@
 package com.example.farouk.roomx.ui.profile;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -16,8 +17,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.farouk.roomx.Behost;
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.ExtrasItem;
+import com.example.farouk.roomx.ui.main.SignUpActivity;
 import com.example.farouk.roomx.util.RecyclerTouchListener;
 import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.UserinfoLogin;
@@ -94,6 +97,9 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
 
                 } else if (position == 2) {
                     Toast.makeText(getActivity(), "Be Host", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getContext(), Behost.class);
+                    startActivity(intent);
 
                 } else if (position == 3) {
 
