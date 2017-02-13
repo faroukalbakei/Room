@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
         } else {
 
             if(NetworkConnection.isInternetAvailable()){
-                Requests requests = new Requests();
+                Requests requests = new Requests(this);
                 requests.makeLogin(this,this, email, password);
             }else
                 Toast.makeText(getApplicationContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);

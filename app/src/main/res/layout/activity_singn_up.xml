@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_singn_up"
     android:layout_width="match_parent"
+    android:layoutDirection="rtl"
     android:layout_height="match_parent"
     android:background="@drawable/login"
     tools:context="com.example.farouk.roomx.ui.main.SignUpActivity">

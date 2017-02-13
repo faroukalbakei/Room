@@ -9,14 +9,18 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
+import com.booking.rtlviewpager.RtlViewPager;
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.ui.chat.InboxFragment;
 import com.example.farouk.roomx.ui.explore.ExploreFragment;
+import com.example.farouk.roomx.ui.favourit.FavouritFragment;
 import com.example.farouk.roomx.ui.profile.AccountFragment;
 import com.example.farouk.roomx.ui.reservation.ReservationsFragment;
+import com.example.farouk.roomx.util.NetworkConnection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,22 +31,24 @@ public class IconTextTabsActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private RtlViewPager viewPager;
     private int[] tabIcons = {
-            R.drawable.ontacts,
-            R.drawable.useer
+            android.R.drawable.ic_menu_search
             ,R.drawable.like
-            ,R.drawable.happy
+            ,R.drawable.useer
+            ,android.R.drawable.sym_action_chat
+            ,R.drawable.ontacts
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NetworkConnection.changeLang(this,"ar");
         setContentView(R.layout.activity_icon_text_tabs);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (RtlViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -55,18 +61,17 @@ public class IconTextTabsActivity extends AppCompatActivity {
         tabLayout.getTabAt(1).setIcon(tabIcons[1]);
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
         tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+        tabLayout.getTabAt(4).setIcon(tabIcons[4]);
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFrag(new ExploreFragment(), getResources().getString(R.string.title_activity_explore));
+        adapter.addFrag(new FavouritFragment(), getResources().getString(R.string.title_activity_fav));
+        adapter.addFrag(new ReservationsFragment(), getResources().getString(R.string.title_activity_reserve));
+        adapter.addFrag(new InboxFragment(), getResources().getString(R.string.title_activity_inbox));
+        adapter.addFrag(new AccountFragment(), getResources().getString(R.string.title_activity_account));
 
-        adapter.addFrag(new ReservationsFragment(), "الحجوزات");
-
-        adapter.addFrag(new AccountFragment(), "حسابي");
-
-
-        adapter.addFrag(new ExploreFragment(), "إستكشف");
-        adapter.addFrag(new InboxFragment(), "الوارد");
         viewPager.setAdapter(adapter);
     }
 

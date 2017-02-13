@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.UserinfoLogin;
-import com.example.farouk.roomx.ui.chat.ChatListAdabter;
 import com.example.farouk.roomx.util.RecyclerTouchListener;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ import java.util.List;
 
 public class InboxFragment extends Fragment {
 
-    private List<UserinfoLogin> cuserList = new ArrayList<>();
+    private List<UserinfoLogin> cuserList;
     private RecyclerView recyclerView;
     private ChatListAdabter mAdapter;
 
@@ -30,9 +29,10 @@ public class InboxFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView=inflater.inflate(R.layout.activity_inbox, container, false);
+        final View rootView=inflater.inflate(R.layout.fragment_inbox, container, false);
 
-
+      //  getActivity().setTitle(getResources().getString(R.string.title_activity_inbox));
+        cuserList = new ArrayList<>();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_Inbox);
         //recyclerView.setHasFixedSize(true);
 
@@ -72,7 +72,7 @@ public class InboxFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_inbox);
+        //setContentView(R.layout.fragment_inbox);
     }
 
     private void prepareDetailData()  {

@@ -38,5 +38,11 @@
     <string name="email_lable">Email Adress</string>
     <string name="done">Done</string>
     <string name="title_activity_edit_profile">Edit profile</string>
+    <string name="title_activity_explore">Explore</string>
+    <string name="title_activity_account">Account</string>
+    <string name="title_activity_reserve">Reservation</string>
+    <string name="title_activity_inbox">Inbox</string>
+    <string name="title_activity_fav">Favorite</string>
+    <string name="empty_list">No Data!</string>
     <string name="done_succefully">Update Profile Successfully!</string>
 </resources>

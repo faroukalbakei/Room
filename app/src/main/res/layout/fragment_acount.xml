@@ -6,6 +6,7 @@
     android:id="@+id/activity_acounting"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layoutDirection="rtl"
     tools:context=".ui.profile.AccountFragment">
 
 
@@ -38,6 +39,7 @@
 
 
             <TextView
+                android:visibility="gone"
                 android:text="@string/name"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

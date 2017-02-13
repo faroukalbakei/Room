@@ -29,6 +29,7 @@ import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.User;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
+import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.io.ByteArrayOutputStream;
@@ -125,7 +126,7 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
                 loadImagefromGallery();
             }
         });
-        requests = new Requests();
+        requests = new Requests(this);
         requests.getUserProfile(this, this);
     }
     public void loadImagefromGallery() {
@@ -145,28 +146,26 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
                     && null != data) {
                 // Get the Image from data
 
-                Uri selectedImage = data.getData();
-                //getting image from gallery
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                Uri selectedImageUri = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImageUri);
 
                 //Setting image to ImageView
                 profilePicImageview.setImageBitmap(bitmap);
-               // uploadImage();
-                getFile(selectedImage);
-/*                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                Cursor cursor = getContentResolver().query(selectedImageUri, filePathColumn, null, null, null);
 
-                // Get the cursor
-                Cursor cursor = getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
-                // Move to first row
-                cursor.moveToFirst();
+                if (cursor != null) {
+                    cursor.moveToFirst();
 
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                imgDecodableString = cursor.getString(columnIndex);
-                cursor.close();
-                // Set the Image in ImageView after decoding the String
-                profilePicImageview.setImageBitmap(BitmapFactory
-                        .decodeFile(imgDecodableString));*/
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    imgDecodableString = cursor.getString(columnIndex);
+
+                    // Set the Image in ImageView after decoding the String
+//                    Picasso.with(getApplicationContext()).load(new File(imgDecodableString))
+//                            .into(profilePicImageview);
+                    requests.uploadImage(this,this,imgDecodableString);
+                }
+
 
             } else {
                 Toast.makeText(this, "You haven't picked Image",
@@ -179,39 +178,7 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
 
     }
 
-    public void uploadImage(){
-        //converting image to base64 string
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] imageBytes = baos.toByteArray();
-        final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-        requests.editProfilePic(this,this,imageString);
 
-    }
-
-    public void getFile(Uri selectedImage){
-        File pic_file=null;
-        if(selectedImage!=null) {
-            pic_file= new File(getRealPath(selectedImage));
-        }
-
-        requests.uploadImage(this,this,pic_file);
-
-    }
-
-    String getRealPath(Uri uri){
-        if (uri==null)
-            return null;
-        String[] co={MediaStore.Images.Media.DATA};
-        Cursor cursor=getApplicationContext().getContentResolver().query(uri,co,null,null,null);
-        cursor.moveToFirst();
-        int ci=cursor.getColumnIndex(co[0]);
-        String filep=cursor.getString(ci);
-        cursor.close();
-        Log.d("real_path", filep);
-        return filep;
-
-    }
     @Override
     public void onSuccess(Response response) {
         userResponse = (User) response.getObject();
@@ -223,10 +190,18 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
             cityEdittext.setText(userResponse.getCity());
             countryEdittext.setText(userResponse.getCountry());
             dobEdittext.setText(userResponse.getDob());
+            if(userResponse.getPhotolink()!=null){
+                Picasso.with(this).load(userResponse.getPhotolink())
+                        .into(profilePicImageview);
+            }
         }
         if(response.getResult()==1){
             Log.d("getResult", "1");
-            Toast.makeText(getApplicationContext(),getResources().getString(R.string.done_succefully),Toast.LENGTH_LONG);
+            Toast.makeText(this,getResources().getString(R.string.done_succefully),Toast.LENGTH_LONG);
+        }
+        if(response.isValid()){
+            Log.d("isValid", String.valueOf(response.isValid()));
+            Toast.makeText(this,getResources().getString(R.string.done_succefully),Toast.LENGTH_LONG);
         }
 
     }
