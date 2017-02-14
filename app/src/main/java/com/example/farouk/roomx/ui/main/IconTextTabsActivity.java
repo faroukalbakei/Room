@@ -37,7 +37,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
             ,R.drawable.like
             ,R.drawable.useer
             ,android.R.drawable.sym_action_chat
-            ,R.drawable.ontacts
+            ,R.drawable.ic_profile
     };
 
     @Override
