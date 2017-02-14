@@ -18,6 +18,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -43,5 +44,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.booking:rtlviewpager:1.0.1'
-
+    compile 'com.github.polok:clicknumberpicker:0.1.2'
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
 }

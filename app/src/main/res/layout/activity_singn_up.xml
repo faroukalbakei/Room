@@ -6,17 +6,8 @@
     android:layout_width="match_parent"
     android:layoutDirection="locale"
     android:layout_height="match_parent"
-    android:background="@drawable/login"
     tools:context="com.example.farouk.roomx.ui.main.SignUpActivity">
 
-
-    <ImageView
-        android:id="@+id/iv_Singnup_logo"
-        android:layout_marginTop="20dp"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/building"
-        android:layout_gravity="center_horizontal|top" />
 
     <LinearLayout
         android:gravity="center_horizontal"
@@ -29,34 +20,22 @@
         android:layout_height="wrap_content"
         android:id="@+id/root">
 
-        <TextView
-            android:id="@+id/tv_Singnup_hello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/SignUp"
-            android:textColor="@color/Navy"
-            android:textSize="@dimen/big_font_size"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            />
+
 
         <EditText
-            android:background="@drawable/editbox_background"
             android:id="@+id/et_Singnup_Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:inputType="textEmailAddress"
-            android:drawablePadding="5dip"
             android:ems="10"
             android:hint="@string/name"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
-            android:drawableLeft="@drawable/man"
-            android:drawableStart="@drawable/man"/>
+            android:gravity="right"
+
+            />
 
         <EditText
-            android:background="@drawable/editbox_background"
+
             android:id="@+id/et_Singnup_Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,66 +43,93 @@
             android:drawablePadding="5dip"
             android:ems="10"
             android:hint="@string/Email"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
-            android:drawableLeft="@drawable/email"
-            android:drawableStart="@drawable/email"/>
+            android:gravity="right"
+            />
         <EditText
-            android:background="@drawable/editbox_background"
+
             android:id="@+id/et_Singnup_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:layout_marginTop="2dp"
-
+            android:gravity="right"
             android:drawablePadding="5dp"
             android:ems="10"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
             android:hint="@string/password"
-            android:drawableLeft="@drawable/password"
-            android:drawableStart="@drawable/password"/>
+            />
 
         <EditText
-            android:background="@drawable/editbox_background"
+
             android:id="@+id/et_Singnup_ConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:layout_marginTop="2dp"
             android:drawablePadding="5dip"
+            android:gravity="right"
             android:ems="10"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
             android:hint="@string/Confirm"
-            android:drawableLeft="@drawable/password"
-            android:drawableStart="@drawable/password"/>
+            />
 
         <EditText
-            android:background="@drawable/editbox_background"
+
             android:id="@+id/et_Singnup_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
             android:layout_marginTop="2dp"
-            android:drawablePadding="5dip"
             android:ems="10"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
             android:hint="@string/mobile"
-            android:drawableLeft="@drawable/mobile"
-            android:drawableStart="@drawable/mobile"/>
+            android:gravity="right"
+            />
 
         <Button
             android:id="@+id/bt_Singnup_login"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
-            android:background="@color/Navy"
+            android:background="@color/colorPrimary"
             android:text="@string/SignUp"
             android:textSize="@dimen/bt_txt_size"
             android:textColor="@color/white"
             android:onClick="Singe"/>
 
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_Singnup_logo"
+        android:layout_marginTop="70dp"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:background="@drawable/roomx"
+        android:layout_gravity="center_horizontal|top" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="25dp"
+        android:gravity="bottom">
+
+        <Button
+            android:text="@string/login"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:id="@+id/bt_sing_login"
+            android:background="@null"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp"
+            android:onClick="loginback"
+            />
+        <TextView
+            android:text="@string/question"
+            android:gravity="left"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:id="@+id/textView2"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1" />
     </LinearLayout>
 </FrameLayout>

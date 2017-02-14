@@ -10,4 +10,5 @@
     <dimen name="cost_list">25sp</dimen>
     <dimen name="margin_login">20dp</dimen>
 
+
 </resources>

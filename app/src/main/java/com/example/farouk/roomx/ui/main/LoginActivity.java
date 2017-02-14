@@ -5,13 +5,18 @@ package com.example.farouk.roomx.ui.main;
 import android.content.Intent;
 
 
-
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.farouk.roomx.BeHostt;
 
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.Response;
@@ -28,10 +33,23 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
     EditText Password;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Window window = this.getWindow();
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+// finally change the color
+        window.setStatusBarColor(this.getResources().getColor(R.color.grey_300));
+
         Email = (EditText) findViewById(R.id.et_login_email);
         Password = (EditText) findViewById(R.id.et_login_password);
         Email.setText("farouk.h@hotmail.com");
@@ -61,10 +79,10 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
 
 
     public void login(View view) {
-
-       // Intent intent = new Intent(this, IconTextTabsActivity.class);
-      //  startActivity(intent);
-        sendData();
+//Toast.makeText(this,"login",Toast.LENGTH_LONG).show();
+       // Intent intent = new Intent(this, BeHostt.class);
+      // startActivity(intent);
+       sendData();
 
     }
 
