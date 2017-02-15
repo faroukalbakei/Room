@@ -1,14 +1,19 @@
 package com.example.farouk.roomx.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.orm.SugarRecord;
+
 /**
  * Created by Dev Abir on 2/12/2017.
  */
 
-public class Result  {
-
+public class UserResult extends SugarRecord {
+    @SerializedName("user")
+    @Expose
     public User user;
 
-    public Result() {
+    public UserResult() {
     }
 
     public User getUser() {
@@ -21,7 +26,7 @@ public class Result  {
 
     @Override
     public String toString() {
-        return "Result{" +
+        return "UserResult{" +
                 "user=" + user +
                 '}';
     }

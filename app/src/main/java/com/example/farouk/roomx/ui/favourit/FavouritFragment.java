@@ -1,12 +1,14 @@
 package com.example.farouk.roomx.ui.favourit;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,10 @@ import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.ui.explore.ExploreAdapter;
+import com.example.farouk.roomx.ui.explore.PlaceDetailsActivity;
+import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.util.NetworkConnection;
+import com.example.farouk.roomx.util.RecyclerItemClickListener;
 
 import java.util.List;
 
@@ -33,6 +38,8 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
     public ImageButton btlike;
     private static final String TAG = FavouritFragment.class.getSimpleName();
     TextView emptyView;
+    Long placeId;
+    private List<PlaceObject> placeObjects;
 
     @Nullable
     @Override
@@ -47,10 +54,25 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        // do whatever
+                        placeId =placeObjects.get(position).getId();
+                        Log.d("placeId", String.valueOf(placeId));
+                        Intent intent= new Intent(getActivity(),PlaceDetailsActivity.class);
+                        intent.putExtra(Const.PLACE_ID,placeId);
+                        startActivity(intent);
+                    }
 
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
         if(NetworkConnection.isInternetAvailable()){
             Requests requests = new Requests(getContext());
-            requests.getWishlistList(this, getContext());
+            requests.getPlacesList(this, getContext(), Const.getFavList_URL);
         }else
             Toast.makeText(getContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
 
@@ -68,7 +90,9 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
 
     @Override
     public void onSuccess(Response response) {
-        List<PlaceObject> placeObjects = (List<PlaceObject>) response.getObject();
+        placeObjects = (List<PlaceObject>) response.getObject();
+        Log.d("Favourit placeObject", placeObjects.toString());
+
         if(placeObjects.size()<1){
             emptyView.setVisibility(View.VISIBLE);
         }else emptyView.setVisibility(View.GONE);

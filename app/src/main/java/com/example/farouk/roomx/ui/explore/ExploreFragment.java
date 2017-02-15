@@ -36,7 +36,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     private static final String TAG = ExploreFragment.class.getSimpleName();
     TextView emptyView;
     private List<PlaceObject> placeObjects;
-    int placeId;
+    Long placeId;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                 new RecyclerItemClickListener(getContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         // do whatever
-                        placeId =placeObjects.get(position).getPid();
+                        placeId =placeObjects.get(position).getId();
                         Log.d("placeId", String.valueOf(placeId));
                         Intent intent= new Intent(getActivity(),PlaceDetailsActivity.class);
                         intent.putExtra(Const.PLACE_ID,placeId);
@@ -68,7 +68,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
         );
         if(NetworkConnection.isInternetAvailable()){
             Requests requests = new Requests(getContext());
-            requests.getExploreList(this, getContext());
+            requests.getPlacesList(this, getContext(),Const.getExplore_URL);
         }else
             Toast.makeText(getContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
 

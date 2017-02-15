@@ -31,8 +31,17 @@ public class RoomReservation  extends SugarRecord {
     @SerializedName("updated_at")
     @Expose
     private Object updatedAt;
+    private Long placeId;
 
     public RoomReservation() {
+    }
+
+    public Long getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(Long placeId) {
+        this.placeId = placeId;
     }
 
     public Integer getRrid() {
@@ -101,6 +110,7 @@ public class RoomReservation  extends SugarRecord {
                 ", userId='" + userId + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", placeId=" + placeId +
                 '}';
     }
 }

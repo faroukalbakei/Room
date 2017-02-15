@@ -3,16 +3,19 @@ package com.example.farouk.roomx.service;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
-import com.example.farouk.roomx.model.Result;
+import com.example.farouk.roomx.model.LoginResponse;
+import com.example.farouk.roomx.model.Reservation;
+import com.example.farouk.roomx.model.ReservationResult;
+import com.example.farouk.roomx.model.UserResult;
+import com.example.farouk.roomx.model.RoomPhoto;
+import com.example.farouk.roomx.model.RoomReservation;
 import com.example.farouk.roomx.model.User;
-import com.example.farouk.roomx.ui.favourit.FavouritFragment;
 import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.app.Prefs;
 import com.example.farouk.roomx.app.VolleySingleton;
@@ -26,34 +29,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import android.Manifest;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.orm.SugarRecord;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -70,17 +50,16 @@ import static android.content.ContentValues.TAG;
 public class Requests {
     private final Gson gson;
     ProgressDialog pDialog;
-    UserinfoLogin userinfoLoginObject;
+    LoginResponse loginResponse;
     com.example.farouk.roomx.model.Response responseObject;
-    private String jsonResponse;
     private String token;
     Context mContext;
 
     public Requests(Context context) {
         mContext=context;
-        userinfoLoginObject = Prefs.with(context).getUser();
-        if(userinfoLoginObject!=null){
-            token = userinfoLoginObject.getToken();
+        loginResponse = Prefs.with(context).getUser();
+        if(loginResponse!=null){
+            token = loginResponse.getToken();
         }
 
         responseObject = new com.example.farouk.roomx.model.Response();
@@ -110,18 +89,18 @@ public class Requests {
 
                         try {
                             JSONObject callNode = new JSONObject(responsee.toString());
-                            userinfoLoginObject = new UserinfoLogin();
-                            userinfoLoginObject.setToken(callNode.optString("token"));
+                            loginResponse = new LoginResponse();
+                            loginResponse.setToken(callNode.optString("token"));
                             responseObject.setResult(callNode.optInt("result"));
                             responseObject.setOnError(callNode.optString("error"));
-                            responseObject.setObject(userinfoLoginObject);
+                            responseObject.setObject(loginResponse);
                             Log.d("getResult1", String.valueOf(responseObject.getResult()));
                             if (responseObject != null)
                                 callback.onSuccess(responseObject);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Prefs.with(context).setUser(userinfoLoginObject);
+                        Prefs.with(context).setUser(loginResponse);
                     }
                 }, new com.android.volley.Response.ErrorListener() {
 
@@ -175,8 +154,8 @@ public class Requests {
 
                         try {
                             JSONObject callNode = new JSONObject(responsee.toString());
-                            userinfoLoginObject = new UserinfoLogin();
-                            userinfoLoginObject.setToken(callNode.optString("token"));
+                            loginResponse = new LoginResponse();
+                            loginResponse.setToken(callNode.optString("token"));
                             responseObject.setResult(callNode.optInt("result"));
                             responseObject.setMessage(callNode.optString("msg"));
                             if (responseObject != null)
@@ -226,9 +205,6 @@ public class Requests {
     }
 
     public void getUserProfile(final VolleyCallback callback, final Context context) {
-
-        UserinfoLogin userinfoLogin = Prefs.with(context).getUser();
-        final String token = userinfoLogin.getToken();
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -243,11 +219,11 @@ public class Requests {
                         //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                         responseObject = new Response();
 //                        List<User> user = Arrays.asList(gson.fromJson(response, User[].class));
-                        Result result = (gson.fromJson(response, Result.class));
+                        UserResult userResult = (gson.fromJson(response, UserResult.class));
                         responseObject = new Response();
-                        if (result != null) {
-                            //Log.d("user", result.getUser().toString());
-                            responseObject.setObject(result.getUser());
+                        if (userResult != null) {
+                            Log.d("user", userResult.getUser().toString());
+                            responseObject.setObject(userResult.getUser());
                             callback.onSuccess(responseObject);
                         } else
                             Log.d("null ", "user");
@@ -287,15 +263,13 @@ public class Requests {
 
     }
 
-    public void getExploreList(final VolleyCallback callback, final Context context) {
+    public void getPlacesList(final VolleyCallback callback, final Context context,String apiMethod) {
 
-        UserinfoLogin userinfoLogin = Prefs.with(context).getUser();
-        final String token = userinfoLogin.getToken();
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
-        StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + "shownewestrooms",
+        StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + apiMethod,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -304,7 +278,20 @@ public class Requests {
                         List<PlaceObject> posts = Arrays.asList(gson.fromJson(response, PlaceObject[].class));
                         responseObject = new Response();
                         for (int i = 0; i <posts.size() ; i++) {
-                            PlaceObject.save(posts.get(i)); // if using the @Table annotation
+                            PlaceObject.save(posts.get(i));
+                            User user =posts.get(i).getUser();
+                            user.setId(posts.get(i).getId());
+                            User.save(user);
+                            for (int rp = 0; rp < posts.get(i).getRoomPhoto().size(); rp++) {
+                                RoomPhoto roomPhoto =posts.get(i).getRoomPhoto().get(rp);
+                                roomPhoto.setPlaceId(posts.get(i).getId());
+                                RoomPhoto.save(roomPhoto);
+                            }
+                            for (int rr = 0; rr < posts.get(i).getRoomReservation().size(); rr++) {
+                                RoomReservation roomReservation =posts.get(i).getRoomReservation().get(rr);
+                                roomReservation.setPlaceId(posts.get(i).getId());
+                                RoomReservation.save(roomReservation);
+                            }
                         }
 
                         Log.i("PostActivity", posts.size() + " posts loaded.");
@@ -444,11 +431,11 @@ public class Requests {
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("photolink", file.getName(), requestFile);
 
-        Call<Result> resultCall = service.uploadImage(tokenBody, body);
+        Call<UserResult> resultCall = service.uploadImage(tokenBody, body);
 
-        resultCall.enqueue(new Callback<Result>() {
+        resultCall.enqueue(new Callback<UserResult>() {
             @Override
-            public void onResponse(Call<Result> call, retrofit2.Response<Result> response) {
+            public void onResponse(Call<UserResult> call, retrofit2.Response<UserResult> response) {
 
                 pDialog.hide();
 
@@ -466,33 +453,37 @@ public class Requests {
             }
 
             @Override
-            public void onFailure(Call<Result> call, Throwable t) {
+            public void onFailure(Call<UserResult> call, Throwable t) {
                 Log.d("onFailure", t.getMessage().toString());
                 pDialog.hide();
             }
         });
     }
 
-    public void getWishlistList(final VolleyCallback callback, final Context context) {
+    public void getUserReservations(final VolleyCallback callback, final Context context) {
 
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
 
-        StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + "showwishlist",
+        StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + "getuserreservations",
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(TAG, response.toString());
+                        Log.d("getuserreservations", response.toString());
 
-                        List<PlaceObject> posts = Arrays.asList(gson.fromJson(response, PlaceObject[].class));
+                        List<ReservationResult> posts = Arrays.asList(gson.fromJson(response, ReservationResult.class));
                         responseObject = new Response();
 
-                        Log.i("getWishlistList", posts.size() + " posts loaded.");
-                        for (PlaceObject post : posts) {
-                            Log.i("getWishlistList", post.toString());
+                        Log.i("getuserreservations", posts.size() + " posts loaded.");
+                        List<Reservation> reservationList = new ArrayList<>();
+                        for (Reservation reservation : posts.get(0).getReservation()) {
+                            reservationList.add(reservation);
+                            Log.i("reservation", reservation.toString());
                         }
-                        responseObject.setObject(posts);
+                        Log.i("reservationList", reservationList.toString());
+
+                        responseObject.setObject(reservationList);
                         callback.onSuccess(responseObject);
                         pDialog.hide();
                     }

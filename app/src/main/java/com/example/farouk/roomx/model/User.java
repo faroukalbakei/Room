@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 public class User  extends SugarRecord {
 //    extends SugarRecord
-@Table
     @SerializedName("id")
     @Expose
     private Integer uid;

@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.PlaceObject;
+import com.example.farouk.roomx.model.RoomPhoto;
+import com.example.farouk.roomx.model.RoomReservation;
+import com.example.farouk.roomx.model.User;
 import com.example.farouk.roomx.util.Const;
 import com.squareup.picasso.Picasso;
 
@@ -49,32 +52,45 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     @Bind(R.id.button_reserve)
     Button buttonReserve;
 
-    int placeId;
-    private PlaceObject placeObject1 = null;
-
+    long placeId;
+    private PlaceObject placeObject;
+    List<RoomPhoto> roomPhotoList;
+    List<RoomReservation> roomReservations;
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_details);
         ButterKnife.bind(this);
-        placeId = getIntent().getExtras().getInt(Const.PLACE_ID);
+        placeId = getIntent().getExtras().getLong(Const.PLACE_ID);
         if(placeId!=0){
-//            placeObject = PlaceObject.find(PlaceObject.class,"pid =?", String.valueOf(placeId));
-            placeObject1 = PlaceObject.findById(PlaceObject.class,9);
+            placeObject = PlaceObject.findById(PlaceObject.class,placeId);
+            Log.d("placeObject", placeObject.toString());
+            user =User.findById(User.class, Long.valueOf(placeObject.getUserId()));
+            roomPhotoList=RoomPhoto.find(RoomPhoto.class,"place_Id=?", String.valueOf(placeId));
+            roomReservations=RoomReservation.find(RoomReservation.class,"place_Id=?", String.valueOf(placeId));
+            Log.d("getUser", user.toString());
+            Log.d("roomPhotoList", roomPhotoList.toString());
+            Log.d("roomReservations", roomReservations.toString());
+            placeObject.setUser(user);
+            placeObject.setRoomPhoto(roomPhotoList);
+            placeObject.setRoomReservation(roomReservations);
+
+            //placeObject1 = PlaceObject.findById(PlaceObject.class,9);
         }
-       // for(PlaceObject placeObject1 : placeObject) {
-            Log.d("placeObject", placeObject1.toString());
-            Picasso.with(this).load(placeObject1.getUser().getPhotolink()).into(hostedImage);
-            Picasso.with(this).load(placeObject1.getRoomPhoto().get(0).getPhotolink()).into(imageViewPlace);
-            String hostedName = String.format(getResources().getString(R.string.hosted_name), placeObject1.getUser().getName());
-            titleTextView.setText(placeObject1.getName());
+        //for(PlaceObject placeObject1 : placeObject) {
+            Log.d("placeObject", placeObject.toString());
+            Picasso.with(this).load(placeObject.getUser().getPhotolink()).into(hostedImage);
+            Picasso.with(this).load(placeObject.getRoomPhoto().get(0).getPhotolink()).into(imageViewPlace);
+            String hostedName = String.format(getResources().getString(R.string.hosted_name), placeObject.getUser().getName());
+            titleTextView.setText(placeObject.getName());
             textViewHostedName.setText(hostedName);
-            textViewGuest.setText(String.format(getResources().getString(R.string.guest), placeObject1.getNumberOfGuests()));
-            textViewRoom.setText(String.format(getResources().getString(R.string.room), placeObject1.getNumberOfRooms()));
-            textViewBed.setText(String.format(getResources().getString(R.string.beds), placeObject1.getNumberOfBeds()));
-            textViewBathroom.setText(String.format(getResources().getString(R.string.bthroom), placeObject1.getNumberOfBaths()));
-            textViewRoomPrice.setText(placeObject1.getPrice());
-      //  }
+            textViewGuest.setText(String.format(getResources().getString(R.string.guest), placeObject.getNumberOfGuests()));
+            textViewRoom.setText(String.format(getResources().getString(R.string.room), placeObject.getNumberOfRooms()));
+            textViewBed.setText(String.format(getResources().getString(R.string.beds), placeObject.getNumberOfBeds()));
+            textViewBathroom.setText(String.format(getResources().getString(R.string.bthroom), placeObject.getNumberOfBaths()));
+            textViewRoomPrice.setText(placeObject.getPrice());
+       // }
 
     }
 }

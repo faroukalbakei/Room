@@ -1,6 +1,8 @@
 
 package com.example.farouk.roomx.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
@@ -22,8 +24,17 @@ public class RoomPhoto  extends SugarRecord {
     @SerializedName("updated_at")
     @Expose
     private Object updatedAt;
+    private Long placeId;
 
     public RoomPhoto() {
+    }
+
+    public Long getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(Long placeId) {
+        this.placeId = placeId;
     }
 
     public Integer getRpid() {
@@ -74,6 +85,7 @@ public class RoomPhoto  extends SugarRecord {
                 ", rooid='" + rooid + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", placeId=" + placeId +
                 '}';
     }
 }
