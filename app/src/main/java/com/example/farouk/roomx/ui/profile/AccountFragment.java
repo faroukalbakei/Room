@@ -159,7 +159,7 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
 
     private void prepareDetailData() {
         ExtrasItem detailing;
-        detailing = new ExtrasItem(R.drawable.ontacts, username);
+        detailing = new ExtrasItem(R.drawable.ic_profile, username);
         extrasItem.add(detailing);
 
         detailing = new ExtrasItem(R.drawable.frin, getString(R.string.Invite));

@@ -3,11 +3,10 @@ package com.example.farouk.roomx.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.orm.SugarRecord;
 import com.orm.dsl.Table;
 
-@Table
-
-public class RoomReservation {
+public class RoomReservation extends SugarRecord {
 
     @SerializedName("id")
     @Expose

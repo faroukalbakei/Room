@@ -246,7 +246,7 @@ public class Requests {
                         Result result = (gson.fromJson(response, Result.class));
                         responseObject = new Response();
                         if (result != null) {
-                            Log.d("user", result.getUser().toString());
+                            //Log.d("user", result.getUser().toString());
                             responseObject.setObject(result.getUser());
                             callback.onSuccess(responseObject);
                         } else

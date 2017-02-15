@@ -8,9 +8,8 @@ import com.orm.dsl.Table;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
-//    extends SugarRecord
-@Table
+public class User extends SugarRecord {
+//
     @SerializedName("id")
     @Expose
     private Integer uid;

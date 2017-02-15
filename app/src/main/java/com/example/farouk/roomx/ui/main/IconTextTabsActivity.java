@@ -20,7 +20,6 @@ import com.example.farouk.roomx.util.NetworkConnection;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,11 +32,11 @@ public class IconTextTabsActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private RtlViewPager viewPager;
     private int[] tabIcons = {
-            android.R.drawable.ic_menu_search
-            ,R.drawable.like
-            ,R.drawable.useer
-            ,android.R.drawable.sym_action_chat
-            ,R.drawable.ic_profile
+            R.drawable.ic_search
+            ,R.drawable.ic_fav
+            ,R.drawable.ic_reserv
+            ,R.drawable.ic_chat
+            ,R.drawable.ic_account
     };
 
     @Override
