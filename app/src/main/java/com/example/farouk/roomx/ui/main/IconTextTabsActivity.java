@@ -37,12 +37,13 @@ public class IconTextTabsActivity extends AppCompatActivity {
             ,R.drawable.like
             ,R.drawable.useer
             ,android.R.drawable.sym_action_chat
-            ,R.drawable.ontacts
+            ,R.drawable.ic_profile
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NetworkConnection.changeLang(this,"ar");
         setContentView(R.layout.activity_icon_text_tabs);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
