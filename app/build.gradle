@@ -46,4 +46,5 @@ dependencies {
     compile 'com.booking:rtlviewpager:1.0.1'
     compile 'com.github.polok:clicknumberpicker:0.1.2'
     compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile 'com.library.tangxiaolv:telegramgallery:1.0.3'
 }

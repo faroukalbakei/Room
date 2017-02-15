@@ -68,4 +68,5 @@
     <string name="iproperty">Images property</string>
 
     <string name="apictures">Click here to attach pictures</string>
+    <string name="NImages">Number of the Images you have chosen</string>
 </resources>

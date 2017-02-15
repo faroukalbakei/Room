@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-feature android:name="android.hardware.location.gps" />
+
 
     <application
         android:name=".app.VolleySingleton"
@@ -41,6 +45,10 @@
 
         <activity android:name=".ui.profile.ShowProfileActivity" />
         <activity android:name=".BeHostt"></activity>
+        <activity android:name="com.tangxiaolv.telegramgallery.GalleryActivity" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAZCOnuaNiTobD1sk-S5ZmLBNGDQBVw7ZE"/>
     </application>
 
 </manifest>

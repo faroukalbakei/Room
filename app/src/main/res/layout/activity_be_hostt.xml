@@ -6,9 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.farouk.roomx.BeHostt">
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
 
 
@@ -119,6 +122,11 @@
                 android:layout_margin="8dp"/>
         </LinearLayout>
 
+        <com.google.android.gms.maps.MapView
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:id="@+id/mapView" />
+
         <TextView
             android:text="@string/lmap"
             android:layout_width="match_parent"
@@ -126,11 +134,6 @@
             android:id="@+id/textView8"
             android:gravity="right"
             android:textSize="20sp"/>
-
-        <com.google.android.gms.maps.MapView
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:id="@+id/mapView" />
 
         <TextView
             android:text="@string/lmanually"
@@ -181,13 +184,15 @@
             android:textSize="20sp"/>
 
         <EditText
+            android:background="@drawable/edittext_background_foucused"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:inputType="textMultiLine"
             android:ems="10"
-            android:id="@+id/editText5"
+            android:id="@+id/ed_BeHost_deproperty"
             android:hint="@string/deproperty"
-            android:gravity="right"/>
+            android:gravity="right"
+            android:layout_margin="12dp"/>
 
         <TextView
             android:text="@string/fproperty"
@@ -207,21 +212,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cb_behost_air"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"/>
 
             <CheckBox
                 android:text="@string/pool"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cb_behost_pool"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"
+                />
 
             <CheckBox
                 android:text="@string/tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cb_behost_tv"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"/>
         </LinearLayout>
 
         <LinearLayout
@@ -235,14 +247,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cb_behost_kitchen"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"/>
 
             <CheckBox
                 android:text="@string/net"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/cb_behost_net"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableRight="?android:attr/listChoiceIndicatorMultiple"/>
         </LinearLayout>
 
         <TextView
@@ -254,18 +270,18 @@
             android:gravity="right"
             android:layout_weight="1" />
 
-        <EditText
+        <Button
 
             android:background="@drawable/edittext_background_foucused"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:gravity="center"
-            android:inputType="textPersonName"
             android:text="@string/apictures"
-            android:ems="10"
-            android:id="@+id/editText6"
+            android:id="@+id/bt_behost_add"
             android:drawableRight="@drawable/picture"
+            android:gravity="right|center_vertical"
+            android:drawablePadding="12dp"
+
             />
 
         <Button
@@ -274,8 +290,9 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:textColor="@color/white"
-            android:id="@+id/button2"
-            android:layout_margin="8dp"/>
+            android:id="@+id/bt_behost_save"
+            android:layout_margin="8dp"
+            />
 
 
     </LinearLayout>
