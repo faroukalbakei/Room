@@ -6,7 +6,9 @@ import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 import com.orm.dsl.Table;
 
-public class RoomReservation extends SugarRecord {
+@Table
+
+public class RoomReservation  extends SugarRecord {
 
     @SerializedName("id")
     @Expose
@@ -29,6 +31,9 @@ public class RoomReservation extends SugarRecord {
     @SerializedName("updated_at")
     @Expose
     private Object updatedAt;
+
+    public RoomReservation() {
+    }
 
     public Integer getRrid() {
         return rrid;

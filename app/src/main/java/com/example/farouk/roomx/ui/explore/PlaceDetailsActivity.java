@@ -50,7 +50,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
     Button buttonReserve;
 
     int placeId;
-    private List<PlaceObject> placeObject = null;
+    private PlaceObject placeObject1 = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +59,12 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         placeId = getIntent().getExtras().getInt(Const.PLACE_ID);
         if(placeId!=0){
-            placeObject = PlaceObject.find(PlaceObject.class,"id =?", String.valueOf(placeId));
+//            placeObject = PlaceObject.find(PlaceObject.class,"pid =?", String.valueOf(placeId));
+            placeObject1 = PlaceObject.findById(PlaceObject.class,9);
         }
-        for(PlaceObject placeObject1 : placeObject) {
+       // for(PlaceObject placeObject1 : placeObject) {
             Log.d("placeObject", placeObject1.toString());
-            //Picasso.with(this).load(placeObject1.getUser().getPhotolink()).into(hostedImage);
+            Picasso.with(this).load(placeObject1.getUser().getPhotolink()).into(hostedImage);
             Picasso.with(this).load(placeObject1.getRoomPhoto().get(0).getPhotolink()).into(imageViewPlace);
             String hostedName = String.format(getResources().getString(R.string.hosted_name), placeObject1.getUser().getName());
             titleTextView.setText(placeObject1.getName());
@@ -73,7 +74,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             textViewBed.setText(String.format(getResources().getString(R.string.beds), placeObject1.getNumberOfBeds()));
             textViewBathroom.setText(String.format(getResources().getString(R.string.bthroom), placeObject1.getNumberOfBaths()));
             textViewRoomPrice.setText(placeObject1.getPrice());
-        }
+      //  }
 
     }
 }

@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
 
-public class RoomPhoto extends SugarRecord {
+public class RoomPhoto  extends SugarRecord {
 
     @SerializedName("id")
     @Expose
@@ -22,6 +22,9 @@ public class RoomPhoto extends SugarRecord {
     @SerializedName("updated_at")
     @Expose
     private Object updatedAt;
+
+    public RoomPhoto() {
+    }
 
     public Integer getRpid() {
         return rpid;
