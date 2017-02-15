@@ -11,7 +11,7 @@ import java.util.Locale;
 /**
  * Created by Dev Abir on 2/6/2017.
  */
-public class NetworkConnection {
+public class Utils {
 
     public static boolean isInternetAvailable() {
 /*        try {
@@ -35,6 +35,7 @@ public class NetworkConnection {
         Resources res2 = context.getResources();
         DisplayMetrics dm2 = res2.getDisplayMetrics();
         android.content.res.Configuration conf2 = res2.getConfiguration();
+        conf2.setLayoutDirection(new Locale(language_code));
         conf2.locale = new Locale(language_code);
         res2.updateConfiguration(conf2, dm2);
     }

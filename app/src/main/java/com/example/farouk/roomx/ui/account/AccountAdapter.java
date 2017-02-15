@@ -1,4 +1,4 @@
-package com.example.farouk.roomx.ui.profile;
+package com.example.farouk.roomx.ui.account;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

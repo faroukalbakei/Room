@@ -1,17 +1,14 @@
-package com.example.farouk.roomx.ui.profile;
+package com.example.farouk.roomx.ui.account;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,16 +29,11 @@ import com.example.farouk.roomx.service.VolleyCallback;
 import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.util.Calendar;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
-import timber.log.Timber;
-
-import static android.R.attr.bitmap;
 
 /**
  * Created by AbAbdullah on 12/02/2017.

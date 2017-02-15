@@ -40,6 +40,35 @@
     <string name="title_activity_fav">Favorite</string>
     <string name="empty_list">No Data!</string>
     <string name="done_succefully">Update Profile Successfully!</string>
+
+
+    <string name="question">you have an account ?</string>
+
+    <string name="noquestion">you do not have an account?</string>
+
+
+    <string name="Nowner"> owner Name </string>
+
+
+    <string name="guests">number of guests</string>
+    <string name="beds">Number of beds</string>
+    <string name="bathrooms">Number of bathroom</string>
+    <string name="lmap">Location on the map</string>
+    <string name="lmanually">Enter the location manually based on latitude and longitude</string>
+    <string name="dproperty">Description of property</string>
+    <string name="deproperty">Enter the detailed descriptive of where they would like added</string>
+    <string name="fproperty">Property features</string>
+
+
+    <string name="tv">TV</string>
+    <string name="air">Air Conditioner</string>
+    <string name="kitchen">kitchen</string>
+    <string name="pool">Swimming pool</string>
+    <string name="net">Internet</string>
+    <string name="iproperty">Images property</string>
+
+    <string name="apictures">Click here to attach pictures</string>
+    <string name="NImages">Number of the Images you have chosen</string>
     <string name="hosted_name"> %1$s المستضيف</string>
     <string name="guest">%1$s ضيوف</string>
     <string name="room">%1$s غرف</string>
