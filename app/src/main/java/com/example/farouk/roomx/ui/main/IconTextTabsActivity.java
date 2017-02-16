@@ -14,9 +14,9 @@ import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.ui.chat.InboxFragment;
 import com.example.farouk.roomx.ui.explore.ExploreFragment;
 import com.example.farouk.roomx.ui.favourit.FavouritFragment;
-import com.example.farouk.roomx.ui.profile.AccountFragment;
+import com.example.farouk.roomx.ui.account.AccountFragment;
 import com.example.farouk.roomx.ui.reservation.ReservationsFragment;
-import com.example.farouk.roomx.util.NetworkConnection;
+import com.example.farouk.roomx.util.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NetworkConnection.changeLang(this,"ar");
+        Utils.changeLang(getBaseContext(),"ar");
         setContentView(R.layout.activity_icon_text_tabs);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);

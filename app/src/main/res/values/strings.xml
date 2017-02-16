@@ -42,9 +42,9 @@
     <string name="done_succefully">Update Profile Successfully!</string>
 
 
-    <string name="question">you have an account ?</string>
+    <string name="question">you have an account?Login</string>
 
-    <string name="noquestion">you do not have an account?</string>
+    <string name="noquestion">you do not have an account?Sign Up</string>
 
 
     <string name="Nowner"> owner Name </string>
@@ -72,6 +72,8 @@
     <string name="hosted_name"> %1$s المستضيف</string>
     <string name="guest">%1$s ضيوف</string>
     <string name="room">%1$s غرف</string>
-    <string name="beds">%1$s سرير</string>
+    <string name="beds_parms">%1$s سرير</string>
     <string name="bthroom">%1$s دورات مياه</string>
+    <string name="reserve_bt_text">Reserve</string>
+    <string name="reserve_diaoge_title">Choose Date</string>
 </resources>

@@ -520,5 +520,132 @@ public class Requests {
         VolleySingleton.getInstance().addToRequestQueue(req);
     }
 
+    public void reserveRoom(final VolleyCallback callback, final Context context,final String roomId, final String startDate, final String endDate) {
+        responseObject = new Response();
+/*        pDialog = new ProgressDialog(context);
+        pDialog.setMessage("Loading...");
+        pDialog.show();*/
+        StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
+                Const.BASE_URL + "reservearoom",
+                new com.android.volley.Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String responsee) {
+
+                        Log.d("response", responsee.toString());
+                      //  pDialog.hide();
+                        //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+
+                        try {
+                            JSONObject callNode = new JSONObject(responsee.toString());
+                            responseObject.setResult(callNode.optInt("result"));
+                            responseObject.setOnError(callNode.optString("error"));
+                            responseObject.setMessage(callNode.optString("msj"));
+                            Log.d("getResult", String.valueOf(responseObject.getResult()));
+                            if (responseObject != null)
+                                callback.onSuccess(responseObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseObject.setOnError(error.getMessage());
+                //pDialog.dismiss();
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+              //  pDialog.hide();
+                //login_button.setEnabled(true);
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                params.put("Accept", "application/json");
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+                params.put("room_id", roomId);
+                params.put("start",startDate);
+                params.put("end", endDate);
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
+    }
+
+    public void addToWishList(final VolleyCallback callback, final Context context,final String roomId) {
+        responseObject = new Response();
+/*        pDialog = new ProgressDialog(context);
+        pDialog.setMessage("Loading...");
+        pDialog.show();*/
+        StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
+                Const.BASE_URL + "addtowishlist",
+                new com.android.volley.Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String responsee) {
+
+                        Log.d("response", responsee.toString());
+                        //  pDialog.hide();
+                        //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+
+                        try {
+                            JSONObject callNode = new JSONObject(responsee.toString());
+                            responseObject.setResult(callNode.optInt("result"));
+                            responseObject.setOnError(callNode.optString("error"));
+                            responseObject.setMessage(callNode.optString("msj"));
+                            Log.d("getResult", String.valueOf(responseObject.getResult()));
+                            if (responseObject != null)
+                                callback.onSuccess(responseObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseObject.setOnError(error.getMessage());
+                //pDialog.dismiss();
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                //  pDialog.hide();
+                //login_button.setEnabled(true);
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                params.put("Accept", "application/json");
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+                params.put("room_id", roomId);
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
+    }
 
 }

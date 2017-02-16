@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.farouk.roomx.BeHostt;
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.ExtrasItem;
 import com.example.farouk.roomx.model.User;

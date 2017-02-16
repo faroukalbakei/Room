@@ -9,7 +9,7 @@ public class Response {
     boolean isValid;
     String Message;
     String onError;
-    private int result;
+    private int result=-1;
 
     public Response() {
     }

@@ -36,7 +36,7 @@
     <string name="mobile_lable">الموبايل</string>
     <string name="address_lable">العنوان</string>
     <string name="email_lable">البريد الإلكتروني</string>
-    <string name="done">تم</string>
+    <string name="done">حفظ</string>
     <string name="title_activity_edit_profile">تعديل الملف الشخصي</string>
     <string name="title_activity_explore">إستكشف</string>
     <string name="title_activity_account">الحساب</string>
@@ -47,12 +47,12 @@
     <string name="hosted_name"> %1$s المستضيف</string>
     <string name="guest">%1$s ضيوف</string>
     <string name="room">%1$s غرف</string>
-    <string name="beds">%1$s سرير</string>
+    <string name="beds_parms">%1$s سرير</string>
     <string name="bthroom">%1$s دورات مياه</string>
     <string name="done_succefully">تم تعديل الملف الشخصي بنجاح!</string>
 
-    <string name="question">لديك حساب ؟</string>
-    <string name="noquestion">ليس لديك حساب ؟</string>
+    <string name="question"> لديك حساب ؟ تسجيل الدخول</string>
+    <string name="noquestion"> ليس لديك حساب ؟التسجيل الآن</string>
     <string name="Nowner">اسم المالك</string>
 
     <string name="guests">عدد الضيوف</string>
@@ -74,9 +74,8 @@
     <string name="apictures">اضغط هنا لارفاق الصور</string>
 
     <string name="NImages">عدد الصور التي اخترتها : </string>
-
-
-
+    <string name="reserve_bt_text">الحجز</string>
+    <string name="reserve_diaoge_title">اختر تاريخ</string>
 
 
 </resources>

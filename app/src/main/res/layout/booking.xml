@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
      android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="locale"
-    android:padding="8dp"
+
+    android:background="@color/white"
+    android:orientation="vertical"
     >
 
     <LinearLayout
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +25,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/tv_resrv_place"
-                android:textSize="@dimen/big_font_size"/>
+                android:textColor="@android:color/black"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+               />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -42,7 +49,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/blue_list"
-                    android:textSize="@dimen/bt_txt_size"/>
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:text="@string/start_booking"
@@ -71,7 +78,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/blue_list"
-                    android:textSize="@dimen/bt_txt_size"/>
+                    android:textSize="18sp"/>
 
                 <TextView
                     android:text="@string/End_booking"
@@ -82,5 +89,9 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/grey_200"/>
 
-</RelativeLayout>
+</LinearLayout>

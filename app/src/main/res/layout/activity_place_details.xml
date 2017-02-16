@@ -5,46 +5,57 @@
     android:layout_height="match_parent"
     android:layoutDirection="locale"
     android:orientation="vertical">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    >
 
     <LinearLayout
         android:id="@+id/activity_place_details"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical"
         tools:context="com.example.farouk.roomx.ui.explore.PlaceDetailsActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <ImageButton
-                android:layout_margin="8dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/transparent"
-                android:src="@drawable/like" />
-
-            <ImageButton
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/transparent"
-                 />
-            <!--android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"-->
+            android:layout_height="180dp"
+            >
             <ImageView
                 android:id="@+id/imageView_place"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/divider_color"
-                android:scaleType="fitCenter"
-                android:src="@drawable/building"
+                android:scaleType="fitXY"
+                android:src="@drawable/room"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true" />
+            <ToggleButton
+                android:id="@+id/like_toggle"
+                android:layout_marginStart="16dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/toggle_selector"
+                android:textOff=""
+                android:textOn="" />
+
+            <ImageButton
+                android:id="@+id/button_back"
+                android:layout_marginEnd="16dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent"
+                android:src="@drawable/abc_ic_ab_back_material"
+                 />
+            <!--android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"-->
+
 
         </RelativeLayout>
 
@@ -59,22 +70,33 @@
                 android:id="@+id/title_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:textColor="@color/button_color"
                 android:text="الطابون"
                 android:textDirection="locale"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
-
+            <TextView
+                android:id="@+id/describtion_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion"
+                android:textDirection="locale"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
             <RelativeLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/hosted_image"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/smiling" />
 
@@ -85,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBottom="@+id/hosted_image"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:text="المستضيف: عادل محمد سليم رضوان"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
 
@@ -103,7 +125,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/line_up"
-                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
                 android:weightSum="4">
 
@@ -204,7 +229,6 @@
                 android:layout_below="@+id/info_layout"
                 android:background="@color/grey_200" />
 
-
             <RelativeLayout
 
                 android:layout_width="match_parent"
@@ -215,34 +239,47 @@
                     android:id="@+id/arrow_left_right"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_margin="8dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_expand"
                     android:background="@android:color/transparent" />
 
                 <TextView
+                    android:id="@+id/around_home"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
                     android:textDirection="locale"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:textColor="@color/button_color"
                     android:text="حول المنزل"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
 
-
+                <fragment
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/around_home"
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    />
 
             </RelativeLayout>
+
             <RelativeLayout
+                android:id="@+id/room_item_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                >
 
                 <ImageView
                     android:id="@+id/arrow_up_down"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:src="@drawable/ic_arrow_back"
                     android:background="@android:color/transparent" />
@@ -252,7 +289,7 @@
                     android:layout_height="wrap_content"
                     android:textDirection="locale"
                     android:textColor="@color/button_color"
-                    android:layout_marginStart="8dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="مميزات الغرفة"
                     android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead" />
@@ -263,14 +300,17 @@
 
         </LinearLayout>
     </LinearLayout>
+</ScrollView>
 
     <RelativeLayout
-        android:padding="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#d8d8d8">
 
         <TextView
+            android:layout_marginStart="16dp"
             android:id="@+id/text_view_room_price"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
@@ -282,6 +322,7 @@
             android:text="20.0 شيكل"/>
 
         <TextView
+            android:layout_marginStart="16dp"
             android:id="@+id/text_view3"
             android:layout_alignParentStart="true"
             android:textDirection="locale"
@@ -292,14 +333,13 @@
             android:text="لكل ليلة"/>
 
         <Button
+            android:layout_marginEnd="16dp"
             android:id="@+id/button_reserve"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@+id/text_view_room_price"
+            android:layout_toEndOf="@+id/text_view3"
             android:layout_marginStart="30dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerInParent="true"
-            android:text="الحجز"
+            android:text="@string/reserve_bt_text"
             android:textColor="@color/white"
             android:background="@color/button_color"
             style="@style/Base.Widget.AppCompat.Button"

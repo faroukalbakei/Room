@@ -1,11 +1,16 @@
 package com.example.farouk.roomx.util;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.util.DisplayMetrics;
 
+import com.example.farouk.roomx.R;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
 import java.net.InetAddress;
+import java.util.Calendar;
 import java.util.Locale;
 
 /**
@@ -32,12 +37,13 @@ public class Utils {
     }
 
     public static void changeLang(Context context, String language_code) {
-        Resources res2 = context.getResources();
-        DisplayMetrics dm2 = res2.getDisplayMetrics();
-        android.content.res.Configuration conf2 = res2.getConfiguration();
-        conf2.setLayoutDirection(new Locale(language_code));
-        conf2.locale = new Locale(language_code);
-        res2.updateConfiguration(conf2, dm2);
+        Locale locale2 = new Locale(language_code,"EG");
+        Locale.setDefault(locale2);
+        Configuration config2 = new Configuration();
+        config2.setLayoutDirection(new Locale(language_code,"EG"));
+        config2.locale = locale2;
+        context.getResources().updateConfiguration(
+                config2, context.getResources().getDisplayMetrics());
     }
 
 

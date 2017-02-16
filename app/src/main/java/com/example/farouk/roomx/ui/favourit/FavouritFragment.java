@@ -24,7 +24,7 @@ import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.ui.explore.ExploreAdapter;
 import com.example.farouk.roomx.ui.explore.PlaceDetailsActivity;
 import com.example.farouk.roomx.util.Const;
-import com.example.farouk.roomx.util.NetworkConnection;
+import com.example.farouk.roomx.util.Utils;
 import com.example.farouk.roomx.util.RecyclerItemClickListener;
 
 import java.util.List;
@@ -35,7 +35,6 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
 
     private RecyclerView recyclerView;
     private com.example.farouk.roomx.ui.explore.ExploreAdapter mAdapter;
-    public ImageButton btlike;
     private static final String TAG = FavouritFragment.class.getSimpleName();
     TextView emptyView;
     Long placeId;
@@ -46,7 +45,6 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_fav, container, false);
-        btlike = (ImageButton) getActivity().findViewById(R.id.imge_love);
        // getActivity().setTitle(getResources().getString(R.string.title_activity_fav));
         emptyView=(TextView)rootView.findViewById(R.id.empty_list_textView);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_fav);
@@ -70,7 +68,7 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
                     }
                 })
         );
-        if(NetworkConnection.isInternetAvailable()){
+        if(Utils.isInternetAvailable()){
             Requests requests = new Requests(getContext());
             requests.getPlacesList(this, getContext(), Const.getFavList_URL);
         }else

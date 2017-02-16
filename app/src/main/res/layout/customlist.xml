@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp"
+    android:padding="16dp"
     android:layoutDirection="locale"
     >
 
@@ -28,27 +28,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             >
             <TextView
-                android:layout_alignParentStart="true"
-                android:text="@string/info"
+                android:text="infoinfoinfoinfo infoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfoinfo info info"
+                android:maxLines="2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textDirection="locale"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/relative_layout"
                 android:id="@+id/tv_inf"
                 android:textSize="@dimen/big_font_size"
-                android:textStyle="bold"
-                />
-            <ImageButton
-                android:layout_toStartOf="@+id/tv_inf"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/relative_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:padding="8dp"
                 android:layout_alignParentEnd="true"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="@null"
-                android:src="@drawable/like"
-                android:id="@+id/imge_love"
-                android:layout_marginStart="12dp"
-                />
+                >
+
+                <ToggleButton
+                    android:layout_centerVertical="true"
+                    android:id="@+id/like_toggle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/toggle_selector"
+                    android:textOff=""
+                    android:textOn="" />
+            </RelativeLayout>
+
         </RelativeLayout>
     </LinearLayout>
 

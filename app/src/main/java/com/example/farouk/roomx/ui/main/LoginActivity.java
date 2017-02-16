@@ -16,13 +16,11 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.farouk.roomx.BeHostt;
-
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
-import com.example.farouk.roomx.util.NetworkConnection;
+import com.example.farouk.roomx.util.Utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,7 +35,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        NetworkConnection.changeLang(this,"ar");
+        Utils.changeLang(getBaseContext(),"ar");
         setContentView(R.layout.activity_main);
 
         Window window = this.getWindow();
@@ -104,7 +102,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
 
         } else {
 
-            if(NetworkConnection.isInternetAvailable()){
+            if(Utils.isInternetAvailable()){
                 Requests requests = new Requests(this);
                 requests.makeLogin(this,this, email, password);
             }else

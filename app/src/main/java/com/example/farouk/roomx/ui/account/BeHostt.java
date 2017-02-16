@@ -3,8 +3,12 @@ package com.example.farouk.roomx.ui.account;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -43,11 +47,21 @@ public class BeHostt extends AppCompatActivity implements OnMapReadyCallback {
     // Google Map
     private GoogleMap googleMap;
     int AddPicNumber;
-
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_be_hostt);
+        toolbar=(Toolbar)findViewById(R.id.toolbar) ;
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle(getResources().getString(R.string.title_activity_edit_profile));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         try {
             // Loading map
             initilizeMap();
@@ -79,9 +93,9 @@ public class BeHostt extends AppCompatActivity implements OnMapReadyCallback {
 
                 GalleryConfig config = new GalleryConfig.Build()
                         .limitPickPhoto(8)
-                        .singlePhoto(false)
+                        .singlePhoto(true)
                         .hintOfPick("this is pick hint")
-                        .filterMimeTypes(new String[]{"image/jpeg"})
+                        .filterMimeTypes(new String[]{"image/*"})
                         .build();
 
 
@@ -159,7 +173,7 @@ public class BeHostt extends AppCompatActivity implements OnMapReadyCallback {
         // and move the map's camera to the same location.
         LatLng sydney = new LatLng(-33.852, 151.211);
         googleMap.addMarker(new MarkerOptions().position(sydney)
-                .title("Marker in Sydney"));
+                .title(""));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
     @Override
@@ -188,6 +202,19 @@ public class BeHostt extends AppCompatActivity implements OnMapReadyCallback {
             save.setText(getString(R.string.apictures));
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.edit_profile_menu, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return false;
+    }
+
+    private void onDoneClick() {
+    }
 
 }
