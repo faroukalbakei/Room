@@ -50,7 +50,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addOnItemTouchListener(
+/*        recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -69,7 +69,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                         // do whatever
                     }
                 })
-        );
+        );*/
         if (Utils.isInternetAvailable()) {
             Requests requests = new Requests(getContext());
             requests.getPlacesList(this, getContext(), Const.getExplore_URL);

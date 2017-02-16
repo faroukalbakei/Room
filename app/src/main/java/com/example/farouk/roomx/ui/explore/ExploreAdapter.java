@@ -1,6 +1,7 @@
 package com.example.farouk.roomx.ui.explore;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -16,6 +17,7 @@ import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.PlaceObject;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
+import com.example.farouk.roomx.util.Const;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,8 +43,9 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
     int lik = -1;
     private String roomId;
     private PlaceObject placeObject;
+    private Long placeId;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView name, tag, date, city, detale;
         public ImageView roompic;
         CircleImageView userpic;
@@ -62,10 +65,22 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
             likeToggleButton = (ToggleButton) view.findViewById(R.id.like_toggle);
             likeRelativeLayout = (RelativeLayout) view.findViewById(R.id.relative_layout);
         }
+/*
+        @Override
+        public void onClick(View v) {
 
-
+            if (v.getId() == likeToggleButton.getId()) {
+                Requests requests = new Requests(context);
+                requests.addToWishList(volleyCallback, context, String.valueOf(placeObject.getPid()));
+            }else{
+                placeId = roomList.get(v.getId()).getId();
+                Log.d("placeId", String.valueOf(placeId));
+                Intent intent = new Intent(context, PlaceDetailsActivity.class);
+                intent.putExtra(Const.PLACE_ID, placeId);
+                context.startActivity(intent);
+            }
+        }*/
     }
-
 
     public ExploreAdapter(List<PlaceObject> roomList, Context context) {
         this.roomList = roomList;
@@ -92,7 +107,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
 
 
         placeObject = roomList.get(position);
@@ -116,8 +131,17 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
                 }
             }
         });
+        holder.roompic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                placeId = roomList.get(position).getId();
+                Log.d("placeId", String.valueOf(placeId));
+                Intent intent = new Intent(context, PlaceDetailsActivity.class);
+                intent.putExtra(Const.PLACE_ID, placeId);
+                context.startActivity(intent);
+            }
+        });
     }
-
 
     @Override
     public int getItemCount() {
