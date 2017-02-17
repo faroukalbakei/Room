@@ -183,7 +183,7 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
             countryEdittext.setText(userResponse.getCountry());
             dobEdittext.setText(userResponse.getDob());
             if(userResponse.getPhotolink()!=null){
-                Picasso.with(this).load(userResponse.getPhotolink())
+                Picasso.with(this).load(userResponse.getPhotolink()).placeholder(R.drawable.ic_profile)
                         .into(profilePicImageview);
             }
         }

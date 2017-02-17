@@ -76,4 +76,7 @@
     <string name="bthroom">%1$s دورات مياه</string>
     <string name="reserve_bt_text">Reserve</string>
     <string name="reserve_diaoge_title">Choose Date</string>
+    <string name="price">السعر</string>
+    <string name="error_fill_data">الرجاء تعبئة البيانات الناقصة</string>
+    <string name="rooms">عدد الغرف</string>
 </resources>

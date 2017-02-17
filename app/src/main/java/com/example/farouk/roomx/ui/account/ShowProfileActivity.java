@@ -68,7 +68,7 @@ public class ShowProfileActivity extends AppCompatActivity implements VolleyCall
             countryTextview.setText(userResponse.getCountry());
             dobTextview.setText(userResponse.getDob());
             if (userResponse.getPhotolink() != null) {
-                Picasso.with(this).load(userResponse.getPhotolink())
+                Picasso.with(this).load(userResponse.getPhotolink()).placeholder(R.drawable.ic_profile)
                         .into(profilePicImageview);
             }
         }

@@ -33,8 +33,8 @@ public class IconTextTabsActivity extends AppCompatActivity {
     private RtlViewPager viewPager;
     private int[] tabIcons = {
             R.drawable.ic_search
-            ,R.drawable.ic_fav
             ,R.drawable.ic_reserv
+            ,R.drawable.ic_fav
             ,R.drawable.ic_chat
             ,R.drawable.ic_account
     };
@@ -66,8 +66,8 @@ public class IconTextTabsActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new ExploreFragment(), getResources().getString(R.string.title_activity_explore));
-        adapter.addFrag(new FavouritFragment(), getResources().getString(R.string.title_activity_fav));
         adapter.addFrag(new ReservationsFragment(), getResources().getString(R.string.title_activity_reserve));
+        adapter.addFrag(new FavouritFragment(), getResources().getString(R.string.title_activity_fav));
         adapter.addFrag(new InboxFragment(), getResources().getString(R.string.title_activity_inbox));
         adapter.addFrag(new AccountFragment(), getResources().getString(R.string.title_activity_account));
 

@@ -108,17 +108,24 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
-
-
         placeObject = roomList.get(position);
-        Log.i(" photo user", placeObject.getUser().getPhotolink());
-        Picasso.with(context).load(placeObject.getUser().getPhotolink()).resize(70, 70).into(holder.userpic);
-        holder.name.setText(placeObject.getName());
-        holder.tag.setText(placeObject.getUser().getEmail());
-        holder.date.setText(placeObject.getCreatedAt());
-        holder.city.setText(placeObject.getUser().getCountry() + placeObject.getUser().getCity());
-        holder.detale.setText(placeObject.getDescription());
-        Picasso.with(context).load(placeObject.getRoomPhoto().get(1).getPhotolink()).resize(200, 85).into(holder.roompic);
+        if(placeObject.getUser().getPhotolink()!=null) {
+            Log.i(" photo user", placeObject.getUser().getPhotolink());
+            Picasso.with(context).load(placeObject.getUser().getPhotolink()).resize(70, 70).placeholder(R.drawable.ic_profile).into(holder.userpic);
+        }else{
+            holder.userpic.setImageResource(R.drawable.ic_profile);
+        }
+        if(placeObject.getRoomPhoto()!=null&&!placeObject.getRoomPhoto().isEmpty()&&placeObject.getRoomPhoto().size()>0) {
+            Log.i(" photo placeObject", placeObject.getRoomPhoto().get(0).toString());
+            Picasso.with(context).load(placeObject.getRoomPhoto().get(0).getPhotolink()).resize(200, 85).into(holder.roompic);
+        }else{
+            holder.roompic.setImageResource(R.drawable.building);
+        }
+        holder.name.setText(placeObject.getName()+"");
+        holder.tag.setText(placeObject.getUser().getEmail()+"");
+        holder.date.setText(placeObject.getCreatedAt()+"");
+        holder.city.setText(placeObject.getUser().getCountry() + placeObject.getUser().getCity()+"");
+        holder.detale.setText(placeObject.getDescription()+"");
         if (placeObject.getIsFavourate() == 1) {
             holder.likeToggleButton.setChecked(true);
         } else holder.likeToggleButton.setChecked(false);

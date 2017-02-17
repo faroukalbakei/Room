@@ -52,7 +52,6 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
 
     EditText Ddatte;
     TextView tv_name;
-    UserinfoLogin userinfoLogin;
     private String username;
 
     public AccountFragment() {
@@ -63,9 +62,9 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_acount, container, false);
        // getActivity().setTitle(getResources().getString(R.string.title_activity_account));
-
+        Requests requests = new Requests(getContext());
+        requests.getUserProfile(this, getContext());
         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
-        userinfoLogin = new UserinfoLogin();
 
         mBottomSheetDialog = new Dialog(getContext(), R.style.MaterialDialogSheet);
 
@@ -94,7 +93,6 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
                 ExtrasItem roomm = extrasItem.get(position);
                 if (position == 0) {
                     startActivity(new Intent(getActivity(),ShowProfileActivity.class));
-                    Toast.makeText(getActivity(), "invite friend", Toast.LENGTH_SHORT).show();
                 }else if (position == 1) {
                     Toast.makeText(getActivity(), "invite friend", Toast.LENGTH_SHORT).show();
                 } else if (position == 2) {
@@ -137,8 +135,7 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
                 newInstance();
             }
         });
-        Requests requests = new Requests(getContext());
-        requests.getUserProfile(this, getContext());
+
 
         return rootView;
     }
@@ -151,15 +148,12 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
     @Override
     public void onResume() {
         super.onResume();
-        extrasItem = new ArrayList<>();
-        mAdapter = new AccountAdapter(extrasItem);
-        recyclerView.setAdapter(mAdapter);
-        prepareDetailData();
+
     }
 
-    private void prepareDetailData() {
+    private void prepareDetailData(String username, String photolink) {
         ExtrasItem detailing;
-        detailing = new ExtrasItem(R.drawable.ic_profile, username);
+        detailing = new ExtrasItem(photolink, username);
         extrasItem.add(detailing);
 
         detailing = new ExtrasItem(R.drawable.frin, getString(R.string.Invite));
@@ -180,14 +174,11 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-
-
         String date = dayOfMonth + "/" + (monthOfYear + 1) + "/" + year;
         Ddatte.setText(date);
     }
 
     public void newInstance() {
-
         Calendar now = Calendar.getInstance();
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 this,
@@ -197,7 +188,6 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
         );
         dpd.setAccentColor(getResources().getColor(R.color.Navy));
         dpd.show(getActivity().getFragmentManager(), "Datepickerdialog");
-
 
     }
 
@@ -229,6 +219,9 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
         User user = (User) response.getObject();
         username = user.getName();
         Log.d("user onSuccess",user.toString());
-
+        extrasItem = new ArrayList<>();
+        mAdapter = new AccountAdapter(extrasItem,getContext());
+        recyclerView.setAdapter(mAdapter);
+        prepareDetailData(username,user.getPhotolink());
     }
 }

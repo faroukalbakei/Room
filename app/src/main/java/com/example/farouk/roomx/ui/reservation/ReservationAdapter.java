@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.farouk.roomx.R;
-import com.example.farouk.roomx.model.Bookings;
 import com.example.farouk.roomx.model.Reservation;
 
 import java.util.ArrayList;

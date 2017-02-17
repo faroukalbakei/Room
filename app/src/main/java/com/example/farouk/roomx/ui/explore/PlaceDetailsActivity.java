@@ -2,6 +2,7 @@ package com.example.farouk.roomx.ui.explore;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -33,6 +34,7 @@ import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.util.CustomListAdapterDialog;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -129,8 +131,19 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         //for(PlaceObject placeObject1 : placeObject) {
         roomId = String.valueOf(placeObject.getPid());
         Log.d("placeObject", placeObject.toString());
-        Picasso.with(this).load(placeObject.getUser().getPhotolink()).into(hostedImage);
-        Picasso.with(this).load(placeObject.getRoomPhoto().get(0).getPhotolink()).into(imageViewPlace);
+        if(placeObject.getUser().getPhotolink()!=null) {
+            Log.i(" photo user", placeObject.getUser().getPhotolink());
+            Picasso.with(this).load(placeObject.getUser().getPhotolink()).placeholder(R.drawable.ic_profile).resize(70, 70).into(hostedImage);
+        }else{
+            hostedImage.setImageResource(R.drawable.ic_profile);
+        }
+        if(placeObject.getRoomPhoto()!=null&&!placeObject.getRoomPhoto().isEmpty()&&placeObject.getRoomPhoto().size()>0) {
+            Log.i(" photo placeObject", placeObject.getRoomPhoto().get(0).toString());
+            Picasso.with(this).load(placeObject.getRoomPhoto().get(0).getPhotolink()).placeholder(R.drawable.building).resize(200, 85).into(imageViewPlace);
+        }else{
+            imageViewPlace.setImageResource(R.drawable.building);
+        }
+
         String hostedName = String.format(getResources().getString(R.string.hosted_name), placeObject.getUser().getName());
         titleTextView.setText(placeObject.getName());
         textViewHostedName.setText(hostedName);
@@ -146,9 +159,9 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
                 onBackPressed();
             }
         });
-        if(placeObject.getIsFavourate()==1){
+        if (placeObject.getIsFavourate() == 1) {
             likeToggle.setChecked(true);
-        }else likeToggle.setChecked(false);
+        } else likeToggle.setChecked(false);
 
 
         itemRooms = new ArrayList<>();
@@ -157,7 +170,13 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         itemRooms.add(new ItemRoom("إنترنت لاسكي wifi", placeObject.getWifi()));
         itemRooms.add(new ItemRoom("مسبح", placeObject.getPool()));
         itemRooms.add(new ItemRoom("تلفزيون", placeObject.getTv()));
+        likeToggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToWishList();
 
+            }
+        });
         roomItemRelativeLyout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,7 +184,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
             }
         });
         String location = placeObject.getLocation();
-        if (location != null) {
+        if (location != null&& location !=" " && !location.isEmpty()) {
             StringTokenizer tokens = new StringTokenizer(location, ",");
             lang = Double.parseDouble(tokens.nextToken());
             lat = Double.parseDouble(tokens.nextToken());
@@ -185,6 +204,11 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
             e.printStackTrace();
         }
 
+    }
+
+    private void addToWishList() {
+        Requests requests = new Requests(this);
+        requests.addToWishList(this, this, String.valueOf(placeObject.getPid()));
     }
 
     /**
@@ -207,11 +231,23 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         // Add a marker in Sydney, Australia,
         // and move the map's camera to the same location.
-//        LatLng sydney = new LatLng(-33.852, 151.211);
         LatLng placeLocation = new LatLng(lat, lang);
+        Log.d("lat", String.valueOf(lat));
+        Log.d("lang", String.valueOf(lang));
+
         googleMap.addMarker(new MarkerOptions().position(placeLocation)
                 .title(""));
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLocation));
+/*        CameraUpdate center=
+                CameraUpdateFactory.newLatLng(placeLocation);
+        CameraUpdate zoom=CameraUpdateFactory.zoomTo(7);
+        googleMap.moveCamera(center);
+        googleMap.animateCamera(zoom);*/
+
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(placeLocation,7));
+        // Zoom in, animating the camera.
+        googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+        // Zoom out to zoom level 10, animating with a duration of 2 seconds.
+        googleMap.animateCamera(CameraUpdateFactory.zoomTo(7), 2000, null);
     }
 
     @Override
@@ -291,7 +327,6 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
     }
 
-
     @Override
     public void onClick(View view) {
         if (view == editTextStart) {
@@ -301,8 +336,14 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
 
     @Override
     public void onSuccess(Response response) {
-        alertDialog.dismiss();
-        Toast.makeText(getApplicationContext(), response.getMessage() + "", Toast.LENGTH_LONG).show();
+        if(response.getResult()==1){
+            Toast.makeText(this,response.getMessage()+"",Toast.LENGTH_LONG).show();
+        }else if(response.getResult()==0){
+            Toast.makeText(this,response.getMessage()+"",Toast.LENGTH_LONG).show();
+        }else {
+            alertDialog.dismiss();
+            Toast.makeText(getApplicationContext(), response.getMessage() + "", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override

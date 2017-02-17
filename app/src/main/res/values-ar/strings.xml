@@ -76,6 +76,9 @@
     <string name="NImages">عدد الصور التي اخترتها : </string>
     <string name="reserve_bt_text">الحجز</string>
     <string name="reserve_diaoge_title">اختر تاريخ</string>
+    <string name="price">السعر</string>
+    <string name="error_fill_data">الرجاء تعبئة البيانات الناقصة</string>
+    <string name="rooms">عدد الغرف</string>
 
 
 </resources>

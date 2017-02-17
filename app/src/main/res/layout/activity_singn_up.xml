@@ -75,7 +75,7 @@
             android:layout_marginTop="2dp"
             android:ems="10"
             android:hint="@string/mobile"
-            android:inputType="phone"
+            android:inputType="number"
             android:textDirection="locale" />
 
         <Button
@@ -84,7 +84,6 @@
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
             android:background="@color/colorPrimary"
-            android:onClick="Singe"
             android:text="@string/SignUp"
             android:textColor="@color/white"
             android:textSize="@dimen/bt_txt_size" />
