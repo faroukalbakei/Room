@@ -96,7 +96,7 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
                 @Override
                 public void onSuccess(Response response) {
 
-                    if (response.isValid()) {
+                    if (response.getResult() == 1) {
                         Intent intent = new Intent(getApplicationContext(), IconTextTabsActivity.class);
                         startActivity(intent);
                         finish();

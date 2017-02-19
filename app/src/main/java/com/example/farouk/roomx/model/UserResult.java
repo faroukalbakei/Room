@@ -8,7 +8,7 @@ import com.orm.SugarRecord;
  * Created by Dev Abir on 2/12/2017.
  */
 
-public class UserResult extends SugarRecord {
+public class UserResult {
     @SerializedName("user")
     @Expose
     public User user;

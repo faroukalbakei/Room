@@ -292,8 +292,9 @@ public class BeHostt extends AppCompatActivity implements VolleyCallback,OnMapRe
 
     @Override
     public void onMapClick(LatLng latLng) {
+        LatLng sydney = new LatLng(-33.852, 151.211);
 
-        location=latLng.toString();
+        location=sydney.toString();
         Log.d("location" ,location.toString());
         lat= String.valueOf(latLng.longitude);
         lang= String.valueOf(latLng.latitude);

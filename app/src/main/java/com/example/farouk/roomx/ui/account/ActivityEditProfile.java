@@ -155,7 +155,6 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
                     // Set the Image in ImageView after decoding the String
 //                    Picasso.with(getApplicationContext()).load(new File(imgDecodableString))
 //                            .into(profilePicImageview);
-                    requests.uploadImage(this,this,imgDecodableString);
                 }
 
 
@@ -167,6 +166,7 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
                     .show();
         }
+        requests.uploadImage(this,this,imgDecodableString);
 
     }
 

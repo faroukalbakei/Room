@@ -10,6 +10,7 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
+import com.example.farouk.roomx.model.Error;
 import com.example.farouk.roomx.model.ErrorResponse;
 import com.example.farouk.roomx.model.LoginResponse;
 import com.example.farouk.roomx.model.Msg;
@@ -205,8 +206,9 @@ public class Requests {
                         case 401:
                         case 400:
                             json = new String(response.data);
+                            Log.d("json", json + "");
                             ErrorResponse errorResponses = gson.fromJson(json, ErrorResponse.class);
-                            Msg msg =errorResponses.getMsg();
+                            Error msg =errorResponses.getMsg().getError();
                             String errorMesg= Utils.replaceNull(String.valueOf(msg.getName()))+"\n"+
                             Utils.replaceNull(String.valueOf(msg.getEmail()))+"\n"+
                                     Utils.replaceNull(String.valueOf(msg.getPassword()))+"\n"+
@@ -244,11 +246,6 @@ public class Requests {
                 params.put("password", password);
                 params.put("password_confirmation", passwordConfirm);
                 params.put("phone", phone);
-/*                params.put("name", "wer");
-                params.put("email", "Alljhytghji@ali.com");
-                params.put("password", "99999999");
-                params.put("password_confirmation", "99999999");
-                params.put("phone", "0566699666");*/
                 return params;
             }
         };
@@ -477,7 +474,6 @@ public class Requests {
     public void uploadImage(final VolleyCallback callback, final Context context, final String imagePath) {
         Log.d("uploadImage", imagePath);
 
-
         /**
          * Progressbar to Display if you need
          */
@@ -510,6 +506,8 @@ public class Requests {
                 if (response.isSuccessful()) {
                     if (response.body().getUser() != null)
                         Log.d("uploadImage", "success");
+                    Log.d("response", response.body().toString());
+
                     callback.onSuccess(new Response(true));
 
                 } else {
@@ -798,15 +796,13 @@ public class Requests {
                 NetworkResponse response = error.networkResponse;
                 if (response != null && response.data != null) {
                     switch (response.statusCode) {
-                        case 401:
-                        case 400:
                         case 500:
                             json = new String(response.data);
                             ErrorResponse errorResponses = gson.fromJson(json, ErrorResponse.class);
+                            Log.d("error", json + "");
 
                             // json = trimMessage(json, "message");
                             if (json != null) callback.onSuccess(new Response(false, json));
-                            Log.d("error", json + "");
                             break;
                     }
                     //Additional cases

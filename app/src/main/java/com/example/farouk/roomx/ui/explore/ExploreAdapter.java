@@ -65,21 +65,6 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
             likeToggleButton = (ToggleButton) view.findViewById(R.id.like_toggle);
             likeRelativeLayout = (RelativeLayout) view.findViewById(R.id.relative_layout);
         }
-/*
-        @Override
-        public void onClick(View v) {
-
-            if (v.getId() == likeToggleButton.getId()) {
-                Requests requests = new Requests(context);
-                requests.addToWishList(volleyCallback, context, String.valueOf(placeObject.getPid()));
-            }else{
-                placeId = roomList.get(v.getId()).getId();
-                Log.d("placeId", String.valueOf(placeId));
-                Intent intent = new Intent(context, PlaceDetailsActivity.class);
-                intent.putExtra(Const.PLACE_ID, placeId);
-                context.startActivity(intent);
-            }
-        }*/
     }
 
     public ExploreAdapter(List<PlaceObject> roomList, Context context) {
@@ -145,6 +130,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
                 Log.d("placeId", String.valueOf(placeId));
                 Intent intent = new Intent(context, PlaceDetailsActivity.class);
                 intent.putExtra(Const.PLACE_ID, placeId);
+
                 context.startActivity(intent);
             }
         });
