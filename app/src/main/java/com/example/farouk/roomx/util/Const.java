@@ -6,7 +6,7 @@ package com.example.farouk.roomx.util;
 
 public class Const {
 
-    public static String BASE_URL = "http://yalats.com/gaithapi/public/api/";
+    public static String BASE_URL = "http://roomxapi.com/gaithapi/public/api/";
     public static String PLACE_ID;
     public static String getExplore_URL = "shownewestrooms";
     public static String getFavList_URL = "showwishlist";

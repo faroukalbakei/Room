@@ -1,129 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_singn_up"
     android:layout_width="match_parent"
-    android:layoutDirection="locale"
     android:layout_height="match_parent"
-    android:background="@drawable/login"
+    android:layoutDirection="locale"
     tools:context="com.example.farouk.roomx.ui.main.SignUpActivity">
 
 
-    <ImageView
-        android:id="@+id/iv_Singnup_logo"
-        android:layout_marginTop="20dp"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@drawable/building"
-        android:layout_gravity="center_horizontal|top" />
-
     <LinearLayout
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_marginTop="60dp"
-        android:layout_marginStart="@dimen/margin_login"
-        android:layout_marginEnd="@dimen/margin_login"
-        android:layout_gravity="center_horizontal|center"
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/root">
+        android:layout_gravity="center_horizontal|center"
+        android:layout_marginEnd="@dimen/margin_login"
+        android:layout_marginStart="@dimen/margin_login"
+        android:layout_marginTop="60dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_Singnup_hello"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/SignUp"
-            android:textColor="@color/Navy"
-            android:textSize="@dimen/big_font_size"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            />
 
         <EditText
-            android:background="@drawable/editbox_background"
             android:id="@+id/et_Singnup_Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:inputType="textEmailAddress"
-            android:drawablePadding="5dip"
             android:ems="10"
             android:hint="@string/name"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
-            android:drawableLeft="@drawable/man"
-            android:drawableStart="@drawable/man"/>
+            android:inputType="textEmailAddress"
+            android:textDirection="locale"
+
+            />
 
         <EditText
-            android:background="@drawable/editbox_background"
+
             android:id="@+id/et_Singnup_Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
             android:drawablePadding="5dip"
             android:ems="10"
             android:hint="@string/Email"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
-            android:drawableLeft="@drawable/email"
-            android:drawableStart="@drawable/email"/>
+            android:inputType="textEmailAddress"
+            android:textDirection="locale" />
+
         <EditText
-            android:background="@drawable/editbox_background"
+
             android:id="@+id/et_Singnup_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:layout_marginTop="2dp"
-
             android:drawablePadding="5dp"
             android:ems="10"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
             android:hint="@string/password"
-            android:drawableLeft="@drawable/password"
-            android:drawableStart="@drawable/password"/>
+            android:inputType="textPassword"
+            android:textDirection="locale" />
 
         <EditText
-            android:background="@drawable/editbox_background"
+
             android:id="@+id/et_Singnup_ConfirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:layout_marginTop="2dp"
             android:drawablePadding="5dip"
             android:ems="10"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
             android:hint="@string/Confirm"
-            android:drawableLeft="@drawable/password"
-            android:drawableStart="@drawable/password"/>
+            android:inputType="textPassword"
+            android:textDirection="locale" />
 
         <EditText
-            android:background="@drawable/editbox_background"
+
             android:id="@+id/et_Singnup_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="phone"
             android:layout_marginTop="2dp"
-            android:drawablePadding="5dip"
             android:ems="10"
-            android:textColorHint="@color/Blue"
-            android:textColor="@color/Blue"
             android:hint="@string/mobile"
-            android:drawableLeft="@drawable/mobile"
-            android:drawableStart="@drawable/mobile"/>
+            android:inputType="number"
+            android:textDirection="locale" />
 
         <Button
             android:id="@+id/bt_Singnup_login"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginTop="15dp"
-            android:background="@color/Navy"
+            android:background="@color/colorPrimary"
             android:text="@string/SignUp"
-            android:textSize="@dimen/bt_txt_size"
             android:textColor="@color/white"
-            android:onClick="Singe"/>
+            android:textSize="@dimen/bt_txt_size" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_Singnup_logo"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/roomx" />
+
+    <Button
+        android:id="@+id/bt_sing_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@null"
+        android:onClick="loginback"
+        android:text="@string/question" />
+
 </FrameLayout>

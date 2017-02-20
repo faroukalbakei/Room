@@ -16,23 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.farouk.roomx.R;
-import com.example.farouk.roomx.model.PlaceObject;
 import com.example.farouk.roomx.model.Reservation;
 import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
-import com.example.farouk.roomx.ui.explore.ExploreAdapter;
-import com.example.farouk.roomx.util.Const;
-import com.example.farouk.roomx.util.NetworkConnection;
-import com.example.farouk.roomx.util.RecyclerTouchListener;
-import com.example.farouk.roomx.model.Bookings;
+import com.example.farouk.roomx.util.Utils;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class ReservationsFragment extends Fragment implements VolleyCallback {
     private RecyclerView recyclerView;
@@ -55,7 +46,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        if(NetworkConnection.isInternetAvailable()){
+        if(Utils.isInternetAvailable()){
             Requests requests = new Requests(getContext());
             requests.getUserReservations(this, getContext());
         }else

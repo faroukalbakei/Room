@@ -11,8 +11,9 @@
         android:id="@+id/profilePic_imageview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:src="@drawable/ttt"
+        android:layout_weight="1.2"
+        android:src="@drawable/ic_profile"
+        android:scaleType="fitXY"
         />
 
     <ScrollView

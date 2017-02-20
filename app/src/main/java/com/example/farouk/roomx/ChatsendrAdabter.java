@@ -6,4 +6,5 @@ package com.example.farouk.roomx;
 
 public class ChatsendrAdabter {
 
+
 }

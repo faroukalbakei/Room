@@ -9,19 +9,29 @@ public class ExtrasItem {
 
     int iconed;
     String textd;
-
-    public ExtrasItem() {
-
-    }
-
+    String iconUrl;
 
     public ExtrasItem(int iconed, String textd) {
         this.iconed = iconed;
         this.textd = textd;
     }
 
+    public ExtrasItem(String photolink, String username) {
+        this.iconUrl = photolink;
+        this.textd = username;
+
+    }
+
     public int getIconed() {
         return iconed;
+    }
+
+    public String getIconUrl() {
+        return iconUrl;
+    }
+
+    public void setIconUrl(String iconUrl) {
+        this.iconUrl = iconUrl;
     }
 
     public void setIconed(int iconed) {

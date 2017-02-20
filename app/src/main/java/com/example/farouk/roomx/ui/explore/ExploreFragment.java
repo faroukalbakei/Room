@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -23,7 +22,7 @@ import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.util.Const;
-import com.example.farouk.roomx.util.NetworkConnection;
+import com.example.farouk.roomx.util.Utils;
 import com.example.farouk.roomx.util.RecyclerItemClickListener;
 
 import java.util.List;
@@ -37,40 +36,45 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     TextView emptyView;
     private List<PlaceObject> placeObjects;
     Long placeId;
+    private ExploreAdapter exploreAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
-        btlike = (ImageButton) rootView.findViewById(R.id.imge_love);
-       // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
-        emptyView=(TextView)rootView.findViewById(R.id.empty_list_textView);
+        // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
+        emptyView = (TextView) rootView.findViewById(R.id.empty_list_textView);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         // recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override public void onItemClick(View view, int position) {
+/*        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
                         // do whatever
-                        placeId =placeObjects.get(position).getId();
-                        Log.d("placeId", String.valueOf(placeId));
-                        Intent intent= new Intent(getActivity(),PlaceDetailsActivity.class);
-                        intent.putExtra(Const.PLACE_ID,placeId);
-                        startActivity(intent);
+                       // if (view.getId() == recyclerView.getId()) {
+                            placeId = placeObjects.get(position).getId();
+                            Log.d("placeId", String.valueOf(placeId));
+                            Intent intent = new Intent(getActivity(), PlaceDetailsActivity.class);
+                            intent.putExtra(Const.PLACE_ID, placeId);
+                            startActivity(intent);
+                      //  }
                     }
 
-                    @Override public void onLongItemClick(View view, int position) {
+                    @Override
+                    public void onLongItemClick(View view, int position) {
                         // do whatever
                     }
                 })
-        );
-        if(NetworkConnection.isInternetAvailable()){
+        );*/
+        if (Utils.isInternetAvailable()) {
             Requests requests = new Requests(getContext());
-            requests.getPlacesList(this, getContext(),Const.getExplore_URL);
-        }else
-            Toast.makeText(getContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
+            requests.getPlacesList(this, getContext(), Const.getExplore_URL);
+        } else
+            Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
 
         return rootView;
     }
@@ -85,9 +89,18 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     @Override
     public void onSuccess(Response response) {
         placeObjects = (List<PlaceObject>) response.getObject();
-        if(placeObjects.size()<1){
-            emptyView.setVisibility(View.VISIBLE);
-        }else emptyView.setVisibility(View.GONE);
-        recyclerView.setAdapter(new ExploreAdapter(placeObjects,getContext()));
+        if(response.getResult()==1){
+            Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
+        }else if(response.getResult()==0){
+            Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
+        }else {
+            if (placeObjects != null && placeObjects.size() < 1) {
+                emptyView.setVisibility(View.VISIBLE);
+            } else emptyView.setVisibility(View.GONE);
+            exploreAdapter = new ExploreAdapter(placeObjects, getContext());
+            exploreAdapter.callbackInfo(this);
+            recyclerView.setAdapter(exploreAdapter);
+        }
+
     }
 }

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="locale"
-    tools:context=".ui.profile.AccountFragment">
+    tools:context=".ui.account.AccountFragment">
 
 
     <RelativeLayout
