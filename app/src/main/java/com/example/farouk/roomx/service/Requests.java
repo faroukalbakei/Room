@@ -328,7 +328,6 @@ public class Requests {
     }
 
     public void getPlacesList(final VolleyCallback callback, final Context context, String apiMethod) {
-
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
