@@ -37,13 +37,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
     private List<PlaceObject> roomList;
 
     Context context;
-    public ImageButton btlike;
     VolleyCallback volleyCallback;
-
-    int lik = -1;
     private String roomId;
     private PlaceObject placeObject;
-    private Long placeId;
+    private Integer placeId;
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
         public TextView name, tag, date, city, detale;
@@ -119,18 +116,19 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
             public void onClick(View v) {
                 if (v.getId() == holder.likeToggleButton.getId()) {
                     Requests requests = new Requests(context);
-                    requests.addToWishList(volleyCallback, context, String.valueOf(placeObject.getPid()));
+                    requests.addToWishList(volleyCallback, context, String.valueOf(placeObject.getPid()),placeObject.getId());
+
                 }
             }
         });
         holder.roompic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                placeId = roomList.get(position).getId();
+                placeId = roomList.get(position).getPid();
                 Log.d("placeId", String.valueOf(placeId));
                 Intent intent = new Intent(context, PlaceDetailsActivity.class);
-                intent.putExtra(Const.PLACE_ID, placeId);
-
+                intent.putExtra(Const.PLACE_PID, placeId);
+                intent.putExtra(Const.PLACE_ID, roomList.get(position).getId());
                 context.startActivity(intent);
             }
         });

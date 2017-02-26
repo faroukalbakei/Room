@@ -12,7 +12,7 @@ public class PlaceObject extends SugarRecord{
 
     @SerializedName("id")
     @Expose
-    private Integer pid;
+    private int pid;
     @SerializedName("name")
     @Expose
     private String name;
@@ -80,6 +80,14 @@ public class PlaceObject extends SugarRecord{
     public PlaceObject() {
     }
 
+    public PlaceObject(Long id) {
+        this.id = id;
+    }
+
+    public PlaceObject(int pid) {
+        this.pid = pid;
+    }
+
     public PlaceObject(Long id, Integer pid, String name,
                        String userId, String numberOfGuests,
                        String numberOfBeds, String numberOfBaths,
@@ -121,11 +129,11 @@ public class PlaceObject extends SugarRecord{
         this.id = id;
     }
 
-    public Integer getPid() {
+    public int getPid() {
         return pid;
     }
 
-    public void setPid(Integer pid) {
+    public void setPid(int pid) {
         this.pid = pid;
     }
 

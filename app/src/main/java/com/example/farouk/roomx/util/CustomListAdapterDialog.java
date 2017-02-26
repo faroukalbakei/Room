@@ -57,10 +57,10 @@ public class CustomListAdapterDialog extends BaseAdapter {
         }
 
         holder.roomItem.setText(listData.get(position).getRoomItem().toString());
-        if ((listData.get(position).getIsAvailable()) == "true") {
+        if ((listData.get(position).getIsAvailable()) == "true" || (listData.get(position).getIsAvailable()) == "1") {
             holder.availble.setVisibility(View.VISIBLE);
 
-        } else if ((listData.get(position).getIsAvailable()) == "false") {
+        } else if ((listData.get(position).getIsAvailable()) == "false" ||(listData.get(position).getIsAvailable()) == "0") {
             holder.availble.setVisibility(View.INVISIBLE);
 
         }

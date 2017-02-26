@@ -3,6 +3,7 @@ package com.example.farouk.roomx.service;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -12,6 +13,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.example.farouk.roomx.model.Error;
 import com.example.farouk.roomx.model.ErrorResponse;
+import com.example.farouk.roomx.model.ErrorResponse2;
 import com.example.farouk.roomx.model.LoginResponse;
 import com.example.farouk.roomx.model.Msg;
 import com.example.farouk.roomx.model.Reservation;
@@ -697,7 +699,7 @@ public class Requests {
         VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
     }
 
-    public void addToWishList(final VolleyCallback callback, final Context context, final String roomId) {
+    public void addToWishList(final VolleyCallback callback, final Context context, final String roomId, final Long id) {
         responseObject = new Response();
 /*        pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
@@ -718,6 +720,7 @@ public class Requests {
                             responseObject.setResult(callNode.optInt("result"));
                             responseObject.setOnError(callNode.optString("error"));
                             responseObject.setMessage(callNode.optString("msj"));
+                            responseObject.setObject(new PlaceObject(id));
                             Log.d("getResult", String.valueOf(responseObject.getResult()));
                             if (responseObject != null)
                                 callback.onSuccess(responseObject);
@@ -771,8 +774,10 @@ public class Requests {
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String responsee) {
+                        if (responsee != null && responsee.length() > 0) {
 
-                        Log.d("response", responsee.toString());
+                            Log.d("response", responsee.toString());
+                        }
                         pDialog.hide();
                         try {
                             JSONObject callNode = new JSONObject(responsee.toString());
@@ -790,26 +795,35 @@ public class Requests {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 String json = null;
 
                 NetworkResponse response = error.networkResponse;
                 if (response != null && response.data != null) {
                     switch (response.statusCode) {
                         case 500:
+                        case 404:
+                        case 400:
                             json = new String(response.data);
-                            ErrorResponse errorResponses = gson.fromJson(json, ErrorResponse.class);
-                            Log.d("error", json + "");
-
+                            Log.d("json", json + "");
+                            ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);
+                            Error msg =errorResponses.getError();
+                            String errorMesg= Utils.replaceNull(String.valueOf(msg.getName()))+"\n"+
+                                    Utils.replaceNull(String.valueOf(msg.getAirCondition()))+"\n"+
+                                    Utils.replaceNull(String.valueOf(msg.getLocation()))+"\n"
+/*                                    Utils.replaceNull(String.valueOf(msg.getPassword()))+"\n"+
+                                    Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*/
+                                    ;
                             // json = trimMessage(json, "message");
-                            if (json != null) callback.onSuccess(new Response(false, json));
+                            if (json != null) callback.onSuccess(new Response(false, errorMesg));
+                            Log.d("error", errorMesg + "");
                             break;
                     }
                     //Additional cases
                 }                //pDialog.dismiss();
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 pDialog.hide();
-                //login_button.setEnabled(true);
-                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+
             }
         }) {
 
@@ -838,7 +852,7 @@ public class Requests {
                 params.put("air_condition", placeObject.getAirCondition());
                 params.put("kitchen", placeObject.getKitchen());
                 params.put("price", placeObject.getPrice());
-                params.put("location", placeObject.getLocation());
+                //params.put("location", placeObject.getLocation());
                 return params;
             }
         };

@@ -53,7 +53,7 @@
 
     <string name="question"> لديك حساب ؟ تسجيل الدخول</string>
     <string name="noquestion"> ليس لديك حساب ؟التسجيل الآن</string>
-    <string name="Nowner">اسم المالك</string>
+    <string name="Nowner">إسم المكان</string>
 
     <string name="guests">عدد الضيوف</string>
     <string name="beds">عدد السراير</string>

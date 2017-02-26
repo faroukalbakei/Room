@@ -106,7 +106,7 @@ public class BeHostt extends AppCompatActivity implements VolleyCallback,OnMapRe
         pickergust.setClickNumberPickerListener(new ClickNumberPickerListener() {
             @Override
             public void onValueChange(float previousValue, float currentValue, PickerClickType pickerClickType) {
-                guestValue= String.valueOf(currentValue);
+                guestValue= String.valueOf((int)currentValue);
 
             }
         });
@@ -114,20 +114,20 @@ public class BeHostt extends AppCompatActivity implements VolleyCallback,OnMapRe
         pickerbed.setClickNumberPickerListener(new ClickNumberPickerListener() {
             @Override
             public void onValueChange(float previousValue, float currentValue, PickerClickType pickerClickType) {
-                bedValue= String.valueOf(currentValue);
+                bedValue= String.valueOf((int)currentValue);
             }
         });
         pickerbathroom.setClickNumberPickerListener(new ClickNumberPickerListener() {
             @Override
             public void onValueChange(float previousValue, float currentValue, PickerClickType pickerClickType) {
-                bathroomValue= String.valueOf(currentValue);
+                bathroomValue= String.valueOf((int)currentValue);
             }
         });
 
         pickerRoom.setClickNumberPickerListener(new ClickNumberPickerListener() {
             @Override
             public void onValueChange(float previousValue, float currentValue, PickerClickType pickerClickType) {
-                roomValue= String.valueOf(currentValue);
+                roomValue= String.valueOf((int)currentValue);
 
             }
         });

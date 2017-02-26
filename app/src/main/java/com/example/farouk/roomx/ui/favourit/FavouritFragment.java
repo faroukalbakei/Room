@@ -39,6 +39,7 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
     TextView emptyView;
     Long placeId;
     private List<PlaceObject> placeObjects;
+    private ExploreAdapter exploreAdapter;
 
     @Nullable
     @Override
@@ -88,12 +89,27 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
 
     @Override
     public void onSuccess(Response response) {
-        placeObjects = (List<PlaceObject>) response.getObject();
-        Log.d("Favourit placeObject", placeObjects.toString());
+        PlaceObject object,placeObject = null;
+        if(response.getResult()==1){
+            object = (PlaceObject) response.getObject();
+            placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
+            Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
+            placeObject.setIsFavourate(1);
+            placeObject.save();
+        }else if(response.getResult()==0){
+            object = (PlaceObject) response.getObject();
+            placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
+            Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
+            placeObject.setIsFavourate(0);
+            placeObject.save();
+        }else {
+            placeObjects = (List<PlaceObject>) response.getObject();
+            if (placeObjects != null && placeObjects.size() < 1) {
+                emptyView.setVisibility(View.VISIBLE);
+            } else emptyView.setVisibility(View.GONE);
+            exploreAdapter = new ExploreAdapter(placeObjects, getContext());
+            exploreAdapter.callbackInfo(this);
+            recyclerView.setAdapter(exploreAdapter);        }
 
-        if(placeObjects.size()<1){
-            emptyView.setVisibility(View.VISIBLE);
-        }else emptyView.setVisibility(View.GONE);
-        recyclerView.setAdapter(new ExploreAdapter(placeObjects,getContext()));
     }
 }

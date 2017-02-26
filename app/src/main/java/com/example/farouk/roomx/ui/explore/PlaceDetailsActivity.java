@@ -2,7 +2,6 @@ package com.example.farouk.roomx.ui.explore;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -34,7 +33,6 @@ import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.util.CustomListAdapterDialog;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -96,7 +94,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
     private PlaceObject placeObject;
     List<RoomPhoto> roomPhotoList;
     List<RoomReservation> roomReservations;
-    User user;
+    List<User> user;
     double lang, lat;
     private EditText editTextStart;
     private EditText editTextend;
@@ -106,6 +104,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
     private SimpleDateFormat dateFormatter;
     private AlertDialog alertDialog;
     private ArrayList<ItemRoom> itemRooms;
+    private long placePId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,16 +112,18 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         setContentView(R.layout.activity_place_details);
         ButterKnife.bind(this);
         placeId = getIntent().getExtras().getLong(Const.PLACE_ID);
+        placePId = getIntent().getExtras().getLong(Const.PLACE_PID);
+
         if (placeId != 0) {
-            placeObject = PlaceObject.findById(PlaceObject.class, placeId);
+            placeObject = PlaceObject.findById(PlaceObject.class, placePId);
             Log.d("placeObject", placeObject.toString());
-            user = User.findById(User.class, Long.valueOf(placeObject.getUserId()));
+            user =  User.find(User.class,"uId=?",String.valueOf(placeObject.getUserId()));
             roomPhotoList = RoomPhoto.find(RoomPhoto.class, "place_Id=?", String.valueOf(placeId));
             roomReservations = RoomReservation.find(RoomReservation.class, "place_Id=?", String.valueOf(placeId));
             Log.d("getUser", user.toString());
             Log.d("roomPhotoList", roomPhotoList.toString());
             Log.d("roomReservations", roomReservations.toString());
-            placeObject.setUser(user);
+            placeObject.setUser(user.get(0));
             placeObject.setRoomPhoto(roomPhotoList);
             placeObject.setRoomReservation(roomReservations);
 
@@ -208,7 +209,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
 
     private void addToWishList() {
         Requests requests = new Requests(this);
-        requests.addToWishList(this, this, String.valueOf(placeObject.getPid()));
+        requests.addToWishList(this, this, String.valueOf(placeObject.getPid()), placeObject.getId());
     }
 
     /**
