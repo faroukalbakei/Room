@@ -79,6 +79,8 @@
     <string name="price">السعر</string>
     <string name="error_fill_data">الرجاء تعبئة البيانات الناقصة</string>
     <string name="rooms">عدد الغرف</string>
+    <string name="add_room_fail">الرجاء تعبئة البيانات الناقصة</string>
+    <string name="current_location">مكانك الحالي</string>
 
 
 </resources>

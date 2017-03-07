@@ -7,12 +7,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.User;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
+import com.example.farouk.roomx.util.Utils;
 import com.squareup.picasso.Picasso;
 
 import butterknife.Bind;
@@ -52,8 +54,13 @@ public class ShowProfileActivity extends AppCompatActivity implements VolleyCall
                 onBackPressed();
             }
         });
-        Requests requests = new Requests(this);
-        requests.getUserProfile(this, this);
+
+        if(Utils.isInternetAvailable(this)){
+            Requests requests = new Requests(this);
+            requests.getUserProfile(this, this);
+        }else
+            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+
     }
 
     @Override

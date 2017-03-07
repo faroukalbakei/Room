@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.farouk.roomx.R;
@@ -18,6 +19,7 @@ import com.example.farouk.roomx.model.PlaceObject;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.util.Const;
+import com.example.farouk.roomx.util.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -115,8 +117,13 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
             @Override
             public void onClick(View v) {
                 if (v.getId() == holder.likeToggleButton.getId()) {
-                    Requests requests = new Requests(context);
-                    requests.addToWishList(volleyCallback, context, String.valueOf(placeObject.getPid()),placeObject.getId());
+
+                    if(Utils.isInternetAvailable(context)){
+                        Requests requests = new Requests(context);
+                        requests.addToWishList(volleyCallback, context, String.valueOf(placeObject.getPid()),placeObject.getId());
+                    }else
+                        Toast.makeText(context,"لا يوجد انترنت", Toast.LENGTH_LONG);
+
 
                 }
             }

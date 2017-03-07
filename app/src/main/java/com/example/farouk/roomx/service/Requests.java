@@ -815,7 +815,7 @@ public class Requests {
                                     Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*/
                                     ;
                             // json = trimMessage(json, "message");
-                            if (json != null) callback.onSuccess(new Response(false, errorMesg));
+                            if (json != null) callback.onSuccess(new Response(errorResponses.getResult()));
                             Log.d("error", errorMesg + "");
                             break;
                     }
@@ -852,7 +852,7 @@ public class Requests {
                 params.put("air_condition", placeObject.getAirCondition());
                 params.put("kitchen", placeObject.getKitchen());
                 params.put("price", placeObject.getPrice());
-                //params.put("location", placeObject.getLocation());
+                params.put("location", placeObject.getLocation());
                 return params;
             }
         };

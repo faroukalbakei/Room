@@ -26,6 +26,7 @@ import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.UserinfoLogin;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
+import com.example.farouk.roomx.util.Utils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -62,8 +63,13 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_acount, container, false);
        // getActivity().setTitle(getResources().getString(R.string.title_activity_account));
-        Requests requests = new Requests(getContext());
-        requests.getUserProfile(this, getContext());
+
+        if(Utils.isInternetAvailable(getContext())){
+            Requests requests = new Requests(getContext());
+            requests.getUserProfile(this, getContext());
+        }else
+            Toast.makeText(getContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
+
         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
 
         mBottomSheetDialog = new Dialog(getContext(), R.style.MaterialDialogSheet);

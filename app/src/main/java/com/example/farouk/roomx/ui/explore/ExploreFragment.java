@@ -70,7 +70,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                     }
                 })
         );*/
-        if (Utils.isInternetAvailable()) {
+        if (Utils.isInternetAvailable(getContext())) {
             Requests requests = new Requests(getContext());
             requests.getPlacesList(this, getContext(), Const.getExplore_URL);
         } else

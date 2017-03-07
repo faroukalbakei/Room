@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
     public void login(View view) {
         String email = Email.getText().toString();
         String password = Password.getText().toString();
-        if (Utils.isInternetAvailable()) {
+        if (Utils.isInternetAvailable(getBaseContext())) {
             Requests requests = new Requests(this);
             requests.makeLogin(this, this, email, password);
         } else

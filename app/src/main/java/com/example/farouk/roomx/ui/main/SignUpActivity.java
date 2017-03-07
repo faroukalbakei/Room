@@ -80,11 +80,14 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
 
 
     public void register() {
+        if(Utils.isInternetAvailable(this)){
+            Requests requests = new Requests(this);
+            requests.makeRegister(this, this, Name.getText().toString(), Email.getText().toString()
+                    , Password.getText().toString(), Confirm.getText().toString()
+                    , Mobile.getText().toString());
+        }else
+            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
 
-        Requests requests = new Requests(this);
-        requests.makeRegister(this, this, Name.getText().toString(), Email.getText().toString()
-                , Password.getText().toString(), Confirm.getText().toString()
-                , Mobile.getText().toString());
     }
 
 

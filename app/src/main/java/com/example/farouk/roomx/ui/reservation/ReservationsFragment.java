@@ -46,7 +46,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        if(Utils.isInternetAvailable()){
+        if(Utils.isInternetAvailable(getContext())){
             Requests requests = new Requests(getContext());
             requests.getUserReservations(this, getContext());
         }else

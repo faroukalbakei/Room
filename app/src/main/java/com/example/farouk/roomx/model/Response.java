@@ -26,7 +26,11 @@ public class Response {
         this.isValid = isValid;
     }
 
-    public Response( boolean isValid, String message) {
+    public Response(int result) {
+        this.result = result;
+    }
+
+    public Response(boolean isValid, String message) {
         this.isValid = isValid;
         this.Message = message;
     }

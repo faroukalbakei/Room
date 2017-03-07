@@ -1,11 +1,13 @@
 package com.example.farouk.roomx.ui.account;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -26,6 +28,9 @@ import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.User;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
+import com.example.farouk.roomx.util.Const;
+import com.example.farouk.roomx.util.Permissions;
+import com.example.farouk.roomx.util.Utils;
 import com.squareup.picasso.Picasso;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -34,6 +39,8 @@ import java.util.Calendar;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by AbAbdullah on 12/02/2017.
@@ -115,12 +122,21 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadImagefromGallery();
+               if(!Permissions.checkWriteExternalPermission(ActivityEditProfile.this))
+                    Permissions.verifyStoragePermissions(ActivityEditProfile.this);
+                else loadImagefromGallery();
+
             }
         });
-        requests = new Requests(this);
-        requests.getUserProfile(this, this);
+
+        if(Utils.isInternetAvailable(this)){
+            requests = new Requests(this);
+            requests.getUserProfile(this, this);
+        }else
+            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+
     }
+
     public void loadImagefromGallery() {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
@@ -151,6 +167,7 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
 
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     imgDecodableString = cursor.getString(columnIndex);
+                    requests.uploadImage(this, this, imgDecodableString);
 
                     // Set the Image in ImageView after decoding the String
 //                    Picasso.with(getApplicationContext()).load(new File(imgDecodableString))
@@ -166,7 +183,6 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
                     .show();
         }
-        requests.uploadImage(this,this,imgDecodableString);
 
     }
 
@@ -174,7 +190,7 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
     @Override
     public void onSuccess(Response response) {
         userResponse = (User) response.getObject();
-        if(userResponse!=null) {
+        if (userResponse != null) {
             Log.d("userResponse", userResponse.toString());
             usernameEdittext.setText(userResponse.getName());
             mobileEdittext.setText(userResponse.getPhone());
@@ -182,18 +198,18 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
             cityEdittext.setText(userResponse.getCity());
             countryEdittext.setText(userResponse.getCountry());
             dobEdittext.setText(userResponse.getDob());
-            if(userResponse.getPhotolink()!=null){
+            if (userResponse.getPhotolink() != null) {
                 Picasso.with(this).load(userResponse.getPhotolink()).placeholder(R.drawable.ic_profile)
                         .into(profilePicImageview);
             }
         }
-        if(response.getResult()==1){
+        if (response.getResult() == 1) {
             Log.d("getResult", "1");
-            Toast.makeText(this,getResources().getString(R.string.done_succefully),Toast.LENGTH_LONG);
+            Toast.makeText(this, getResources().getString(R.string.done_succefully), Toast.LENGTH_LONG);
         }
-        if(response.isValid()){
+        if (response.isValid()) {
             Log.d("isValid", String.valueOf(response.isValid()));
-            Toast.makeText(this,getResources().getString(R.string.done_succefully),Toast.LENGTH_LONG);
+            Toast.makeText(this, getResources().getString(R.string.done_succefully), Toast.LENGTH_LONG);
         }
 
     }
@@ -247,4 +263,21 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
         user.setDob(dobEdittext.getText().toString() + "");
         requests.editProfile(this, this, user);
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case Const.REQUEST_EXTERNAL_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length <= 0
+                        || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getApplicationContext(), "Cannot Open gallery because you deny the permission", Toast.LENGTH_SHORT).show();
+                } else loadImagefromGallery();
+
+            }
+        }
+    }
+
+
 }

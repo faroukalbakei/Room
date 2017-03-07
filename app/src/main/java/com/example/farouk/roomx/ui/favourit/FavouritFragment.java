@@ -69,7 +69,7 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
                     }
                 })
         );*/
-        if(Utils.isInternetAvailable()){
+        if(Utils.isInternetAvailable(getContext())){
             Requests requests = new Requests(getContext());
             requests.getPlacesList(this, getContext(), Const.getFavList_URL);
         }else

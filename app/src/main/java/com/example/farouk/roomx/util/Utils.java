@@ -23,21 +23,21 @@ import java.util.regex.Pattern;
  */
 public class Utils {
 
-    public static boolean isInternetAvailable() {
-/*        try {
+/*    public static boolean isInternetAvailable() {
+*//*        try {
             InetAddress ipAddr = InetAddress.getByName("google.com"); //You can replace it with your name
             return !ipAddr.equals("");
 
         } catch (Exception e) {
             return false;
-        }*/
+        }*//*
         return true;
-    }
+    }*/
 
     /**
      * CHECK WHETHER INTERNET CONNECTION IS AVAILABLE OR NOT
      */
-    public static boolean checkConnection(Context context) {
+    public static boolean isInternetAvailable(Context context) {
         return ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo() != null;
     }
 

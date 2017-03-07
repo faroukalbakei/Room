@@ -33,6 +33,7 @@ import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.util.CustomListAdapterDialog;
+import com.example.farouk.roomx.util.Utils;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -208,8 +209,13 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
     }
 
     private void addToWishList() {
-        Requests requests = new Requests(this);
-        requests.addToWishList(this, this, String.valueOf(placeObject.getPid()), placeObject.getId());
+        if(Utils.isInternetAvailable(this)){
+            Requests requests = new Requests(this);
+            requests.addToWishList(this, this, String.valueOf(placeObject.getPid()), placeObject.getId());
+        }else
+            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+
+
     }
 
     /**
@@ -295,8 +301,13 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
     }
 
     private void getReserveInfo(String text, String text1) {
-        Requests requests = new Requests(getApplicationContext());
-        requests.reserveRoom(this, this, roomId, text, text1);
+
+        if(Utils.isInternetAvailable(this)){
+            Requests requests = new Requests(getApplicationContext());
+            requests.reserveRoom(this, this, roomId, text, text1);
+        }else
+            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+
     }
 
     private void setDateTimeField() {
