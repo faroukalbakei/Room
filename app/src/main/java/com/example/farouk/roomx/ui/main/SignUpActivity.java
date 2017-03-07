@@ -86,7 +86,7 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
                     , Password.getText().toString(), Confirm.getText().toString()
                     , Mobile.getText().toString());
         }else
-            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+             Toast.makeText(this, "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
     }
 

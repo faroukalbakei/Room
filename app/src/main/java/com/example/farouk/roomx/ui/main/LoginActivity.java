@@ -80,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
             Requests requests = new Requests(this);
             requests.makeLogin(this, this, email, password);
         } else
-            Toast.makeText(getApplicationContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
     }
 
     @Override

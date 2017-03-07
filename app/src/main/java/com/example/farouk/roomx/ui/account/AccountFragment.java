@@ -68,7 +68,7 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
             Requests requests = new Requests(getContext());
             requests.getUserProfile(this, getContext());
         }else
-            Toast.makeText(getContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
+             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
 

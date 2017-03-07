@@ -281,7 +281,7 @@ public class BeHostt extends AppCompatActivity implements VolleyCallback,
             Requests requests = new Requests(this);
             requests.addRoom(this, this, placeObject);
         }else
-            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+             Toast.makeText(this, "لا يوجد انترنت", Toast.LENGTH_LONG).show();
     }
 
     /**

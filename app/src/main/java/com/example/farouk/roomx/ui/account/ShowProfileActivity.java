@@ -59,7 +59,7 @@ public class ShowProfileActivity extends AppCompatActivity implements VolleyCall
             Requests requests = new Requests(this);
             requests.getUserProfile(this, this);
         }else
-            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+             Toast.makeText(this, "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
     }
 

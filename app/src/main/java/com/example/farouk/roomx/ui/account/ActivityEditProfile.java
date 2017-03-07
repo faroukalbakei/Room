@@ -133,7 +133,7 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
             requests = new Requests(this);
             requests.getUserProfile(this, this);
         }else
-            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+            Toast.makeText(getApplicationContext(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
     }
 

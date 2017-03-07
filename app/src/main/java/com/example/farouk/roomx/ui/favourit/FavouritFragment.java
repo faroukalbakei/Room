@@ -73,7 +73,7 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
             Requests requests = new Requests(getContext());
             requests.getPlacesList(this, getContext(), Const.getFavList_URL);
         }else
-            Toast.makeText(getContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
+             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
         //  prepareDetailData();
 

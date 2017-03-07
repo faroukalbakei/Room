@@ -50,7 +50,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
             Requests requests = new Requests(getContext());
             requests.getUserReservations(this, getContext());
         }else
-            Toast.makeText(getContext(),"لا يوجد انترنت", Toast.LENGTH_LONG);
+             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
         return rootView;
     }
 

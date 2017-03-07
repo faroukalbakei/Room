@@ -80,7 +80,6 @@
 
 
                 <pl.polak.clicknumberpicker.ClickNumberPickerView
-                    android:focusable="true"
                     android:id="@+id/clickNumberPickerView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -351,7 +350,7 @@
                 android:textSize="20sp" />
 
             <Button
-
+                android:focusable="true"
                 android:id="@+id/bt_behost_add"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"

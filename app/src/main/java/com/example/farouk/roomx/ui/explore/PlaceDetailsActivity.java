@@ -213,7 +213,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
             Requests requests = new Requests(this);
             requests.addToWishList(this, this, String.valueOf(placeObject.getPid()), placeObject.getId());
         }else
-            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+             Toast.makeText(this, "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
 
     }
@@ -306,7 +306,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
             Requests requests = new Requests(getApplicationContext());
             requests.reserveRoom(this, this, roomId, text, text1);
         }else
-            Toast.makeText(this,"لا يوجد انترنت", Toast.LENGTH_LONG);
+             Toast.makeText(this, "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
     }
 
