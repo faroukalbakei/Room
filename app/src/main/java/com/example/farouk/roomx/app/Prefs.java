@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 
+import com.example.farouk.roomx.model.LoginResponse;
 import com.example.farouk.roomx.model.UserinfoLogin;
 import com.google.gson.Gson;
 
@@ -40,10 +41,10 @@ public class Prefs {
                 .apply();
     }
 
-    public void setUser(UserinfoLogin userinfoLogin){
-        Log.d("set userinfoLogin ", userinfoLogin.toString());
+    public void setUser(LoginResponse loginResponse){
+        Log.d("set loginResponse ", loginResponse.toString());
         Gson gson = new Gson();
-        String json = gson.toJson(userinfoLogin);
+        String json = gson.toJson(loginResponse);
         sharedPreferences
                 .edit()
                 .putString(PRE_USER, json)
@@ -53,12 +54,12 @@ public class Prefs {
     public boolean getPreLoad(){
         return sharedPreferences.getBoolean(PRE_LOAD, false);
    }
-    public UserinfoLogin getUser(){
+    public LoginResponse getUser(){
         Gson gson = new Gson();
         String json = sharedPreferences.getString(PRE_USER, "");
-        UserinfoLogin userinfoLogin = gson.fromJson(json, UserinfoLogin.class);
+        LoginResponse loginResponse = gson.fromJson(json, LoginResponse.class);
         //Log.d("get userinfoLogin", userinfoLogin.toString());
-        return userinfoLogin;
+        return loginResponse;
     }
 
 }

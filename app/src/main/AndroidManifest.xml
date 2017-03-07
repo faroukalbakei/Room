@@ -15,36 +15,41 @@
         android:name=".app.VolleySingleton"
         android:allowBackup="true"
         android:icon="@drawable/roomx"
+        android:configChanges="layoutDirection|locale"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar">
-        <activity android:name=".ui.main.LoginActivity">
+        <activity android:name=".ui.main.LoginActivity"
+            android:windowSoftInputMode="stateHidden"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.SignUpActivity" />
+        <activity android:name=".ui.main.SignUpActivity"
+            android:windowSoftInputMode="stateHidden"
+            />
         <activity android:name=".ui.main.IconTextTabsActivity" />
         <activity android:name=".ui.explore.PlaceDetailsActivity" />
-        <activity android:name=".ui.profile.ActivityEditProfile" />
+        <activity android:name=".ui.account.ActivityEditProfile" />
 
         <meta-data
             android:name="DATABASE"
-            android:value="sugar_example.db" />
+            android:value="sugar_db.db" />
         <meta-data
             android:name="VERSION"
-            android:value="2" />
+            android:value="1" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.example.farouk.roomx" />
+            android:value="com.example.farouk.roomx.model" />
 
-        <activity android:name=".ui.profile.ShowProfileActivity" />
-        <activity android:name=".BeHostt"></activity>
+        <activity android:name=".ui.account.ShowProfileActivity" />
+        <activity android:name=".ui.account.BeHostt"></activity>
         <activity android:name="com.tangxiaolv.telegramgallery.GalleryActivity" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"

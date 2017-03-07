@@ -1,14 +1,17 @@
 
 package com.example.farouk.roomx.model;
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.orm.SugarRecord;
 
-public class RoomPhoto {
+public class RoomPhoto  extends SugarRecord {
 
     @SerializedName("id")
     @Expose
-    private Integer mid;
+    private Integer rpid;
     @SerializedName("photolink")
     @Expose
     private String photolink;
@@ -21,13 +24,25 @@ public class RoomPhoto {
     @SerializedName("updated_at")
     @Expose
     private Object updatedAt;
+    private Long placeId;
 
-    public Integer getMid() {
-        return mid;
+    public RoomPhoto() {
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public Long getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(Long placeId) {
+        this.placeId = placeId;
+    }
+
+    public Integer getRpid() {
+        return rpid;
+    }
+
+    public void setRpid(Integer rpid) {
+        this.rpid = rpid;
     }
 
     public String getPhotolink() {
@@ -65,11 +80,12 @@ public class RoomPhoto {
     @Override
     public String toString() {
         return "RoomPhoto{" +
-                "mid=" + mid +
+                "rpid=" + rpid +
                 ", photolink='" + photolink + '\'' +
                 ", rooid='" + rooid + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", placeId=" + placeId +
                 '}';
     }
 }

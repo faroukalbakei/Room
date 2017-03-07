@@ -9,22 +9,31 @@ public class Response {
     boolean isValid;
     String Message;
     String onError;
-    private int result;
+    private int result=-1;
 
     public Response() {
     }
 
-    public Response(Object object, boolean isValid, String message, String onError) {
+    public Response(Object object, boolean isValid, String message, String onError, int result) {
         this.object = object;
         this.isValid = isValid;
         Message = message;
         this.onError = onError;
+        this.result = result;
     }
 
     public Response(boolean isValid) {
         this.isValid = isValid;
     }
 
+    public Response(int result) {
+        this.result = result;
+    }
+
+    public Response(boolean isValid, String message) {
+        this.isValid = isValid;
+        this.Message = message;
+    }
     public Object getObject() {
         return object;
     }

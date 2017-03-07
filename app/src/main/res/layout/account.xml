@@ -6,17 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layoutDirection="locale"
-    android:padding="8dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     >
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:src="@mipmap/ic_launcher"
         android:id="@+id/imv_acounting_icon"
+
         />
 
     <TextView

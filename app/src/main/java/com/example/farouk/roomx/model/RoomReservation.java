@@ -3,12 +3,16 @@ package com.example.farouk.roomx.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.orm.SugarRecord;
+import com.orm.dsl.Table;
 
-public class RoomReservation {
+@Table
+
+public class RoomReservation  extends SugarRecord {
 
     @SerializedName("id")
     @Expose
-    private Integer mid;
+    private Integer rrid;
     @SerializedName("start")
     @Expose
     private String start;
@@ -27,13 +31,25 @@ public class RoomReservation {
     @SerializedName("updated_at")
     @Expose
     private Object updatedAt;
+    private Long placeId;
 
-    public Integer getMid() {
-        return mid;
+    public RoomReservation() {
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public Long getPlaceId() {
+        return placeId;
+    }
+
+    public void setPlaceId(Long placeId) {
+        this.placeId = placeId;
+    }
+
+    public Integer getRrid() {
+        return rrid;
+    }
+
+    public void setRrid(Integer rrid) {
+        this.rrid = rrid;
     }
 
     public String getStart() {
@@ -87,13 +103,14 @@ public class RoomReservation {
     @Override
     public String toString() {
         return "RoomReservation{" +
-                "mid=" + mid +
+                "rrid=" + rrid +
                 ", start='" + start + '\'' +
                 ", end='" + end + '\'' +
                 ", rooid='" + rooid + '\'' +
                 ", userId='" + userId + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", placeId=" + placeId +
                 '}';
     }
 }

@@ -5,12 +5,14 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.orm.SugarRecord;
+import com.orm.dsl.Table;
 
-public class PlaceObject  {
+public class PlaceObject extends SugarRecord{
+    private Long id;
 
     @SerializedName("id")
     @Expose
-    private Integer mid;
+    private int pid;
     @SerializedName("name")
     @Expose
     private String name;
@@ -75,12 +77,64 @@ public class PlaceObject  {
     @Expose
     private List<RoomReservation> roomReservation = null;
 
-    public Integer getMid() {
-        return mid;
+    public PlaceObject() {
     }
 
-    public void setMid(Integer mid) {
-        this.mid = mid;
+    public PlaceObject(Long id) {
+        this.id = id;
+    }
+
+    public PlaceObject(int pid) {
+        this.pid = pid;
+    }
+
+    public PlaceObject(Long id, Integer pid, String name,
+                       String userId, String numberOfGuests,
+                       String numberOfBeds, String numberOfBaths,
+                       String numberOfRooms, String price, String rating,
+                       String location, String description, String tv, String wifi,
+                       String pool, String airCondition, String kitchen, String createdAt,
+                       String updatedAt, Integer isFavourate, User user, List<RoomPhoto> roomPhoto,
+                       List<RoomReservation> roomReservation) {
+        this.id = id;
+        this.pid = pid;
+        this.name = name;
+        this.userId = userId;
+        this.numberOfGuests = numberOfGuests;
+        this.numberOfBeds = numberOfBeds;
+        this.numberOfBaths = numberOfBaths;
+        this.numberOfRooms = numberOfRooms;
+        this.price = price;
+        this.rating = rating;
+        this.location = location;
+        this.description = description;
+        this.tv = tv;
+        this.wifi = wifi;
+        this.pool = pool;
+        this.airCondition = airCondition;
+        this.kitchen = kitchen;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.isFavourate = isFavourate;
+        this.user = user;
+        this.roomPhoto = roomPhoto;
+        this.roomReservation = roomReservation;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
     }
 
     public String getName() {
@@ -254,7 +308,7 @@ public class PlaceObject  {
     @Override
     public String toString() {
         return "PlaceObject{" +
-                "mid=" + mid +
+                "pid=" + pid +
                 ", name='" + name + '\'' +
                 ", userId='" + userId + '\'' +
                 ", numberOfGuests='" + numberOfGuests + '\'' +

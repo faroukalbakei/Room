@@ -1,9 +1,7 @@
 package com.example.farouk.roomx.service;
 
 import com.example.farouk.roomx.model.LoginResponse;
-import com.example.farouk.roomx.model.ResponsePlace;
-import com.example.farouk.roomx.model.Result;
-import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.model.UserResult;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -25,5 +23,8 @@ public interface ApiService {
 
     @Multipart
     @POST("updateuserprofilepicture")
-    Call<Result> uploadImage(@Part("token") RequestBody mtoken, @Part MultipartBody.Part file);
+    Call<UserResult> uploadImage(@Part("token") RequestBody mtoken, @Part MultipartBody.Part file);
+
+    @POST("authenticate")
+    Call<LoginResponse> login(@Query("token") String mtoken,@Query("email") String email, @Query("password") String passwrod);
 }
