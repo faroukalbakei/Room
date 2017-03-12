@@ -32,8 +32,8 @@
 
 
     <!--profile layout-->
-    <string name="username_lable">إسم المستخدم</string>
-    <string name="mobile_lable">الموبايل</string>
+    <string name="username_lable">الإسم كامل</string>
+    <string name="mobile_lable">رقم الجوال</string>
     <string name="address_lable">العنوان</string>
     <string name="email_lable">البريد الإلكتروني</string>
     <string name="done">حفظ</string>
