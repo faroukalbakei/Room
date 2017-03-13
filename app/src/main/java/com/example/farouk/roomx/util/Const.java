@@ -14,10 +14,14 @@ public class Const {
 
     public static String getExplore_URL = "shownewestrooms";
     public static String getFavList_URL = "showwishlist";
+    public static String getMyRoom_URL = "getmyrooms";
+    public static String getReservation_URL="getuserreservations";
+    public static String getReservationRequest_URL="getmyreservations";
+
 
     public static final int REQUEST_EXTERNAL_STORAGE = 1;
     public static String[] PERMISSIONS_STORAGE = {Manifest.permission.READ_EXTERNAL_STORAGE};
 
-    public static final int REQUEST_LOCATION= 2;
+    public static final String BE_HOST= "";
     public static String[] PERMISSIONS_LOCATION = {Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION,};
 }

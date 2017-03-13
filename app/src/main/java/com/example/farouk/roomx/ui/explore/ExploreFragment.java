@@ -22,6 +22,7 @@ import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.util.Const;
+import com.example.farouk.roomx.util.FragmentType;
 import com.example.farouk.roomx.util.Utils;
 import com.example.farouk.roomx.util.RecyclerItemClickListener;
 
@@ -37,7 +38,18 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     private List<PlaceObject> placeObjects;
     Long placeId;
     private ExploreAdapter exploreAdapter;
+    int fragmentType;
 
+    public void setFragmentType(int fragmentType) {
+        this.fragmentType = fragmentType;
+    }
+
+    public static ExploreFragment newInstance(int fragmentType){
+        ExploreFragment fragment = new ExploreFragment();
+        fragment.setFragmentType(fragmentType);
+        return fragment;
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -70,9 +82,15 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                     }
                 })
         );*/
+        String url;
+        if(fragmentType== FragmentType.MY_ROOMS.getValue()){
+            url= Const.getMyRoom_URL;
+        }else
+            url= Const.getExplore_URL;
+
         if (Utils.isInternetAvailable(getContext())) {
             Requests requests = new Requests(getContext());
-            requests.getPlacesList(this, getContext(), Const.getExplore_URL);
+            requests.getPlacesList(this, getContext(), url);
         } else
             Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
 
@@ -88,6 +106,8 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
 
     @Override
     public void onSuccess(Response response) {
+        Log.d("ExploreFragment", response.toString());
+
         PlaceObject object,placeObject = null;
         if(response.getResult()==1){
             object = (PlaceObject) response.getObject();

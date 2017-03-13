@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.ExtrasItem;
 import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.ui.main.IconTextTabsActivity;
+import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.util.RecyclerTouchListener;
 import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.UserinfoLogin;
@@ -105,7 +107,11 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
                     Toast.makeText(getActivity(), "RoomX Gifts", Toast.LENGTH_SHORT).show();
 
                 } else if (position == 3) {
-                    Intent intent = new Intent(getContext(), BeHostt.class);
+/*                    Intent intent = new Intent(getContext(), BeHostt.class);
+                    startActivity(intent);*/
+
+                    Intent intent = new Intent(getContext(), IconTextTabsActivity.class);
+                    intent.putExtra(Const.BE_HOST,true);
                     startActivity(intent);
 
                 } else if (position == 4) {

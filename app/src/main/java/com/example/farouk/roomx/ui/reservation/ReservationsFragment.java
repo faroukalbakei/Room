@@ -20,6 +20,8 @@ import com.example.farouk.roomx.model.Reservation;
 import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
+import com.example.farouk.roomx.util.Const;
+import com.example.farouk.roomx.util.FragmentType;
 import com.example.farouk.roomx.util.Utils;
 
 import java.util.ArrayList;
@@ -30,7 +32,17 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
     ReservationAdapter mAdapter;
     TextView emptyView;
     private List<Reservation> reservationList;
+    int fragmentType;
 
+    public void setFragmentType(int fragmentType) {
+        this.fragmentType = fragmentType;
+    }
+
+    public static ReservationsFragment newInstance(int fragmentType){
+        ReservationsFragment fragment = new ReservationsFragment();
+        fragment.setFragmentType(fragmentType);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -46,9 +58,14 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        String url;
+        if(fragmentType== FragmentType.RESERVATION_REQUESTS.getValue()){
+            url= Const.getReservationRequest_URL;
+        }else
+            url= Const.getReservation_URL;
         if(Utils.isInternetAvailable(getContext())){
             Requests requests = new Requests(getContext());
-            requests.getUserReservations(this, getContext());
+            requests.getReservations(this, getContext(),url);
         }else
              Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
         return rootView;
@@ -69,6 +86,8 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         if(reservationList.size()<1){
             emptyView.setVisibility(View.VISIBLE);
         }else emptyView.setVisibility(View.GONE);
-        recyclerView.setAdapter(new ReservationAdapter(reservationList,getContext()));
+        recyclerView.setAdapter(new ReservationAdapter(reservationList,getContext(),fragmentType));
     }
+
+
 }

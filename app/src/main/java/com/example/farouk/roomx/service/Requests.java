@@ -47,6 +47,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import timber.log.Timber;
 
 import static android.content.ContentValues.TAG;
 
@@ -333,6 +334,7 @@ public class Requests {
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
+        Log.d("apiMethod" ,apiMethod);
 
         StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + apiMethod,
                 new com.android.volley.Response.Listener<String>() {
@@ -574,17 +576,18 @@ public class Requests {
         });
     }
 
-    public void getUserReservations(final VolleyCallback callback, final Context context) {
+    public void getReservations(final VolleyCallback callback, final Context context, String apiMethod) {
 
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
+        Log.d("apiMethod" ,apiMethod);
 
-        StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + "getuserreservations",
+        StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + apiMethod,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("getuserreservations", response.toString());
+                        Log.d("getreservations", response.toString());
 
                         List<ReservationResult> posts = Arrays.asList(gson.fromJson(response, ReservationResult.class));
                         responseObject = new Response();
