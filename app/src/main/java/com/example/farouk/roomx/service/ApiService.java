@@ -23,7 +23,7 @@ public interface ApiService {
 
     @Multipart
     @POST("updateuserprofilepicture")
-    Call<UserResult> uploadImage(@Part("token") RequestBody mtoken, @Part MultipartBody.Part file);
+    Call<String> uploadImage(@Part("token") RequestBody mtoken, @Part MultipartBody.Part file);
 
     @POST("authenticate")
     Call<LoginResponse> login(@Query("token") String mtoken,@Query("email") String email, @Query("password") String passwrod);

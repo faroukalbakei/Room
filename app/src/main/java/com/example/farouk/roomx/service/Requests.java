@@ -341,31 +341,48 @@ public class Requests {
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, response.toString());
-
-                        List<PlaceObject> posts = Arrays.asList(gson.fromJson(response, PlaceObject[].class));
                         responseObject = new Response();
-                        for (int i = 0; i < posts.size(); i++) {
-                            PlaceObject.save(posts.get(i));
-                            User user = posts.get(i).getUser();
-                            user.setId(posts.get(i).getId());
-                            User.save(user);
-                            for (int rp = 0; rp < posts.get(i).getRoomPhoto().size(); rp++) {
-                                RoomPhoto roomPhoto = posts.get(i).getRoomPhoto().get(rp);
-                                roomPhoto.setPlaceId(posts.get(i).getId());
-                                RoomPhoto.save(roomPhoto);
-                            }
-                            for (int rr = 0; rr < posts.get(i).getRoomReservation().size(); rr++) {
-                                RoomReservation roomReservation = posts.get(i).getRoomReservation().get(rr);
-                                roomReservation.setPlaceId(posts.get(i).getId());
-                                RoomReservation.save(roomReservation);
-                            }
+                        JSONObject callNode = null;
+                        String result = null;
+                        try {
+                            callNode = new JSONObject(response.toString());
+                            loginResponse = new LoginResponse();
+                            result =callNode.optString("result");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
-                        Log.i("PostActivity", posts.size() + " posts loaded.");
-                        for (PlaceObject post : posts) {
-                            Log.i("PostActivity", post.toString());
+                        if(result=="0"){
+                            responseObject.setResult(Integer.parseInt(result));
+
+                        }else{
+                            List<PlaceObject> posts = Arrays.asList(gson.fromJson(response, PlaceObject[].class));
+
+                            for (int i = 0; i < posts.size(); i++) {
+                                PlaceObject.save(posts.get(i));
+                                User user = posts.get(i).getUser();
+                                user.setId(posts.get(i).getId());
+                                User.save(user);
+                                for (int rp = 0; rp < posts.get(i).getRoomPhoto().size(); rp++) {
+                                    RoomPhoto roomPhoto = posts.get(i).getRoomPhoto().get(rp);
+                                    roomPhoto.setPlaceId(posts.get(i).getId());
+                                    RoomPhoto.save(roomPhoto);
+                                }
+                                for (int rr = 0; rr < posts.get(i).getRoomReservation().size(); rr++) {
+                                    RoomReservation roomReservation = posts.get(i).getRoomReservation().get(rr);
+                                    roomReservation.setPlaceId(posts.get(i).getId());
+                                    RoomReservation.save(roomReservation);
+                                }
+                            }
+
+                            Log.i("PostActivity", posts.size() + " posts loaded.");
+                            for (PlaceObject post : posts) {
+                                Log.i("PostActivity", post.toString());
+                            }
+                            responseObject.setObject(posts);
+
                         }
-                        responseObject.setObject(posts);
+
                         callback.onSuccess(responseObject);
                         pDialog.hide();
                     }
@@ -497,16 +514,17 @@ public class Requests {
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("photolink", file.getName(), requestFile);
 
-        Call<UserResult> resultCall = service.uploadImage(tokenBody, body);
+        Call<String> resultCall = service.uploadImage(tokenBody, body);
 
-        resultCall.enqueue(new Callback<UserResult>() {
+        resultCall.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<UserResult> call, retrofit2.Response<UserResult> response) {
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
 
                 pDialog.hide();
+                Log.d("response", response.body().toString());
 
                 // Response Success or Fail
-                if (response.isSuccessful()) {
+/*                if (response.isSuccessful()) {
                     if (response.body().getUser() != null)
                         Log.d("uploadImage", "success");
                     Log.d("response", response.body().toString());
@@ -516,12 +534,12 @@ public class Requests {
                 } else {
                     callback.onSuccess(new Response(false));
                     Log.d("uploadImage", "fail");
-                }
+                }*/
 
             }
 
             @Override
-            public void onFailure(Call<UserResult> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Log.d("onFailure", t.getMessage().toString());
                 pDialog.hide();
             }

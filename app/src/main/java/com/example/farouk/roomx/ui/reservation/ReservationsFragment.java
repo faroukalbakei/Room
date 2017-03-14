@@ -1,7 +1,6 @@
 package com.example.farouk.roomx.ui.reservation;
 
 
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,12 +32,13 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
     TextView emptyView;
     private List<Reservation> reservationList;
     int fragmentType;
+    private boolean isDataLoaded=false;
 
     public void setFragmentType(int fragmentType) {
         this.fragmentType = fragmentType;
     }
 
-    public static ReservationsFragment newInstance(int fragmentType){
+    public static ReservationsFragment newInstance(int fragmentType) {
         ReservationsFragment fragment = new ReservationsFragment();
         fragment.setFragmentType(fragmentType);
         return fragment;
@@ -48,9 +48,9 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View rootView=inflater.inflate(R.layout.fragment_reservations, container, false);
-        //getActivity().setTitle(getResources().getString(R.string.title_activity_reserve));
-        emptyView=(TextView)rootView.findViewById(R.id.empty_list_textView);
+        final View rootView = inflater.inflate(R.layout.fragment_reservations, container, false);
+
+        emptyView = (TextView) rootView.findViewById(R.id.empty_list_textView);
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_viewBooking);
         //recyclerView.setHasFixedSize(true);
@@ -58,17 +58,43 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        String url;
-        if(fragmentType== FragmentType.RESERVATION_REQUESTS.getValue()){
-            url= Const.getReservationRequest_URL;
-        }else
-            url= Const.getReservation_URL;
-        if(Utils.isInternetAvailable(getContext())){
-            Requests requests = new Requests(getContext());
-            requests.getReservations(this, getContext(),url);
-        }else
-             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+
+
+        emptyView.setVisibility(View.VISIBLE);
+
         return rootView;
+
+
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+ /*           if (isVisibleToUser  ) {
+
+                if(Utils.isInternetAvailable(getActivity())){
+                    Requests requests = new Requests(getContext());
+                    requests.getUserProfile(this, getContext());
+                }else
+                    Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+                isDataLoaded = true;
+            }*/
+        if (isVisibleToUser && isAdded()&& !isDataLoaded) {
+            String url;
+            if (fragmentType == FragmentType.RESERVATION_REQUESTS.getValue()) {
+                url = Const.getReservationRequest_URL;
+               // getActivity().setTitle(getResources().getString(R.string.title_activity_reservation_requests));
+            } else {
+                url = Const.getReservation_URL;
+              //  getActivity().setTitle(getResources().getString(R.string.title_activity_reserve));
+            }
+            if (Utils.isInternetAvailable(getContext())) {
+                Requests requests = new Requests(getContext());
+                requests.getReservations(this, getContext(), url);
+            } else
+                Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+            isDataLoaded = true;
+        }
     }
 
     @Override
@@ -83,10 +109,10 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         reservationList = (List<Reservation>) response.getObject();
         Log.d("reservationList", reservationList.toString());
 
-        if(reservationList.size()<1){
+        if (reservationList.size() < 1) {
             emptyView.setVisibility(View.VISIBLE);
-        }else emptyView.setVisibility(View.GONE);
-        recyclerView.setAdapter(new ReservationAdapter(reservationList,getContext(),fragmentType));
+        } else emptyView.setVisibility(View.GONE);
+        recyclerView.setAdapter(new ReservationAdapter(reservationList, getContext(), fragmentType));
     }
 
 

@@ -2,15 +2,9 @@ package com.example.farouk.roomx.util;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.widget.Toast;
-
-import com.example.farouk.roomx.ui.account.BeHostt;
 
 import static com.example.farouk.roomx.util.Const.PERMISSIONS_STORAGE;
 import static com.example.farouk.roomx.util.Const.REQUEST_EXTERNAL_STORAGE;

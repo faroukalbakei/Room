@@ -39,6 +39,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     Long placeId;
     private ExploreAdapter exploreAdapter;
     int fragmentType;
+    private boolean isDataLoaded=false;
 
     public void setFragmentType(int fragmentType) {
         this.fragmentType = fragmentType;
@@ -55,7 +56,6 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
-        // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
         emptyView = (TextView) rootView.findViewById(R.id.empty_list_textView);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         // recyclerView.setHasFixedSize(true);
@@ -82,17 +82,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                     }
                 })
         );*/
-        String url;
-        if(fragmentType== FragmentType.MY_ROOMS.getValue()){
-            url= Const.getMyRoom_URL;
-        }else
-            url= Const.getExplore_URL;
 
-        if (Utils.isInternetAvailable(getContext())) {
-            Requests requests = new Requests(getContext());
-            requests.getPlacesList(this, getContext(), url);
-        } else
-            Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
 
         return rootView;
     }
@@ -105,6 +95,38 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+ /*           if (isVisibleToUser && !isDataLoaded ) {
+
+                if(Utils.isInternetAvailable(getActivity())){
+                    Requests requests = new Requests(getContext());
+                    requests.getUserProfile(this, getContext());
+                }else
+                    Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+                isDataLoaded = true;
+            }*/
+        if (isVisibleToUser && isAdded()&& !isDataLoaded)
+        {
+            String url;
+            if(fragmentType== FragmentType.MY_ROOMS.getValue()){
+                url= Const.getMyRoom_URL;
+              //  getActivity().setTitle(getResources().getString(R.string.title_activity_my_room));
+            }else{
+               // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
+                url= Const.getExplore_URL;
+
+            }
+
+            if (Utils.isInternetAvailable(getContext())) {
+                Requests requests = new Requests(getContext());
+                requests.getPlacesList(this, getContext(), url);
+            } else
+                Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
+            isDataLoaded = true;
+        }
+    }
+    @Override
     public void onSuccess(Response response) {
         Log.d("ExploreFragment", response.toString());
 
@@ -116,11 +138,15 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
             placeObject.setIsFavourate(1);
             placeObject.save();
         }else if(response.getResult()==0){
-            object = (PlaceObject) response.getObject();
-            placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
-            Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
-            placeObject.setIsFavourate(0);
-            placeObject.save();
+            if(fragmentType==FragmentType.MY_ROOMS.getValue()){
+                emptyView.setVisibility(View.VISIBLE);
+            }else{
+                object = (PlaceObject) response.getObject();
+                placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
+                Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
+                placeObject.setIsFavourate(0);
+                placeObject.save();
+            }
         }else {
             placeObjects = (List<PlaceObject>) response.getObject();
             if (placeObjects != null && placeObjects.size() < 1) {

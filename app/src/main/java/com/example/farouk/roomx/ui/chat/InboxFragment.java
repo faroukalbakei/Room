@@ -24,6 +24,7 @@ public class InboxFragment extends Fragment {
     private List<UserinfoLogin> cuserList;
     private RecyclerView recyclerView;
     private ChatListAdabter mAdapter;
+    private boolean isDataLoaded=false;
 
 
     @Nullable
@@ -61,18 +62,22 @@ public class InboxFragment extends Fragment {
 
         prepareDetailData();
 
-
-
-
-
         return rootView;
     }
-
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //setContentView(R.layout.fragment_inbox);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+            if (isVisibleToUser && !isDataLoaded && isAdded()) {
+              //  getActivity().setTitle(getResources().getString(R.string.title_activity_inbox));
+/*
+                if(Utils.isInternetAvailable(getActivity())){
+                    Requests requests = new Requests(getContext());
+                    requests.getUserProfile(this, getContext());
+                }else
+                    Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();*/
+                isDataLoaded = true;
+            }
+
     }
 
     private void prepareDetailData()  {

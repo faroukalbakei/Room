@@ -31,7 +31,7 @@
     <string name="done">حفظ</string>
     <string name="title_activity_edit_profile">تعديل الملف الشخصي</string>
     <string name="title_activity_explore">إستكشف</string>
-    <string name="title_activity_account">الحساب</string>
+    <string name="title_activity_account">حسابي</string>
     <string name="title_activity_reserve">الحجوزات</string>
     <string name="title_activity_inbox">الوارد</string>
     <string name="title_activity_fav">المفضلة</string>
@@ -51,7 +51,7 @@
     <string name="guests">عدد الضيوف</string>
     <string name="beds">عدد السراير</string>
     <string name="bathrooms">عدد الحمامات</string>
-    <string name="lmap">الموقع على الخريطه</string>
+    <string name="lmap">الموقع على الخريطة</string>
     <string name="lmanually">ادخال الموقع يدويا بناء على خطوط الطول والعرض</string>
     <string name="dproperty">وصف الممتلكات</string>
     <string name="deproperty">ادخل وصفي تفصيلي عن المكان الذي تود اضافته</string>

@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.booking.rtlviewpager.RtlViewPager;
 import com.example.farouk.roomx.R;
+import com.example.farouk.roomx.ui.account.AddRoomFragment;
 import com.example.farouk.roomx.ui.chat.InboxFragment;
 import com.example.farouk.roomx.ui.explore.ExploreFragment;
 import com.example.farouk.roomx.ui.favourit.FavouritFragment;
@@ -37,57 +38,90 @@ public class IconTextTabsActivity extends AppCompatActivity {
     boolean isbehost = false;
     private int[] tabIcons = {
             R.drawable.ic_search
-            ,R.drawable.ic_reserv
-            ,R.drawable.ic_fav
-            ,R.drawable.ic_chat
-            ,R.drawable.ic_account
+            , R.drawable.ic_reserv
+            , R.drawable.ic_fav
+            , R.drawable.ic_chat
+            , R.drawable.ic_account
     };
 
     private int[] tabIcons_behost = {
             R.drawable.ic_search
-            ,R.drawable.ic_fav
-            ,R.drawable.ic_chat
-            ,R.drawable.ic_account
+            , R.drawable.ic_fav
+            , R.drawable.ic_chat
+            , R.drawable.ic_account
     };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utils.changeLang(getBaseContext(),"ar");
+        Utils.changeLang(getBaseContext(), "ar");
         setContentView(R.layout.activity_icon_text_tabs);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-             isbehost = extras.getBoolean(Const.BE_HOST);
+            isbehost = extras.getBoolean(Const.BE_HOST);
             if (isbehost) {
                 // Do something
-                isbehost=true;
-                Log.d("isbehost","true");
+                isbehost = true;
+                Log.d("isbehost", "true");
             } else {
                 // Do something else
-                isbehost=false;
+                isbehost = false;
             }
         }
         viewPager = (RtlViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager,isbehost);
+        setupViewPager(viewPager, isbehost);
 
 
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons(isbehost);
+        //Use tabs for setting listener
+
+        final String [] tabTitle_behost ={
+                getResources().getString(R.string.title_activity_my_room),
+                getResources().getString(R.string.title_activity_reservation_requests),
+                getResources().getString(R.string.title_activity_add_room),
+                getResources().getString(R.string.title_activity_account),
+        };
+
+        final String [] tabTitle ={
+                getResources().getString(R.string.title_activity_explore),
+                getResources().getString(R.string.title_activity_reserve),
+                getResources().getString(R.string.title_activity_fav),
+                getResources().getString(R.string.title_activity_inbox),
+                getResources().getString(R.string.title_activity_account),
+        };
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(isbehost) toolbar.setTitle(tabTitle_behost[position]);
+                else toolbar.setTitle(tabTitle[position]);
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
     }
 
     private void setupTabIcons(boolean isbehost) {
-        if(isbehost){
+        if (isbehost) {
             tabLayout.getTabAt(0).setIcon(tabIcons_behost[0]);
             tabLayout.getTabAt(1).setIcon(tabIcons_behost[1]);
             tabLayout.getTabAt(2).setIcon(tabIcons_behost[2]);
             tabLayout.getTabAt(3).setIcon(tabIcons_behost[3]);
 
-        }else {
+        } else {
             tabLayout.getTabAt(0).setIcon(tabIcons[0]);
             tabLayout.getTabAt(1).setIcon(tabIcons[1]);
             tabLayout.getTabAt(2).setIcon(tabIcons[2]);
@@ -98,12 +132,14 @@ public class IconTextTabsActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager, boolean isbehost) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        if(isbehost) {
+
+        if (isbehost) {
+
             adapter.addFrag(ExploreFragment.newInstance(FragmentType.MY_ROOMS.getValue()), getResources().getString(R.string.title_activity_my_room));
             adapter.addFrag(ReservationsFragment.newInstance(FragmentType.RESERVATION_REQUESTS.getValue()), getResources().getString(R.string.title_activity_reservation_requests));
-            adapter.addFrag(new InboxFragment(), getResources().getString(R.string.title_activity_add_room));
+            adapter.addFrag(new AddRoomFragment(), getResources().getString(R.string.title_activity_add_room));
             adapter.addFrag(new AccountFragment(), getResources().getString(R.string.title_activity_account));
-        }else{
+        } else {
             adapter.addFrag(new ExploreFragment(), getResources().getString(R.string.title_activity_explore));
             adapter.addFrag(new ReservationsFragment(), getResources().getString(R.string.title_activity_reserve));
             adapter.addFrag(new FavouritFragment(), getResources().getString(R.string.title_activity_fav));

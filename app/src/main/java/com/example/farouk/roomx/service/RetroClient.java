@@ -27,6 +27,7 @@ public class RetroClient {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.excludeFieldsWithoutExposeAnnotation();
         gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+        gsonBuilder.setLenient();
         Gson gson = gsonBuilder.create();
 
         return new Retrofit.Builder()
