@@ -49,7 +49,7 @@
             android:value="com.example.farouk.roomx.model" />
 
         <activity android:name=".ui.account.ShowProfileActivity" />
-        <activity android:name=".ui.account.BeHostt"></activity>
+        <activity android:name=".ui.account.AddRoomFragment"></activity>
         <activity android:name="com.tangxiaolv.telegramgallery.GalleryActivity" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"

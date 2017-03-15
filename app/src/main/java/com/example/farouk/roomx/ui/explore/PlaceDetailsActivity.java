@@ -353,8 +353,10 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         }else if(response.getResult()==0){
             Toast.makeText(this,response.getMessage()+"",Toast.LENGTH_LONG).show();
         }else {
-            alertDialog.dismiss();
             Toast.makeText(getApplicationContext(), response.getMessage() + "", Toast.LENGTH_LONG).show();
+        }
+        if(alertDialog!=null){
+            alertDialog.dismiss();
         }
     }
 

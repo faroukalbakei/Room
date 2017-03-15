@@ -22,6 +22,7 @@ import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.util.Const;
+import com.example.farouk.roomx.util.FragmentType;
 import com.example.farouk.roomx.util.Utils;
 import com.example.farouk.roomx.util.RecyclerItemClickListener;
 
@@ -37,13 +38,24 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     private List<PlaceObject> placeObjects;
     Long placeId;
     private ExploreAdapter exploreAdapter;
+    int fragmentType;
+    private boolean isDataLoaded=false;
 
+    public void setFragmentType(int fragmentType) {
+        this.fragmentType = fragmentType;
+    }
+
+    public static ExploreFragment newInstance(int fragmentType){
+        ExploreFragment fragment = new ExploreFragment();
+        fragment.setFragmentType(fragmentType);
+        return fragment;
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
-        // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
         emptyView = (TextView) rootView.findViewById(R.id.empty_list_textView);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         // recyclerView.setHasFixedSize(true);
@@ -70,11 +82,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                     }
                 })
         );*/
-        if (Utils.isInternetAvailable(getContext())) {
-            Requests requests = new Requests(getContext());
-            requests.getPlacesList(this, getContext(), Const.getExplore_URL);
-        } else
-            Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
+
 
         return rootView;
     }
@@ -87,7 +95,40 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+ /*           if (isVisibleToUser && !isDataLoaded ) {
+
+                if(Utils.isInternetAvailable(getActivity())){
+                    Requests requests = new Requests(getContext());
+                    requests.getUserProfile(this, getContext());
+                }else
+                    Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+                isDataLoaded = true;
+            }*/
+        if (isVisibleToUser && isAdded()&& !isDataLoaded)
+        {
+            String url;
+            if(fragmentType== FragmentType.MY_ROOMS.getValue()){
+                url= Const.getMyRoom_URL;
+                //getActivity().setTitle(getResources().getString(R.string.title_activity_my_room));
+            }else{
+               // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
+                url= Const.getExplore_URL;
+            }
+
+            if (Utils.isInternetAvailable(getContext())) {
+                Requests requests = new Requests(getContext());
+                requests.getPlacesList(this, getContext(), url);
+            } else
+                Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
+            isDataLoaded = true;
+        }
+    }
+    @Override
     public void onSuccess(Response response) {
+        Log.d("ExploreFragment", response.toString());
+
         PlaceObject object,placeObject = null;
         if(response.getResult()==1){
             object = (PlaceObject) response.getObject();
@@ -96,11 +137,15 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
             placeObject.setIsFavourate(1);
             placeObject.save();
         }else if(response.getResult()==0){
-            object = (PlaceObject) response.getObject();
-            placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
-            Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
-            placeObject.setIsFavourate(0);
-            placeObject.save();
+            if(fragmentType==FragmentType.MY_ROOMS.getValue()){
+                emptyView.setVisibility(View.VISIBLE);
+            }else{
+                object = (PlaceObject) response.getObject();
+                placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
+                Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
+                placeObject.setIsFavourate(0);
+                placeObject.save();
+            }
         }else {
             placeObjects = (List<PlaceObject>) response.getObject();
             if (placeObjects != null && placeObjects.size() < 1) {

@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.ExtrasItem;
 import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.ui.main.IconTextTabsActivity;
+import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.util.RecyclerTouchListener;
 import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.UserinfoLogin;
@@ -54,6 +56,7 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
     EditText Ddatte;
     TextView tv_name;
     private String username;
+    boolean isDataLoaded = false;
 
     public AccountFragment() {
     }
@@ -62,13 +65,7 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_acount, container, false);
-       // getActivity().setTitle(getResources().getString(R.string.title_activity_account));
 
-        if(Utils.isInternetAvailable(getContext())){
-            Requests requests = new Requests(getContext());
-            requests.getUserProfile(this, getContext());
-        }else
-             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
 
@@ -85,6 +82,12 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
         //-------
 
         tv_name = (TextView) rootView.findViewById(R.id.tv_NameUser);
+        tv_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), ShowProfileActivity.class));
+            }
+        });
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_viewAcount);
         // recyclerView.setHasFixedSize(true);
@@ -97,18 +100,23 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
             @Override
             public void onClick(View view, int position) {
                 ExtrasItem roomm = extrasItem.get(position);
-                if (position == 0) {
+/*                if (position == 0) {
                     startActivity(new Intent(getActivity(),ShowProfileActivity.class));
-                }else if (position == 1) {
+                }else */
+                if (position == 0) {
                     Toast.makeText(getActivity(), "invite friend", Toast.LENGTH_SHORT).show();
-                } else if (position == 2) {
+                } else if (position == 1) {
                     Toast.makeText(getActivity(), "RoomX Gifts", Toast.LENGTH_SHORT).show();
 
-                } else if (position == 3) {
-                    Intent intent = new Intent(getContext(), BeHostt.class);
+                } else if (position == 2) {
+/*                    Intent intent = new Intent(getContext(), AddRoomFragment.class);
+                    startActivity(intent);*/
+
+                    Intent intent = new Intent(getContext(), IconTextTabsActivity.class);
+                    intent.putExtra(Const.BE_HOST, true);
                     startActivity(intent);
 
-                } else if (position == 4) {
+                } else if (position == 3) {
 
                     Toast.makeText(getActivity(), "Help", Toast.LENGTH_SHORT).show();
                 }
@@ -125,7 +133,7 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
         Editeb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                startActivity(new Intent(getActivity(),ActivityEditProfile.class));
+                startActivity(new Intent(getActivity(), ActivityEditProfile.class));
 
 //                mBottomSheetDialog.setContentView(dialogv);
 //                mBottomSheetDialog.setCancelable(true);
@@ -142,25 +150,41 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
             }
         });
 
-
+        extrasItem = new ArrayList<>();
+        mAdapter = new AccountAdapter(extrasItem, getContext());
+        recyclerView.setAdapter(mAdapter);
+        prepareDetailData();
         return rootView;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+ /*           if (isVisibleToUser && !isDataLoaded ) {
+
+                if(Utils.isInternetAvailable(getActivity())){
+                    Requests requests = new Requests(getContext());
+                    requests.getUserProfile(this, getContext());
+                }else
+                    Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+                isDataLoaded = true;
+            }*/
+        if (isVisibleToUser&& isAdded()&& !isDataLoaded ){
+           // getActivity().setTitle(getResources().getString(R.string.title_activity_account));
+            if (Utils.isInternetAvailable(getActivity())) {
+                Requests requests = new Requests(getContext());
+                requests.getUserProfile(this, getContext());
+            } else
+                Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+            isDataLoaded = true;
+        }
+
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
-
-    private void prepareDetailData(String username, String photolink) {
+    private void prepareDetailData() {
         ExtrasItem detailing;
-        detailing = new ExtrasItem(photolink, username);
-        extrasItem.add(detailing);
+/*        detailing = new ExtrasItem(photolink, username);
+        extrasItem.add(detailing);*/
 
         detailing = new ExtrasItem(R.drawable.frin, getString(R.string.Invite));
         extrasItem.add(detailing);
@@ -224,10 +248,9 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
 
         User user = (User) response.getObject();
         username = user.getName();
-        Log.d("user onSuccess",user.toString());
-        extrasItem = new ArrayList<>();
-        mAdapter = new AccountAdapter(extrasItem,getContext());
-        recyclerView.setAdapter(mAdapter);
-        prepareDetailData(username,user.getPhotolink());
+        tv_name.setText(username + "");
+
+        Log.d("user onSuccess", user.toString());
+
     }
 }

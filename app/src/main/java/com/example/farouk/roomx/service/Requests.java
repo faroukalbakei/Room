@@ -47,6 +47,7 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import timber.log.Timber;
 
 import static android.content.ContentValues.TAG;
 
@@ -76,7 +77,6 @@ public class Requests {
         gson = gsonBuilder.create();
 
     }
-
 
     public void makeLogin(final VolleyCallback callback, final Context context, final String email, final String password) {
         //  login2(callback, context, email, password);
@@ -127,7 +127,7 @@ public class Requests {
 /*                            ErrorResponse errorResponses = gson.fromJson(json, ErrorResponse.class);
                             Msg msg =errorResponses.getMsg();
                             String errorMesg=msg.getErrorLogin();*/
-                             json = trimMessage(json, "error");
+                            json = trimMessage(json, "error");
                             if (json != null) callback.onSuccess(new Response(false, json));
                             break;
                     }
@@ -210,12 +210,11 @@ public class Requests {
                             json = new String(response.data);
                             Log.d("json", json + "");
                             ErrorResponse errorResponses = gson.fromJson(json, ErrorResponse.class);
-                            Error msg =errorResponses.getMsg().getError();
-                            String errorMesg= Utils.replaceNull(String.valueOf(msg.getName()))+"\n"+
-                            Utils.replaceNull(String.valueOf(msg.getEmail()))+"\n"+
-                                    Utils.replaceNull(String.valueOf(msg.getPassword()))+"\n"+
-                                    Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"
-                                    ;
+                            Error msg = errorResponses.getMsg().getError();
+                            String errorMesg = Utils.replaceNull(String.valueOf(msg.getName())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getEmail())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getPassword())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getPhone())) + "\n";
                             // json = trimMessage(json, "message");
                             if (json != null) callback.onSuccess(new Response(false, errorMesg));
                             Log.d("error", errorMesg + "");
@@ -333,37 +332,61 @@ public class Requests {
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
+        Log.d("apiMethod", apiMethod);
 
         StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + apiMethod,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, response.toString());
-
-                        List<PlaceObject> posts = Arrays.asList(gson.fromJson(response, PlaceObject[].class));
                         responseObject = new Response();
-                        for (int i = 0; i < posts.size(); i++) {
-                            PlaceObject.save(posts.get(i));
-                            User user = posts.get(i).getUser();
-                            user.setId(posts.get(i).getId());
-                            User.save(user);
-                            for (int rp = 0; rp < posts.get(i).getRoomPhoto().size(); rp++) {
-                                RoomPhoto roomPhoto = posts.get(i).getRoomPhoto().get(rp);
-                                roomPhoto.setPlaceId(posts.get(i).getId());
-                                RoomPhoto.save(roomPhoto);
-                            }
-                            for (int rr = 0; rr < posts.get(i).getRoomReservation().size(); rr++) {
-                                RoomReservation roomReservation = posts.get(i).getRoomReservation().get(rr);
-                                roomReservation.setPlaceId(posts.get(i).getId());
-                                RoomReservation.save(roomReservation);
-                            }
+                        JSONObject callNode = null;
+                        String result = null;
+                        try {
+                            callNode = new JSONObject(response.toString());
+                            result = callNode.optString("result");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
 
-                        Log.i("PostActivity", posts.size() + " posts loaded.");
-                        for (PlaceObject post : posts) {
-                            Log.i("PostActivity", post.toString());
+                        if (result == "0") {
+                            responseObject.setResult(Integer.parseInt(result));
+
+                        } else {
+                            List<PlaceObject> posts = Arrays.asList(gson.fromJson(response, PlaceObject[].class));
+
+                            for (int i = 0; i < posts.size(); i++) {
+                                PlaceObject.save(posts.get(i));
+                                if (posts.get(i).getUser() != null) {
+                                    User user = posts.get(i).getUser();
+                                    user.setId(posts.get(i).getId());
+                                    User.save(user);
+                                }
+                                if (posts.get(i).getRoomPhoto() != null) {
+                                    for (int rp = 0; rp < posts.get(i).getRoomPhoto().size(); rp++) {
+                                        RoomPhoto roomPhoto = posts.get(i).getRoomPhoto().get(rp);
+                                        roomPhoto.setPlaceId(posts.get(i).getId());
+                                        RoomPhoto.save(roomPhoto);
+                                    }
+                                }
+                                if (posts.get(i).getRoomReservation() != null) {
+
+                                    for (int rr = 0; rr < posts.get(i).getRoomReservation().size(); rr++) {
+                                        RoomReservation roomReservation = posts.get(i).getRoomReservation().get(rr);
+                                        roomReservation.setPlaceId(posts.get(i).getId());
+                                        RoomReservation.save(roomReservation);
+                                    }
+                                }
+                            }
+
+                            Log.i("PostActivity", posts.size() + " posts loaded.");
+                            for (PlaceObject post : posts) {
+                                Log.i("PostActivity", post.toString());
+                            }
+                            responseObject.setObject(posts);
+
                         }
-                        responseObject.setObject(posts);
+
                         callback.onSuccess(responseObject);
                         pDialog.hide();
                     }
@@ -468,7 +491,6 @@ public class Requests {
         VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
     }
 
-
     /**
      * Upload Image Client Code
      */
@@ -495,16 +517,17 @@ public class Requests {
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("photolink", file.getName(), requestFile);
 
-        Call<UserResult> resultCall = service.uploadImage(tokenBody, body);
+        Call<String> resultCall = service.uploadImage(tokenBody, body);
 
-        resultCall.enqueue(new Callback<UserResult>() {
+        resultCall.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<UserResult> call, retrofit2.Response<UserResult> response) {
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
 
                 pDialog.hide();
+                Log.d("response", response.body().toString());
 
                 // Response Success or Fail
-                if (response.isSuccessful()) {
+/*                if (response.isSuccessful()) {
                     if (response.body().getUser() != null)
                         Log.d("uploadImage", "success");
                     Log.d("response", response.body().toString());
@@ -514,12 +537,12 @@ public class Requests {
                 } else {
                     callback.onSuccess(new Response(false));
                     Log.d("uploadImage", "fail");
-                }
+                }*/
 
             }
 
             @Override
-            public void onFailure(Call<UserResult> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 Log.d("onFailure", t.getMessage().toString());
                 pDialog.hide();
             }
@@ -574,17 +597,18 @@ public class Requests {
         });
     }
 
-    public void getUserReservations(final VolleyCallback callback, final Context context) {
+    public void getReservations(final VolleyCallback callback, final Context context, String apiMethod) {
 
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
+        Log.d("apiMethod", apiMethod);
 
-        StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + "getuserreservations",
+        StringRequest req = new StringRequest(Request.Method.POST, Const.BASE_URL + apiMethod,
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("getuserreservations", response.toString());
+                        Log.d("getreservations", response.toString());
 
                         List<ReservationResult> posts = Arrays.asList(gson.fromJson(response, ReservationResult.class));
                         responseObject = new Response();
@@ -666,12 +690,32 @@ public class Requests {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseObject.setOnError(error.getMessage());
-                //pDialog.dismiss();
+                String json = null;
+                NetworkResponse response = error.networkResponse;
+                if (response != null && response.data != null) {
+                    switch (response.statusCode) {
+                        case 500:
+                        case 404:
+                        case 400:
+                            json = new String(response.data);
+                            Log.d("json", json + "");
+                            ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);
+                            Error msg = errorResponses.getError();
+                            String errorMesg = Utils.replaceNull(String.valueOf(msg.getRoomId())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getStart())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getEnd())) + "\n"
+/*                                    Utils.replaceNull(String.valueOf(msg.getPassword()))+"\n"+
+                                    Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*/;
+                            // json = trimMessage(json, "message");
+                            if (json != null)
+                                callback.onSuccess(new Response(errorResponses.getResult()));
+                            Log.d("error", errorMesg + "");
+                            break;
+                    }
+                    //Additional cases
+                }
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
-                //  pDialog.hide();
-                //login_button.setEnabled(true);
-                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                // pDialog.hide();
             }
         }) {
 
@@ -764,7 +808,7 @@ public class Requests {
     }
 
     public void addRoom(final VolleyCallback callback, final Context context, final PlaceObject placeObject) {
-        Log.d("placeObject" , placeObject.toString());
+        Log.d("placeObject", placeObject.toString());
         responseObject = new Response();
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
@@ -807,15 +851,15 @@ public class Requests {
                             json = new String(response.data);
                             Log.d("json", json + "");
                             ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);
-                            Error msg =errorResponses.getError();
-                            String errorMesg= Utils.replaceNull(String.valueOf(msg.getName()))+"\n"+
-                                    Utils.replaceNull(String.valueOf(msg.getAirCondition()))+"\n"+
-                                    Utils.replaceNull(String.valueOf(msg.getLocation()))+"\n"
+                            Error msg = errorResponses.getError();
+                            String errorMesg = Utils.replaceNull(String.valueOf(msg.getName())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getAirCondition())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getLocation())) + "\n"
 /*                                    Utils.replaceNull(String.valueOf(msg.getPassword()))+"\n"+
-                                    Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*/
-                                    ;
+                                    Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*/;
                             // json = trimMessage(json, "message");
-                            if (json != null) callback.onSuccess(new Response(errorResponses.getResult()));
+                            if (json != null)
+                                callback.onSuccess(new Response(errorResponses.getResult()));
                             Log.d("error", errorMesg + "");
                             break;
                     }

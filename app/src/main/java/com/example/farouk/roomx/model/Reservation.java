@@ -1,6 +1,7 @@
 
 package com.example.farouk.roomx.model;
 
+import com.google.android.gms.games.multiplayer.realtime.Room;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -21,12 +22,18 @@ public class Reservation {
     @SerializedName("user_id")
     @Expose
     private String userId;
+    @SerializedName("isAccepted")
+    @Expose
+    private String isAccepted;
     @SerializedName("created_at")
     @Expose
     private String createdAt;
     @SerializedName("updated_at")
     @Expose
     private String updatedAt;
+    @SerializedName("room")
+    @Expose
+    private PlaceObject room;
 
     public Integer getId() {
         return id;
@@ -68,6 +75,14 @@ public class Reservation {
         this.userId = userId;
     }
 
+    public String getIsAccepted() {
+        return isAccepted;
+    }
+
+    public void setIsAccepted(String isAccepted) {
+        this.isAccepted = isAccepted;
+    }
+
     public String getCreatedAt() {
         return createdAt;
     }
@@ -84,5 +99,29 @@ public class Reservation {
         this.updatedAt = updatedAt;
     }
 
+    public PlaceObject getRoom() {
+        return room;
+    }
 
+    public void setRoom(PlaceObject room) {
+        this.room = room;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservation{" +
+                "id=" + id +
+                ", start='" + start + '\'' +
+                ", end='" + end + '\'' +
+                ", roomId='" + roomId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", isAccepted='" + isAccepted + '\'' +
+                ", createdAt='" + createdAt + '\'' +
+                ", updatedAt='" + updatedAt + '\'' +
+                ", room=" + room +
+                '}';
+    }
 }
+
+
+

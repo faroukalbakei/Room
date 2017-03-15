@@ -63,6 +63,22 @@ public class Error {
     @Expose
     private List<String> kitchen = null;
 
+    @SerializedName("room_id")
+    @Expose
+    private List<String> roomId = null;
+
+    @SerializedName("start")
+    @Expose
+    private List<String> start = null;
+
+    @SerializedName("reservation_id")
+    @Expose
+    private List<String> reservationId = null;
+
+    @SerializedName("end")
+    @Expose
+    private List<String> end = null;
+
     public List<String> getName() {
         return name;
     }
@@ -183,6 +199,38 @@ public class Error {
         this.kitchen = kitchen;
     }
 
+    public List<String> getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(List<String> roomId) {
+        this.roomId = roomId;
+    }
+
+    public List<String> getStart() {
+        return start;
+    }
+
+    public void setStart(List<String> start) {
+        this.start = start;
+    }
+
+    public List<String> getEnd() {
+        return end;
+    }
+
+    public void setEnd(List<String> end) {
+        this.end = end;
+    }
+
+    public List<String> getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(List<String> reservationId) {
+        this.reservationId = reservationId;
+    }
+
     @Override
     public String toString() {
         return "Error{" +
@@ -201,6 +249,10 @@ public class Error {
                 ", description=" + description +
                 ", pool=" + pool +
                 ", kitchen=" + kitchen +
+                ", roomId=" + roomId +
+                ", start=" + start +
+                ", reservationId=" + reservationId +
+                ", end=" + end +
                 '}';
     }
 }
