@@ -62,7 +62,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
         Reservation reservation = reservations.get(position);
 
-        holder.PlaceName.setText(reservation.getRoomId());
+        holder.PlaceName.setText(reservation.getRoom().getName()+"");
         holder.StartDAy.setText(reservation.getStart()+"");
         holder.EndDay.setText(reservation.getEnd() + "");
 

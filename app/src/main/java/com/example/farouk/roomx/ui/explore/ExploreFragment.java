@@ -111,11 +111,10 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
             String url;
             if(fragmentType== FragmentType.MY_ROOMS.getValue()){
                 url= Const.getMyRoom_URL;
-              //  getActivity().setTitle(getResources().getString(R.string.title_activity_my_room));
+                //getActivity().setTitle(getResources().getString(R.string.title_activity_my_room));
             }else{
                // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
                 url= Const.getExplore_URL;
-
             }
 
             if (Utils.isInternetAvailable(getContext())) {

@@ -95,22 +95,39 @@ public class IconTextTabsActivity extends AppCompatActivity {
                 getResources().getString(R.string.title_activity_inbox),
                 getResources().getString(R.string.title_activity_account),
         };
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                if(isbehost) toolbar.setTitle(tabTitle_behost[tab.getPosition()]);
+                else toolbar.setTitle(tabTitle[tab.getPosition()]);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+/*        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
 
             @Override
             public void onPageSelected(int position) {
-                if(isbehost) toolbar.setTitle(tabTitle_behost[position]);
-                else toolbar.setTitle(tabTitle[position]);
+
 
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
             }
-        });
+        });*/
 
     }
 
