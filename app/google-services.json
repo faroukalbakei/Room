@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "355510327526",
+    "firebase_url": "https://roomx-5b964.firebaseio.com",
+    "project_id": "roomx-5b964",
+    "storage_bucket": "roomx-5b964.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:355510327526:android:e23b2c31e2c9b704",
+        "android_client_info": {
+          "package_name": "com.example.farouk.roomx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "355510327526-3st49n9td24siicu2gncelu7isneg60p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlxWkhggemGMLI5Naf4QRLSCW2Fxo1n8Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

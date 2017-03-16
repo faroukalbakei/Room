@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class UserinfoLogin {
+
+    public String uid;
    private String name ;
     private String Email;
     private String password;
@@ -32,6 +34,16 @@ public class UserinfoLogin {
         this.city = city;
         this.photo = photo;
     }
+
+    public UserinfoLogin(String uid, String email, String token) {
+
+        //use to firebase chate
+        this.uid = uid;
+        this.Email = email;
+        this.token = token;
+    }
+
+
 
     public int getPhoto() {
         return photo;
