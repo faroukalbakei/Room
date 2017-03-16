@@ -105,7 +105,7 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
                         finish();
 
                     } else {
-                        Utils.snakebar(response.getMessage(),bt_Singnup_login.getRootView());// show multiple line
+                        Utils.snakebar(response.getMessage(),bt_Singnup_login);// show multiple line
 //                        Snackbar.make(textView.getRootView(), response.getMessage() + "", Snackbar.LENGTH_LONG).show();
                     }
                 }

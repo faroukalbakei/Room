@@ -46,7 +46,6 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_fav, container, false);
-       // getActivity().setTitle(getResources().getString(R.string.title_activity_fav));
         emptyView=(TextView)rootView.findViewById(R.id.empty_list_textView);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_fav);
         // recyclerView.setHasFixedSize(true);
@@ -69,11 +68,7 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
                     }
                 })
         );*/
-        if(Utils.isInternetAvailable(getContext())){
-            Requests requests = new Requests(getContext());
-            requests.getPlacesList(this, getContext(), Const.getFavList_URL);
-        }else
-             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+
 
         //  prepareDetailData();
 
@@ -87,6 +82,18 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
 
     }
 
+        @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser&& isAdded() ) {
+          //  getActivity().setTitle(getResources().getString(R.string.title_activity_fav));
+            if(Utils.isInternetAvailable(getContext())){
+                Requests requests = new Requests(getContext());
+                requests.getPlacesList(this, getContext(), Const.getFavList_URL);
+            }else
+                Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+        }
+    }
     @Override
     public void onSuccess(Response response) {
         PlaceObject object,placeObject = null;

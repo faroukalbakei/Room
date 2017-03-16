@@ -93,11 +93,13 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         placeObject = roomList.get(position);
-        if(placeObject.getUser().getPhotolink()!=null) {
-            Log.i(" photo user", placeObject.getUser().getPhotolink());
-            Picasso.with(context).load(placeObject.getUser().getPhotolink()).resize(70, 70).placeholder(R.drawable.ic_profile).into(holder.userpic);
-        }else{
-            holder.userpic.setImageResource(R.drawable.ic_profile);
+        if(placeObject.getUser()!=null) {
+            if(placeObject.getUser().getPhotolink()!=null) {
+                Log.i(" photo user", placeObject.getUser().getPhotolink());
+                Picasso.with(context).load(placeObject.getUser().getPhotolink()).resize(70, 70).placeholder(R.drawable.ic_profile).into(holder.userpic);
+            }else{
+                holder.userpic.setImageResource(R.drawable.ic_profile);
+            }
         }
         if(placeObject.getRoomPhoto()!=null&&!placeObject.getRoomPhoto().isEmpty()&&placeObject.getRoomPhoto().size()>0) {
             Log.i(" photo placeObject", placeObject.getRoomPhoto().get(0).toString());

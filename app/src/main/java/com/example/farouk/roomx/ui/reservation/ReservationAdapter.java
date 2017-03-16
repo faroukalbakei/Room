@@ -21,6 +21,8 @@ import java.util.List;
 
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.MyViewHolder> {
 
+    private  int fragmentType;
+    private  Context context;
     private List<Reservation> reservations = new ArrayList<>();
 
 
@@ -38,8 +40,10 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         }
     }
 
-    public ReservationAdapter(List<Reservation> reservations , Context context) {
+    public ReservationAdapter(List<Reservation> reservations, Context context, int fragmentType) {
         this.reservations = reservations;
+        this.context = context;
+        this.fragmentType = fragmentType;
     }
 
     @Override
@@ -58,7 +62,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
         Reservation reservation = reservations.get(position);
 
-        holder.PlaceName.setText(reservation.getRoomId());
+        holder.PlaceName.setText(reservation.getRoom().getName()+"");
         holder.StartDAy.setText(reservation.getStart()+"");
         holder.EndDay.setText(reservation.getEnd() + "");
 
