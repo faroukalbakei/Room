@@ -12,11 +12,11 @@ import android.util.Log;
 
 import com.booking.rtlviewpager.RtlViewPager;
 import com.example.farouk.roomx.R;
+import com.example.farouk.roomx.chattest;
+import com.example.farouk.roomx.ui.account.AccountFragment;
 import com.example.farouk.roomx.ui.account.AddRoomFragment;
-import com.example.farouk.roomx.ui.chat.InboxFragment;
 import com.example.farouk.roomx.ui.explore.ExploreFragment;
 import com.example.farouk.roomx.ui.favourit.FavouritFragment;
-import com.example.farouk.roomx.ui.account.AccountFragment;
 import com.example.farouk.roomx.ui.reservation.ReservationsFragment;
 import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.util.FragmentType;
@@ -160,7 +160,8 @@ public class IconTextTabsActivity extends AppCompatActivity {
             adapter.addFrag(new ExploreFragment(), getResources().getString(R.string.title_activity_explore));
             adapter.addFrag(new ReservationsFragment(), getResources().getString(R.string.title_activity_reserve));
             adapter.addFrag(new FavouritFragment(), getResources().getString(R.string.title_activity_fav));
-            adapter.addFrag(new InboxFragment(), getResources().getString(R.string.title_activity_inbox));
+            adapter.addFrag(new chattest(), getResources().getString(R.string.title_activity_inbox));
+
             adapter.addFrag(new AccountFragment(), getResources().getString(R.string.title_activity_account));
         }
 
