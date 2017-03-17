@@ -83,7 +83,20 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                 })
         );*/
 
+        String url;
+        if(fragmentType== FragmentType.MY_ROOMS.getValue()){
+            url= Const.getMyRoom_URL;
+            //getActivity().setTitle(getResources().getString(R.string.title_activity_my_room));
+        }else{
+            // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
+            url= Const.getExplore_URL;
+        }
 
+        if (Utils.isInternetAvailable(getContext())) {
+            Requests requests = new Requests(getContext());
+            requests.getPlacesList(this, getContext(), url);
+        } else
+            Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
         return rootView;
     }
 
@@ -94,10 +107,10 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
 
     }
 
-    @Override
+/*    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
- /*           if (isVisibleToUser && !isDataLoaded ) {
+ *//*           if (isVisibleToUser && !isDataLoaded ) {
 
                 if(Utils.isInternetAvailable(getActivity())){
                     Requests requests = new Requests(getContext());
@@ -105,7 +118,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                 }else
                     Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
                 isDataLoaded = true;
-            }*/
+            }*//*
         if (isVisibleToUser && isAdded()&& !isDataLoaded)
         {
             String url;
@@ -124,7 +137,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                 Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
             isDataLoaded = true;
         }
-    }
+    }*/
     @Override
     public void onSuccess(Response response) {
         Log.d("ExploreFragment", response.toString());

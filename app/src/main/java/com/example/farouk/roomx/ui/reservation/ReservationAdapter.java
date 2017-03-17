@@ -2,17 +2,25 @@ package com.example.farouk.roomx.ui.reservation;
 
 
 import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.model.Reservation;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 //
 /**
@@ -30,6 +38,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         TextView PlaceName;
         TextView StartDAy;
         TextView EndDay;
+        LinearLayout reservationLayout;
 
 
         public MyViewHolder(View view) {
@@ -37,6 +46,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
             PlaceName = (TextView) view.findViewById(R.id.tv_resrv_place);
             StartDAy = (TextView) view.findViewById(R.id.tv_resrv_Start);
             EndDay = (TextView) view.findViewById(R.id.tv_resrv_End);
+            reservationLayout=(LinearLayout)view.findViewById(R.id.reservtion_layout);
         }
     }
 
@@ -73,5 +83,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     public int getItemCount() {
         return reservations.size();
     }
+
+
 
 }

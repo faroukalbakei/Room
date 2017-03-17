@@ -2,38 +2,31 @@ package com.example.farouk.roomx.ui.main;
 
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.farouk.roomx.FireChatHelper.ChatHelper;
 import com.example.farouk.roomx.R;
-import com.example.farouk.roomx.UsersChatAdapter;
 import com.example.farouk.roomx.model.Response;
-import com.example.farouk.roomx.model.Userf;
 import com.example.farouk.roomx.model.UserinfoLogin;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
+import com.example.farouk.roomx.ui.explore.ExploreFragment;
 import com.example.farouk.roomx.util.Utils;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Date;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity implements VolleyCallback {
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+
 
     EditText Name;
     EditText Email;
@@ -51,8 +44,6 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
         setContentView(R.layout.activity_singn_up);
 
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuth = FirebaseAuth.getInstance();
 /*        Window window = this.getWindow();
 
 // clear FLAG_TRANSLUCENT_STATUS flag:
@@ -74,9 +65,6 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
         password = Password.getText().toString();
         confirm = Confirm.getText().toString();
         mobile = Mobile.getText().toString();
-
-
-
         bt_Singnup_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,36 +77,14 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
             }
         });
     }
+
+
     public void register() {
         if(Utils.isInternetAvailable(this)){
             Requests requests = new Requests(this);
-
             requests.makeRegister(this, this, Name.getText().toString(), Email.getText().toString()
                     , Password.getText().toString(), Confirm.getText().toString()
                     , Mobile.getText().toString());
-
-            FirebaseAuth.getInstance()
-                    .createUserWithEmailAndPassword(Email.getText().toString(), Password.getText().toString())
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                          //  Log.e(TAG, "performFirebaseRegistration:onComplete:" + task.isSuccessful());
-
-                            // If sign in fails, display a message to the user. If sign in succeeds
-                            // the auth state listener will be notified and logic to handle the
-                            // signed in user can be handled in the listener.
-                            if (!task.isSuccessful()) {
-
-                            } else {
-                                // Add the user to users table.
-                            /*DatabaseReference database= FirebaseDatabase.getInstance().getReference();
-                            User user = new User(task.getResult().getUser().getUid(), email);
-                            database.child("users").push().setValue(user);*/
-                                onAuthSuccess(task.getResult().getUser());
-
-                            }
-                        }
-                    });
         }else
              Toast.makeText(this, "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
@@ -136,7 +102,7 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
                     if (response.getResult() == 1) {
                         Intent intent = new Intent(getApplicationContext(), IconTextTabsActivity.class);
                         startActivity(intent);
-                       // finish();
+                        finish();
 
                     } else {
                         Utils.snakebar(response.getMessage(),bt_Singnup_login);// show multiple line
@@ -156,37 +122,8 @@ public class SignUpActivity extends AppCompatActivity implements VolleyCallback 
     public void loginback(View view) {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
-      //  finish();
+        finish();
 
-    }
-    private void onAuthSuccess(FirebaseUser user) {
-        createNewUser(user.getUid());
-
-    }
-
-
-    private void createNewUser(String userId){
-        Userf user = new Userf(getUserDisplayName(),
-                getUserEmail(),
-                UsersChatAdapter.ONLINE
-                ,
-                ChatHelper.generateRandomAvatarForUser(),
-                new Date().getTime()
-        );
-        this.mDatabase.child("users").child(userId).setValue(user);
-    }
-
-
-
-    private String getUserDisplayName() {
-        return Name.getText().toString().trim();
-    }
-    private String getUserEmail() {
-        return Email.getText().toString().trim();
-    }
-
-    private String getUserPassword() {
-        return password.toString().trim();
     }
 
 }
