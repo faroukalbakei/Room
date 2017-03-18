@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layoutDirection="locale"
-    tools:context="com.example.farouk.roomx.ui.explore.ExploreFragment">
+    tools:context="com.dev.farouk.roomx.ui.explore.ExploreFragment">
 
     <include layout="@layout/content_fav" />
 

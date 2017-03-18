@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="locale"
     android:background="@color/white"
-    tools:context="com.example.farouk.roomx.ui.reservation.ReservationsFragment">
+    tools:context="com.dev.farouk.roomx.ui.reservation.ReservationsFragment">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
