@@ -2,17 +2,13 @@ package com.example.farouk.roomx.ui.main;
 
 
 import android.content.Intent;
-
-
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -21,8 +17,8 @@ import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.service.Requests;
 import com.example.farouk.roomx.service.VolleyCallback;
 import com.example.farouk.roomx.util.Utils;
+import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.jar.Attributes;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,7 +28,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
     EditText Password;
     private Snackbar snackbar;
 
-
+    private FirebaseAuth mAuth;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +38,11 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
 
         Email = (EditText) findViewById(R.id.et_login_email);
         Password = (EditText) findViewById(R.id.et_login_password);
+
         Email.setText("farouk.h@hotmail.com");
         Password.setText("12345678");
-    }
 
+    }
     @Override
     protected void onResume() {
         super.onResume();

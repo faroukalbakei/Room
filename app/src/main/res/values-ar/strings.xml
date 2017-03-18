@@ -77,4 +77,8 @@
     <string name="close">إغلاق</string>
     <string name="refuse_text">رفض</string>
 
+    <string name="user_successfully_added">User successfully added!</string>
+    <string name="user_unable_to_add">Unable to add user!</string>
+    <string name="adding_user_to_db">Adding user to database.</string>
+
 </resources>
