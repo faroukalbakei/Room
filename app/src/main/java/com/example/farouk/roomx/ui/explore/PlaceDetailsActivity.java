@@ -161,9 +161,13 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
                 onBackPressed();
             }
         });
-        if (placeObject.getIsFavourate() == 1) {
-            likeToggle.setChecked(true);
-        } else likeToggle.setChecked(false);
+
+        Integer fav = placeObject.getIsFavourate();
+        if(fav!=null){
+            if (placeObject.getIsFavourate() == 1) {
+                likeToggle.setChecked(true);
+            } else likeToggle.setChecked(false);
+        }else likeToggle.setChecked(false);
 
 
         itemRooms = new ArrayList<>();

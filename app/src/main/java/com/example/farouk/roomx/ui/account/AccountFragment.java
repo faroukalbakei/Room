@@ -22,8 +22,10 @@ import com.example.farouk.roomx.R;
 import com.example.farouk.roomx.app.Prefs;
 import com.example.farouk.roomx.model.ExtrasItem;
 import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.ui.explore.ExploreFragment;
 import com.example.farouk.roomx.ui.main.IconTextTabsActivity;
 import com.example.farouk.roomx.util.Const;
+import com.example.farouk.roomx.util.FragmentType;
 import com.example.farouk.roomx.util.RecyclerTouchListener;
 import com.example.farouk.roomx.model.Response;
 import com.example.farouk.roomx.model.UserinfoLogin;
@@ -57,9 +59,18 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
     EditText Ddatte;
     TextView tv_name;
     private String username;
-    boolean isDataLoaded = false;
+    int fragmentType;
+    private boolean isDataLoaded = false;
 
-    public AccountFragment() {
+    public void setFragmentType(int fragmentType) {
+        this.fragmentType = fragmentType;
+    }
+
+    public static AccountFragment newInstance(int fragmentType) {
+        AccountFragment fragment = new AccountFragment();
+        fragment.setFragmentType(fragmentType);
+        return fragment;
+
     }
 
     @Nullable
@@ -117,8 +128,12 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
                     startActivity(intent);*/
 
                     Intent intent = new Intent(getContext(), IconTextTabsActivity.class);
-                    intent.putExtra(Const.BE_HOST, true);
+                    if(fragmentType==FragmentType.BE_HOST.getValue()){
+                        intent.putExtra(Const.BE_HOST, false);
+                    }else  intent.putExtra(Const.BE_HOST, true);
+
                     startActivity(intent);
+                    getActivity().finish();
 
                 } else if (position == 3) {
 
@@ -195,9 +210,11 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
 
         detailing = new ExtrasItem(R.drawable.ic_gifts, getString(R.string.gifts));
         extrasItem.add(detailing);
-
-
-        detailing = new ExtrasItem(R.drawable.ic_behost, getString(R.string.host));
+        String title;
+        if (fragmentType == FragmentType.BE_HOST.getValue()) {
+            title = getString(R.string.be_traveller);
+        } else title = getString(R.string.host);
+        detailing = new ExtrasItem(R.drawable.ic_behost, title);
         extrasItem.add(detailing);
 
 

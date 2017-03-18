@@ -80,4 +80,6 @@
        <string name="user_successfully_added">User successfully added!</string>
       <string name="user_unable_to_add">Unable to add user!</string>
       <string name="adding_user_to_db">Adding user to database.</string>
+    <string name="be_traveller">Be Traveller</string>
+    <string name="general_error">حدث خطأ ما</string>
 </resources>

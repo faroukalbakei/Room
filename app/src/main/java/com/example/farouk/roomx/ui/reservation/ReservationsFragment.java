@@ -97,7 +97,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        if(fragmentType==FragmentType.RESERVATION_REQUESTS.getValue()) {
+        if (fragmentType == FragmentType.RESERVATION_REQUESTS.getValue()) {
             recyclerView.addOnItemTouchListener(
                     new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
@@ -115,6 +115,13 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
             );
         }
         emptyView.setVisibility(View.VISIBLE);
+        getReservationRequest();
+        return rootView;
+
+
+    }
+
+    public void getReservationRequest() {
         String url;
         if (fragmentType == FragmentType.RESERVATION_REQUESTS.getValue()) {
             url = Const.getReservationRequest_URL;
@@ -128,9 +135,6 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
             requests.getReservations(this, getContext(), url);
         } else
             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
-        return rootView;
-
-
     }
 /*
     @Override
@@ -173,26 +177,37 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
     @Override
     public void onSuccess(Response response) {
         reservationList = (List<Reservation>) response.getObject();
-        Log.d("reservationList", reservationList.toString());
-        if(reservationList!=null) {
+        if (reservationList != null) {
+            Log.d("reservationList", reservationList.toString());
             if (reservationList.size() < 1) {
                 emptyView.setVisibility(View.VISIBLE);
             } else emptyView.setVisibility(View.GONE);
             recyclerView.setAdapter(new ReservationAdapter(reservationList, getContext(), fragmentType));
+        }
+/*        if (!response.isValid()) {
+            emptyView.setVisibility(View.VISIBLE);
+        }*/
+        if (response.getResult() == 1) {
+            alertDialog.dismiss();
+            getReservationRequest();
+        }else if (response.getResult()==0){
+            alertDialog.dismiss();
+            Utils.snakebar(getString(R.string.general_error),emptyView);
         }
     }
 
     public void showDiaog(final Reservation reservation) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        ButterKnife.bind(this,alertDialog);
 
 // ...Irrelevant code for customizing the buttons and title
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.fragment_reservation_request, null);
+        ButterKnife.bind(this, dialogView);
         dialogBuilder.setView(dialogView);
-        User user = (User) User.find(User.class,"uId=?",String.valueOf(reservation.getUserId()));
-        Timber.i("user %s" ,user);
+        List<User> userList = User.find(User.class, "uId=?", String.valueOf(reservation.getUserId()));
+        User user = userList.get(0);
+        Timber.i("user %s", user);
         textViewHostedName.setText(user.getName());
         Picasso.with(getContext()).load(user.getPhotolink()).into(hostedImage);
         tvResrvPlace.setText(reservation.getRoom().getName());
@@ -201,11 +216,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         acceptLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Utils.isInternetAvailable(getContext())) {
-                    Requests requests = new Requests(getContext());
-                    requests.doReservationReques((VolleyCallback) getActivity(), getContext(), Const.acceptreservation,String.valueOf(reservation.getId()),1);
-                } else
-                    Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+                doReserve(1, reservation.getId());
 
             }
         });
@@ -213,11 +224,8 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         refuseLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Utils.isInternetAvailable(getContext())) {
-                    Requests requests = new Requests(getContext());
-                    requests.doReservationReques((VolleyCallback) getActivity(), getContext(), Const.acceptreservation,String.valueOf(reservation.getId()),0);
-                } else
-                    Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+                doReserve(0, reservation.getId());
+
 
             }
         });
@@ -240,5 +248,13 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    public void doReserve(int isAccepted, int reservationId) {
+        if (Utils.isInternetAvailable(getContext())) {
+            Requests requests = new Requests(getContext());
+            requests.doReservationReques(this, getContext(), Const.acceptreservation, String.valueOf(reservationId), isAccepted);
+        } else
+            Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
     }
 }
