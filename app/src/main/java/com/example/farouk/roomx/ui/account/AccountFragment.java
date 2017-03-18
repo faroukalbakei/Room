@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.farouk.roomx.R;
+import com.example.farouk.roomx.app.Prefs;
 import com.example.farouk.roomx.model.ExtrasItem;
 import com.example.farouk.roomx.model.User;
 import com.example.farouk.roomx.ui.main.IconTextTabsActivity;
@@ -65,8 +66,11 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_acount, container, false);
-
-
+        if (Utils.isInternetAvailable(getActivity())) {
+            Requests requests = new Requests(getContext());
+            requests.getUserProfile(this, getContext());
+        } else
+            Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
         dialogv = getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet, null);
 
         mBottomSheetDialog = new Dialog(getContext(), R.style.MaterialDialogSheet);
@@ -157,10 +161,10 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
         return rootView;
     }
 
-    @Override
+/*    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
- /*           if (isVisibleToUser && !isDataLoaded ) {
+ *//*           if (isVisibleToUser && !isDataLoaded ) {
 
                 if(Utils.isInternetAvailable(getActivity())){
                     Requests requests = new Requests(getContext());
@@ -168,7 +172,7 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
                 }else
                     Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
                 isDataLoaded = true;
-            }*/
+            }*//*
         if (isVisibleToUser&& isAdded()&& !isDataLoaded ){
            // getActivity().setTitle(getResources().getString(R.string.title_activity_account));
             if (Utils.isInternetAvailable(getActivity())) {
@@ -179,7 +183,7 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
             isDataLoaded = true;
         }
 
-    }
+    }*/
 
     private void prepareDetailData() {
         ExtrasItem detailing;
@@ -189,11 +193,11 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
         detailing = new ExtrasItem(R.drawable.frin, getString(R.string.Invite));
         extrasItem.add(detailing);
 
-        detailing = new ExtrasItem(R.drawable.box, getString(R.string.gifts));
+        detailing = new ExtrasItem(R.drawable.ic_gifts, getString(R.string.gifts));
         extrasItem.add(detailing);
 
 
-        detailing = new ExtrasItem(R.drawable.home, getString(R.string.host));
+        detailing = new ExtrasItem(R.drawable.ic_behost, getString(R.string.host));
         extrasItem.add(detailing);
 
 

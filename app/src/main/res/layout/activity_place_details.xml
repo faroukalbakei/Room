@@ -85,6 +85,7 @@
                 android:text="discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion"
                 android:textDirection="locale"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+
             <RelativeLayout
 
                 android:layout_width="match_parent"

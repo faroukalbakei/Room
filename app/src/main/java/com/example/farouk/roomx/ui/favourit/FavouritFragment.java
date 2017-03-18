@@ -68,7 +68,11 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
                     }
                 })
         );*/
-
+        if(Utils.isInternetAvailable(getContext())){
+            Requests requests = new Requests(getContext());
+            requests.getPlacesList(this, getContext(), Const.getFavList_URL);
+        }else
+            Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
         //  prepareDetailData();
 
@@ -82,7 +86,7 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
 
     }
 
-        @Override
+/*        @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser&& isAdded() ) {
@@ -93,7 +97,7 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
             }else
                 Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
     @Override
     public void onSuccess(Response response) {
         PlaceObject object,placeObject = null;

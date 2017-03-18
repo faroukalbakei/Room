@@ -27,13 +27,13 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyViewHo
 
     public class MyViewHolderr extends RecyclerView.ViewHolder {
         public TextView name;
-        public CircleImageView userpic;
+        public ImageView userpic;
 
 
         public MyViewHolderr(View view) {
             super(view);
             name = (TextView) view.findViewById(R.id.tv_acounting_Features);
-            userpic = (CircleImageView) view.findViewById(R.id.imv_acounting_icon);
+            userpic = (ImageView) view.findViewById(R.id.imv_acounting_icon);
 
         }
     }
