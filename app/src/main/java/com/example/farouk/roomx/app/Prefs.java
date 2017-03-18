@@ -73,13 +73,13 @@ public class Prefs {
         String json = gson.toJson(loginResponse);
         sharedPreferences
                 .edit()
-                .putString(PRE_USER, json)
+                .putString(PRE_LOAD, json)
                 .apply();
     }
 
     public UserResult getUserInfo(){
         Gson gson = new Gson();
-        String json = sharedPreferences.getString(PRE_USER, "");
+        String json = sharedPreferences.getString(PRE_LOAD, "");
         UserResult loginResponse = gson.fromJson(json, UserResult.class);
         //Log.d("get userinfoLogin", userinfoLogin.toString());
         return loginResponse;
