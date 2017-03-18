@@ -5,7 +5,7 @@ package com.example.farouk.roomx.util;
  */
 
 public enum FragmentType {
-    MY_ROOMS(1), RESERVATION_REQUESTS(2);
+    MY_ROOMS(1), RESERVATION_REQUESTS(2),BE_HOST(3);
 
     private final int value;
 

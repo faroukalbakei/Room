@@ -112,9 +112,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
         holder.date.setText(placeObject.getCreatedAt()+"");
         holder.city.setText(placeObject.getUser().getCountry() + placeObject.getUser().getCity()+"");
         holder.detale.setText(placeObject.getDescription()+"");
-        if (placeObject.getIsFavourate() == 1) {
-            holder.likeToggleButton.setChecked(true);
-        } else holder.likeToggleButton.setChecked(false);
+        Integer fav = placeObject.getIsFavourate();
+        if(fav!=null){
+            if (placeObject.getIsFavourate() == 1) {
+                holder.likeToggleButton.setChecked(true);
+            } else holder.likeToggleButton.setChecked(false);
+        }else holder.likeToggleButton.setChecked(false);
         holder.likeToggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

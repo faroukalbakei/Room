@@ -157,7 +157,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
             adapter.addFrag(ExploreFragment.newInstance(FragmentType.MY_ROOMS.getValue()), getResources().getString(R.string.title_activity_my_room));
             adapter.addFrag(ReservationsFragment.newInstance(FragmentType.RESERVATION_REQUESTS.getValue()), getResources().getString(R.string.title_activity_reservation_requests));
             adapter.addFrag(new AddRoomFragment(), getResources().getString(R.string.title_activity_add_room));
-            adapter.addFrag(new AccountFragment(), getResources().getString(R.string.title_activity_account));
+            adapter.addFrag(AccountFragment.newInstance(FragmentType.BE_HOST.getValue()), getResources().getString(R.string.title_activity_account));
         } else {
             adapter.addFrag(new ExploreFragment(), getResources().getString(R.string.title_activity_explore));
             adapter.addFrag(new FavouritFragment(), getResources().getString(R.string.title_activity_fav));

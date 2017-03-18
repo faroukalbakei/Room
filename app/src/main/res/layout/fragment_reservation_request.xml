@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layoutDirection="locale"
+    android:background="@drawable/edittext_background_foucused"
     >
 
     <Button
@@ -54,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="20dp"
         android:textColor="@color/blue_700"
         android:textSize="16sp"
         android:text="@string/visit_user_profile"
@@ -95,7 +96,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:text="@string/start_booking"
@@ -129,7 +130,7 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"/>
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:text="@string/End_booking"
@@ -146,7 +147,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
         >
         <LinearLayout
             android:id="@+id/accept_layout"

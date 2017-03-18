@@ -32,6 +32,7 @@ import com.example.farouk.roomx.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -362,8 +363,8 @@ public class Requests {
                                 if (posts.get(i).getUser() != null) {
                                     user = posts.get(i).getUser();
 
-                                }else{
-                                    user=Prefs.with(context).getUserInfo().getUser();
+                                } else {
+                                    user = Prefs.with(context).getUserInfo().getUser();
                                 }
                                 user.setId(posts.get(i).getId());
                                 User.save(user);
@@ -387,7 +388,10 @@ public class Requests {
                             Log.i("PostActivity", posts.size() + " posts loaded.");
                             for (PlaceObject post : posts) {
                                 Log.i("PostActivity", post.toString());
+                                if (post.getUser() == null)
+                                    post.setUser(Prefs.with(context).getUserInfo().getUser());
                             }
+
                             responseObject.setObject(posts);
 
                         }
@@ -614,54 +618,76 @@ public class Requests {
                     @Override
                     public void onResponse(String response) {
                         Log.d("getreservations", response.toString());
-
-                        List<ReservationResult> posts = Arrays.asList(gson.fromJson(response, ReservationResult.class));
                         responseObject = new Response();
+                     //   try {
+                          // JSONObject callNode = new JSONObject(response.toString());
+                            if (response.length()<10) {
+                                responseObject.setValid(false);
+                            } else {
 
-                        Log.i("getuserreservations", posts.size() + " posts loaded.");
-                        List<Reservation> reservationList = new ArrayList<>();
-                        for (Reservation reservation : posts.get(0).getReservation()) {
-                            reservationList.add(reservation);
-                            Log.i("reservation", reservation.toString());
+                                List<ReservationResult> posts = Arrays.asList(gson.fromJson(response, ReservationResult.class));
+
+                                Log.i("getuserreservations", posts.size() + " posts loaded.");
+                                List<Reservation> reservationList = new ArrayList<>();
+                                for (Reservation reservation : posts.get(0).getReservation()) {
+                                    reservationList.add(reservation);
+                                    Log.i("reservation", reservation.toString());
+                                }
+                                Log.i("reservationList", reservationList.toString());
+                                responseObject.setObject(reservationList);
+                            }
+
+                            callback.onSuccess(responseObject);
+                            pDialog.hide();
+/*                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }*/
                         }
-                        Log.i("reservationList", reservationList.toString());
 
-                        responseObject.setObject(reservationList);
-                        callback.onSuccess(responseObject);
-                        pDialog.hide();
                     }
-                }, new com.android.volley.Response.ErrorListener() {
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                responseObject.setOnError(error.getMessage());
-                pDialog.hide();
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                //login_button.setEnabled(true);
-                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        }) {
+                    ,new com.android.volley.Response.ErrorListener()
 
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+                    {
 
-                params.put("Content-Type", "application/x-www-form-urlencoded");
-                params.put("Accept", "application/json");
-                return params;
-            }
+                        @Override
+                        public void onErrorResponse (VolleyError error){
+                        responseObject.setOnError(error.getMessage());
+                        pDialog.hide();
+                        VolleyLog.d(TAG, "Error: " + error.getMessage());
+                        //login_button.setEnabled(true);
+                        //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                    }
 
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("token", token);
-                return params;
-            }
-        };
+                    )
 
-        // Adding request to request queue
-        VolleySingleton.getInstance().addToRequestQueue(req);
-    }
+                    {
+
+                        @Override
+                        public Map<String, String> getHeaders ()throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+
+                        params.put("Content-Type", "application/x-www-form-urlencoded");
+                        params.put("Accept", "application/json");
+                        return params;
+                    }
+
+                        @Override
+                        protected Map<String, String> getParams ()throws AuthFailureError {
+                        Map<String, String> params = new HashMap<String, String>();
+                        params.put("token", token);
+                        return params;
+                    }
+                    }
+
+                    ;
+
+                    // Adding request to request queue
+                    VolleySingleton.getInstance().
+
+                    addToRequestQueue(req);
+                }
 
     public void reserveRoom(final VolleyCallback callback, final Context context, final String roomId, final String startDate, final String endDate) {
         responseObject = new Response();
@@ -748,7 +774,7 @@ public class Requests {
         VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
     }
 
-    public void doReservationReques(final VolleyCallback callback, final Context context,String apiMethod, final String reservationId,final int isAccepted) {
+    public void doReservationReques(final VolleyCallback callback, final Context context, String apiMethod, final String reservationId, final int isAccepted) {
         responseObject = new Response();
 /*        pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
@@ -986,7 +1012,7 @@ public class Requests {
 //                params.put("kitchen", placeObject.getKitchen());
 
                 params.put("tv", "1");
-                params.put("wifi","1");
+                params.put("wifi", "1");
                 params.put("pool", "1");
                 params.put("air_condition", "1");
                 params.put("kitchen", "1");

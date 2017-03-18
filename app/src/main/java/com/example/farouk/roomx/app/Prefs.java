@@ -78,7 +78,11 @@ public class Prefs {
     }
 
     public UserResult getUserInfo(){
-        Gson gson = new Gson();
+        Gson gson;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+        gson = gsonBuilder.create();
         String json = sharedPreferences.getString(PRE_LOAD, "");
         UserResult loginResponse = gson.fromJson(json, UserResult.class);
         //Log.d("get userinfoLogin", userinfoLogin.toString());
