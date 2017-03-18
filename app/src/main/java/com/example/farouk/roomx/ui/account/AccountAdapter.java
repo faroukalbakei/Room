@@ -38,9 +38,9 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyViewHo
         }
     }
 
-    public AccountAdapter(List<ExtrasItem> detelsList,Context context) {
+    public AccountAdapter(List<ExtrasItem> detelsList, Context context) {
         this.detelsList = detelsList;
-        this.context=context;
+        this.context = context;
     }
 
 
@@ -57,10 +57,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolderr holder, int position) {
         ExtrasItem rooom = detelsList.get(position);
-        if(position==0){
+/*        if(position==0){
             Picasso.with(context).load(rooom.getIconUrl()).placeholder(R.drawable.ic_profile).into(holder.userpic);
-        }else holder.userpic.setImageResource((rooom.getIconed()));
+        }else */
 
+        holder.userpic.setImageResource((rooom.getIconed()));
         holder.name.setText(rooom.getTextd());
     }
 

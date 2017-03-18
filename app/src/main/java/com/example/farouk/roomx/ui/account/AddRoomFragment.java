@@ -237,7 +237,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
 
             @Override
             public void afterTextChanged(Editable s) {
-                Toast.makeText(getActivity(), vertical.getText(), Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getActivity(), vertical.getText(), Toast.LENGTH_LONG).show();
 
             }
         });
@@ -255,7 +255,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
             @Override
             public void afterTextChanged(Editable s) {
 
-                Toast.makeText(getActivity(), vertical.getText(), Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getActivity(), vertical.getText(), Toast.LENGTH_LONG).show();
 
             }
         });
@@ -268,6 +268,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser&& isAdded() && !isDataLoaded)
         {
+
             isDataLoaded = true;
             //getActivity().setTitle(getResources().getString(R.string.title_activity_add_room));
         }
@@ -391,9 +392,9 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         mMapView.onPause();
 
         //stop location updates when Activity is no longer active
-        if (mGoogleApiClient != null) {
+/*        if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }
+        }*/
     }
 
     @Override

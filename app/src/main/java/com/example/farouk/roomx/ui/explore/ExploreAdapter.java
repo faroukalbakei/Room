@@ -96,16 +96,16 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
         if(placeObject.getUser()!=null) {
             if(placeObject.getUser().getPhotolink()!=null) {
                 Log.i(" photo user", placeObject.getUser().getPhotolink());
-                Picasso.with(context).load(placeObject.getUser().getPhotolink()).resize(70, 70).placeholder(R.drawable.ic_profile).into(holder.userpic);
+                Picasso.with(context).load(placeObject.getUser().getPhotolink()).resize(70, 70).placeholder(R.drawable.no_image_available).into(holder.userpic);
             }else{
-                holder.userpic.setImageResource(R.drawable.ic_profile);
+                holder.userpic.setImageResource(R.drawable.no_image_available);
             }
         }
         if(placeObject.getRoomPhoto()!=null&&!placeObject.getRoomPhoto().isEmpty()&&placeObject.getRoomPhoto().size()>0) {
             Log.i(" photo placeObject", placeObject.getRoomPhoto().get(0).toString());
-            Picasso.with(context).load(placeObject.getRoomPhoto().get(0).getPhotolink()).resize(200, 85).into(holder.roompic);
+            Picasso.with(context).load(placeObject.getRoomPhoto().get(0).getPhotolink()).placeholder(R.drawable.no_image_available).resize(200, 85).into(holder.roompic);
         }else{
-            holder.roompic.setImageResource(R.drawable.building);
+            holder.roompic.setImageResource(R.drawable.no_image_available);
         }
         holder.name.setText(placeObject.getName()+"");
         holder.tag.setText(placeObject.getUser().getEmail()+"");

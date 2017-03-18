@@ -813,20 +813,21 @@ public class Requests {
                         case 500:
                         case 404:
                         case 400:
-                            json = new String(response.data);
+                            callback.onSuccess(new Response(0));
+/*                            json = new String(response.data);
                             Log.d("json", json + "");
                             ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);
                             Error msg = errorResponses.getError();
                             String errorMesg = Utils.replaceNull(String.valueOf(msg.getRoomId())) + "\n" +
                                     Utils.replaceNull(String.valueOf(msg.getStart())) + "\n" +
                                     Utils.replaceNull(String.valueOf(msg.getEnd())) + "\n"
-/*                                    Utils.replaceNull(String.valueOf(msg.getPassword()))+"\n"+
-                                    Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*/;
+*//*                                    Utils.replaceNull(String.valueOf(msg.getPassword()))+"\n"+
+                                    Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*//*;
                             // json = trimMessage(json, "message");
                             if (json != null)
                                 callback.onSuccess(new Response(errorResponses.getResult()));
                             Log.d("error", errorMesg + "");
-                            break;
+                            break;*/
                     }
                     //Additional cases
                 }
