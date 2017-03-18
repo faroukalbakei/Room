@@ -7,8 +7,11 @@ import android.util.Log;
 
 
 import com.example.farouk.roomx.model.LoginResponse;
+import com.example.farouk.roomx.model.User;
+import com.example.farouk.roomx.model.UserResult;
 import com.example.farouk.roomx.model.UserinfoLogin;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class Prefs {
 
@@ -41,6 +44,7 @@ public class Prefs {
                 .apply();
     }
 
+
     public void setUser(LoginResponse loginResponse){
         Log.d("set loginResponse ", loginResponse.toString());
         Gson gson = new Gson();
@@ -51,9 +55,6 @@ public class Prefs {
                 .apply();
     }
 
-    public boolean getPreLoad(){
-        return sharedPreferences.getBoolean(PRE_LOAD, false);
-   }
     public LoginResponse getUser(){
         Gson gson = new Gson();
         String json = sharedPreferences.getString(PRE_USER, "");
@@ -62,4 +63,26 @@ public class Prefs {
         return loginResponse;
     }
 
+    public void setUserInfo(UserResult loginResponse){
+        Log.d("setUserInfo ", loginResponse.toString());
+        Gson gson ;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+        gsonBuilder.setDateFormat("M/d/yy hh:mm a");
+        gson = gsonBuilder.create();
+        String json = gson.toJson(loginResponse);
+        sharedPreferences
+                .edit()
+                .putString(PRE_USER, json)
+                .apply();
+    }
+
+    public UserResult getUserInfo(){
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString(PRE_USER, "");
+        UserResult loginResponse = gson.fromJson(json, UserResult.class);
+        //Log.d("get userinfoLogin", userinfoLogin.toString());
+        return loginResponse;
+    }
 }
+

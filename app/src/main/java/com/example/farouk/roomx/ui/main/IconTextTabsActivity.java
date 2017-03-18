@@ -12,11 +12,11 @@ import android.util.Log;
 
 import com.booking.rtlviewpager.RtlViewPager;
 import com.example.farouk.roomx.R;
-import com.example.farouk.roomx.chattest;
-import com.example.farouk.roomx.ui.account.AccountFragment;
 import com.example.farouk.roomx.ui.account.AddRoomFragment;
+import com.example.farouk.roomx.ui.chat.InboxFragment;
 import com.example.farouk.roomx.ui.explore.ExploreFragment;
 import com.example.farouk.roomx.ui.favourit.FavouritFragment;
+import com.example.farouk.roomx.ui.account.AccountFragment;
 import com.example.farouk.roomx.ui.reservation.ReservationsFragment;
 import com.example.farouk.roomx.util.Const;
 import com.example.farouk.roomx.util.FragmentType;
@@ -38,17 +38,17 @@ public class IconTextTabsActivity extends AppCompatActivity {
     boolean isbehost = false;
     private int[] tabIcons = {
             R.drawable.ic_search
-            , R.drawable.ic_reserv
-            , R.drawable.ic_fav
+            , R.drawable.ic_favourit
+            , R.drawable.ic_reservation
             , R.drawable.ic_chat
-            , R.drawable.ic_account
+            , R.drawable.ic_profile
     };
 
     private int[] tabIcons_behost = {
-            R.drawable.ic_search
-            , R.drawable.ic_fav
-            , R.drawable.ic_chat
-            , R.drawable.ic_account
+            R.drawable.ic_room
+            , R.drawable.ic_reservation_requests
+            , R.drawable.ic_add_room
+            , R.drawable.ic_profile
     };
 
 
@@ -90,8 +90,8 @@ public class IconTextTabsActivity extends AppCompatActivity {
 
         final String [] tabTitle ={
                 getResources().getString(R.string.title_activity_explore),
-                getResources().getString(R.string.title_activity_reserve),
                 getResources().getString(R.string.title_activity_fav),
+                getResources().getString(R.string.title_activity_reserve),
                 getResources().getString(R.string.title_activity_inbox),
                 getResources().getString(R.string.title_activity_account),
         };
@@ -147,6 +147,7 @@ public class IconTextTabsActivity extends AppCompatActivity {
         }
     }
 
+
     private void setupViewPager(ViewPager viewPager, boolean isbehost) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
@@ -158,10 +159,9 @@ public class IconTextTabsActivity extends AppCompatActivity {
             adapter.addFrag(new AccountFragment(), getResources().getString(R.string.title_activity_account));
         } else {
             adapter.addFrag(new ExploreFragment(), getResources().getString(R.string.title_activity_explore));
-            adapter.addFrag(new ReservationsFragment(), getResources().getString(R.string.title_activity_reserve));
             adapter.addFrag(new FavouritFragment(), getResources().getString(R.string.title_activity_fav));
-            adapter.addFrag(new chattest(), getResources().getString(R.string.title_activity_inbox));
-
+            adapter.addFrag(new ReservationsFragment(), getResources().getString(R.string.title_activity_reserve));
+            adapter.addFrag(new InboxFragment(), getResources().getString(R.string.title_activity_inbox));
             adapter.addFrag(new AccountFragment(), getResources().getString(R.string.title_activity_account));
         }
 

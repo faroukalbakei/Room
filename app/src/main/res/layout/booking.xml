@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layoutDirection="locale"
     android:orientation="vertical"
+    android:id="@+id/reservtion_layout"
     >
 
     <LinearLayout
@@ -24,7 +25,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/tv_resrv_place"
                 android:textColor="@android:color/black"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textSize="18sp"
                />
 
         <LinearLayout

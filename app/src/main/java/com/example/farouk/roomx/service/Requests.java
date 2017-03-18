@@ -285,6 +285,7 @@ public class Requests {
                         responseObject = new Response();
 //                        List<User> user = Arrays.asList(gson.fromJson(response, User[].class));
                         UserResult userResult = (gson.fromJson(response, UserResult.class));
+                        Prefs.with(context).setUserInfo(userResult);
                         responseObject = new Response();
                         if (userResult != null) {
                             Log.d("user", userResult.getUser().toString());
@@ -357,11 +358,15 @@ public class Requests {
 
                             for (int i = 0; i < posts.size(); i++) {
                                 PlaceObject.save(posts.get(i));
+                                User user;
                                 if (posts.get(i).getUser() != null) {
-                                    User user = posts.get(i).getUser();
-                                    user.setId(posts.get(i).getId());
-                                    User.save(user);
+                                    user = posts.get(i).getUser();
+
+                                }else{
+                                    user=Prefs.with(context).getUserInfo().getUser();
                                 }
+                                user.setId(posts.get(i).getId());
+                                User.save(user);
                                 if (posts.get(i).getRoomPhoto() != null) {
                                     for (int rp = 0; rp < posts.get(i).getRoomPhoto().size(); rp++) {
                                         RoomPhoto roomPhoto = posts.get(i).getRoomPhoto().get(rp);
@@ -743,6 +748,90 @@ public class Requests {
         VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
     }
 
+    public void doReservationReques(final VolleyCallback callback, final Context context,String apiMethod, final String reservationId,final int isAccepted) {
+        responseObject = new Response();
+/*        pDialog = new ProgressDialog(context);
+        pDialog.setMessage("Loading...");
+        pDialog.show();*/
+        StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
+                Const.BASE_URL + apiMethod,
+                new com.android.volley.Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String responsee) {
+
+                        Log.d("response", responsee.toString());
+                        //  pDialog.hide();
+                        //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+
+                        try {
+                            JSONObject callNode = new JSONObject(responsee.toString());
+                            responseObject.setResult(callNode.optInt("result"));
+                            responseObject.setOnError(callNode.optString("error"));
+                            responseObject.setMessage(callNode.optString("msj"));
+                            Log.d("getResult", String.valueOf(responseObject.getResult()));
+                            if (responseObject != null)
+                                callback.onSuccess(responseObject);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                String json = null;
+                NetworkResponse response = error.networkResponse;
+                if (response != null && response.data != null) {
+                    switch (response.statusCode) {
+                        case 500:
+                        case 404:
+                        case 400:
+                            json = new String(response.data);
+                            Log.d("json", json + "");
+                            ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);
+                            Error msg = errorResponses.getError();
+                            String errorMesg = Utils.replaceNull(String.valueOf(msg.getRoomId())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getStart())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getEnd())) + "\n"
+/*                                    Utils.replaceNull(String.valueOf(msg.getPassword()))+"\n"+
+                                    Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*/;
+                            // json = trimMessage(json, "message");
+                            if (json != null)
+                                callback.onSuccess(new Response(errorResponses.getResult()));
+                            Log.d("error", errorMesg + "");
+                            break;
+                    }
+                    //Additional cases
+                }
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                // pDialog.hide();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                params.put("Accept", "application/json");
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+                params.put("reservation_id", reservationId);
+                params.put("isAccepted", String.valueOf(isAccepted));
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
+    }
+
     public void addToWishList(final VolleyCallback callback, final Context context, final String roomId, final Long id) {
         responseObject = new Response();
 /*        pDialog = new ProgressDialog(context);
@@ -841,6 +930,7 @@ public class Requests {
             public void onErrorResponse(VolleyError error) {
 
                 String json = null;
+                Log.d("error", error.getMessage() + "");
 
                 NetworkResponse response = error.networkResponse;
                 if (response != null && response.data != null) {
@@ -865,7 +955,6 @@ public class Requests {
                     }
                     //Additional cases
                 }                //pDialog.dismiss();
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
                 pDialog.hide();
 
             }
@@ -890,11 +979,17 @@ public class Requests {
                 params.put("number_of_baths", placeObject.getNumberOfBaths());
                 params.put("number_of_rooms", placeObject.getNumberOfRooms());
                 params.put("description", placeObject.getDescription());
-                params.put("tv", placeObject.getTv());
-                params.put("wifi", placeObject.getWifi());
-                params.put("pool", placeObject.getPool());
-                params.put("air_condition", placeObject.getAirCondition());
-                params.put("kitchen", placeObject.getKitchen());
+//                params.put("tv", placeObject.getTv());
+//                params.put("wifi", placeObject.getWifi());
+//                params.put("pool", placeObject.getPool());
+//                params.put("air_condition", placeObject.getAirCondition());
+//                params.put("kitchen", placeObject.getKitchen());
+
+                params.put("tv", "1");
+                params.put("wifi","1");
+                params.put("pool", "1");
+                params.put("air_condition", "1");
+                params.put("kitchen", "1");
                 params.put("price", placeObject.getPrice());
                 params.put("location", placeObject.getLocation());
                 return params;

@@ -1,6 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layoutDirection="locale"
+    >
+
+    <Button
+        android:id="@+id/close_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/close"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:background="@color/colorPrimary"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/hosted_image"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/smiling" />
+
+        <TextView
+            android:id="@+id/text_view_hosted_name"
+            android:textDirection="locale"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_gravity="center_vertical"
+            android:text="  عادل محمد سليم رضوان"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/visit_profile_button"
+        android:background="@null"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/blue_700"
+        android:textSize="16sp"
+        android:text="@string/visit_user_profile"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textDirection="locale"
+            android:text="@string/Place_bookings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/tv_resrv_place"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+
+                <TextView
+                    android:text="@string/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_Start"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:text="@string/start_booking"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_StartDate"
+                    android:gravity="center"/>
+
+
+
+
+
+            </LinearLayout>
+            <View
+                android:id="@+id/innerLine"
+                android:layout_width="1dp"
+                android:layout_height="80dp"
+                android:background="#cfcfcf" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:text="@string/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_End"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:text="@string/End_booking"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:id="@+id/tv_resrv_EndDate"
+                    android:gravity="center"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="20dp"
+        >
+        <LinearLayout
+            android:id="@+id/accept_layout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_accept"
+                android:layout_gravity="center_horizontal"
+                />
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/accept_text"
+                android:textSize="20sp"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/accept_textview" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/refuse_layout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_delete"
+                android:layout_gravity="center_horizontal"
+                />
+            <TextView
+                android:layout_marginTop="4dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/refuse_text"
+                android:textSize="20sp"
+                android:textColor="@color/red_500"
+                 />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
