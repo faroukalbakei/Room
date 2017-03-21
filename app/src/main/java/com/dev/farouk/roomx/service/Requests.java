@@ -1067,11 +1067,11 @@ public class Requests {
                 params.put("number_of_baths", placeObject.getNumberOfBaths());
                 params.put("number_of_rooms", placeObject.getNumberOfRooms());
                 params.put("description", placeObject.getDescription());
-//                params.put("tv", placeObject.getTv());
-//                params.put("wifi", placeObject.getWifi());
-//                params.put("pool", placeObject.getPool());
-//                params.put("air_condition", placeObject.getAirCondition());
-//                params.put("kitchen", placeObject.getKitchen());
+/*                params.put("tv", placeObject.getTv());
+                params.put("wifi", placeObject.getWifi());
+                params.put("pool", placeObject.getPool());
+                params.put("air_condition", placeObject.getAirCondition());
+                params.put("kitchen", placeObject.getKitchen());*/
 
                 params.put("tv", "1");
                 params.put("wifi", "1");

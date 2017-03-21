@@ -47,7 +47,7 @@
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.example.farouk.roomx.model" />
+            android:value="com.dev.farouk.roomx.model" />
 
         <activity android:name="com.dev.farouk.roomx.ui.account.ShowProfileActivity" />
         <activity android:name="com.tangxiaolv.telegramgallery.GalleryActivity" />
@@ -57,6 +57,12 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAZCOnuaNiTobD1sk-S5ZmLBNGDQBVw7ZE" />
 
+        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+
+        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>

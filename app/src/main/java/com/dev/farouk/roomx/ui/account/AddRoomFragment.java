@@ -55,8 +55,12 @@ import com.tangxiaolv.telegramgallery.GalleryConfig;
 
 import java.util.List;
 
+import me.iwf.photopicker.PhotoPicker;
 import pl.polak.clicknumberpicker.ClickNumberPickerListener;
 import pl.polak.clicknumberpicker.PickerClickType;
+import timber.log.Timber;
+
+import static me.iwf.photopicker.PhotoPreview.REQUEST_CODE;
 
 public class AddRoomFragment extends Fragment implements VolleyCallback,
         OnMapReadyCallback,
@@ -276,15 +280,24 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
+/*
     public void openGallery() {
         GalleryConfig config = new GalleryConfig.Build()
                 .limitPickPhoto(8)
-                .singlePhoto(true)
+                .singlePhoto(false)
                 .hintOfPick("this is pick hint")
-                .filterMimeTypes(new String[]{"image/*"})
+                .filterMimeTypes(new String[]{"image*//*"})
                 .build();
         GalleryActivity.openActivity(getActivity(), 9, config);
+    }*/
+
+    public void openGallery(){
+        PhotoPicker.builder()
+                .setPhotoCount(9)
+                .setShowCamera(true)
+                .setShowGif(true)
+                .setPreviewEnabled(false)
+                .start(getActivity(), PhotoPicker.REQUEST_CODE);
     }
 
     @Override
@@ -334,8 +347,11 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         placeObject.setPrice(price.getText().toString() + "");
 
 
+
         if(Utils.isInternetAvailable(getActivity())){
-            requests.addRoom(this, getActivity(), placeObject);
+            //requests.addRoom(this, getActivity(), placeObject);
+            requests.uploadRoomImages(this,getActivity(),33,photos);
+
         }else
              Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
     }
@@ -343,12 +359,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     /**
      * function to load map. If map is not created it will create it for you
      */
-    private void initilizeMap() {
-/*        MapView mapFragment = (WorkaroundMapFragment)getFragmentManager()
-                .findFragmentById(R.id.map);*/
 
-
-    }
     @Override
     public void onResume() {
         super.onResume();
@@ -369,10 +380,13 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        Log.d("onActivityResult", "fragment");
         try {
             //list of photos of seleced
             photos = (List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS);
+            Timber.i("photos %s" ,photos.toString());
             for (int i = 0; i < photos.size(); i++) {
                 AddPicNumber = photos.size();
             }

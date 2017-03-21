@@ -116,7 +116,8 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
                     startActivity(new Intent(getActivity(),ShowProfileActivity.class));
                 }else */
                 if (position == 0) {
-                    Toast.makeText(getActivity(), "invite friend", Toast.LENGTH_SHORT).show();
+                    shareApp();
+                    //Toast.makeText(getActivity(), "invite friend", Toast.LENGTH_SHORT).show();
                 } else if (position == 1) {
                     Toast.makeText(getActivity(), "RoomX Gifts", Toast.LENGTH_SHORT).show();
 
@@ -173,6 +174,16 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
         return rootView;
     }
 
+    public void shareApp(){
+        String shareBody = "https://play.google.com/store/apps/details?id=com.dev.farouk.roomx";
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Roomx (Open it in Google Play Store to Download the Application)");
+
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+    }
 /*    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
