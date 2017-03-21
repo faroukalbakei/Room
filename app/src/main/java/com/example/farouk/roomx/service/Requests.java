@@ -549,6 +549,70 @@ public class Requests {
         });
     }
 
+    public void uploadRoomImages(final VolleyCallback callback, final Context context,int roomId, final List<String> imagePathList) {
+        Log.d("uploadRoomImages", imagePathList.toString());
+
+        /**
+         * Progressbar to Display if you need
+         */
+        pDialog = new ProgressDialog(context);
+        pDialog.setMessage("upLoading...");
+        pDialog.show();
+        //Create Upload Server Client
+        ApiService service = RetroClient.getApiService();
+        MultipartBody.Builder builder = new MultipartBody.Builder();
+        builder.setType(MultipartBody.FORM);
+        builder.addFormDataPart("token", token);
+        builder.addFormDataPart("room_id", String.valueOf(roomId));
+
+        for (String filePath : imagePathList) {
+            File file = new File(filePath);
+            builder.addFormDataPart("images", file.getName(),
+                    RequestBody.create(MediaType.parse("image/*"), file));
+        }
+        MultipartBody requestBody = builder.build();
+
+/*        //File creating from selected URL
+        RequestBody tokenBody = RequestBody.create(MediaType.parse("multipart/form-data"), token);
+        // create RequestBody instance from file
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);*/
+/*
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("photolink", file.getName(), requestFile);*/
+
+        Call<String> resultCall = service.uploadRoomImages(requestBody);
+
+        resultCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+
+                pDialog.hide();
+                Log.d("response", response.body().toString());
+
+                // Response Success or Fail
+/*                if (response.isSuccessful()) {
+                    if (response.body().getUser() != null)
+                        Log.d("uploadImage", "success");
+                    Log.d("response", response.body().toString());
+
+                    callback.onSuccess(new Response(true));
+
+                } else {
+                    callback.onSuccess(new Response(false));
+                    Log.d("uploadImage", "fail");
+                }*/
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("onFailure", t.getMessage().toString());
+                pDialog.hide();
+            }
+        });
+    }
+
+
     public void login2(final VolleyCallback callback, final Context context, final String email, final String passwrod) {
         Log.d("email", email);
 
@@ -810,6 +874,7 @@ public class Requests {
     public void addRoom(final VolleyCallback callback, final Context context, final PlaceObject placeObject) {
         Log.d("placeObject", placeObject.toString());
         responseObject = new Response();
+
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
         pDialog.show();
@@ -828,6 +893,7 @@ public class Requests {
                             responseObject.setResult(callNode.optInt("result"));
                             responseObject.setOnError(callNode.optString("error"));
                             responseObject.setMessage(callNode.optString("msj"));
+                            responseObject.setObject(new PlaceObject(Integer.parseInt(callNode.getString("room_id"))));
                             Log.d("getResult", String.valueOf(responseObject.getResult()));
                             if (responseObject != null)
                                 callback.onSuccess(responseObject);

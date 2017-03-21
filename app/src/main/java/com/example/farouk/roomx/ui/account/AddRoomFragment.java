@@ -105,6 +105,8 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     private ScrollView mScrollView;
     CustomMapView mMapView;
     private boolean isDataLoaded=false;
+    private Requests requests;
+    private List<String> photos;
 
     @Nullable
     @Override
@@ -130,6 +132,8 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         } catch (Exception e) {
             e.printStackTrace();
         }*/
+        requests = new Requests(getActivity());
+
         add = (Button)rootView.findViewById(R.id.bt_behost_add);
         save = (Button) rootView.findViewById(R.id.bt_behost_save);
         pickergust = (pl.polak.clicknumberpicker.ClickNumberPickerView) rootView.findViewById(R.id.clickNumberPickerView3);
@@ -336,7 +340,6 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
 
 
         if(Utils.isInternetAvailable(getActivity())){
-            Requests requests = new Requests(getActivity());
             requests.addRoom(this, getActivity(), placeObject);
         }else
              Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
@@ -374,7 +377,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
 
         try {
             //list of photos of seleced
-            List<String> photos = (List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS);
+            photos = (List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS);
             for (int i = 0; i < photos.size(); i++) {
                 AddPicNumber = photos.size();
             }
@@ -599,9 +602,17 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     public void onSuccess(Response response) {
 
         Log.d("response", response.toString());
-
+        PlaceObject placeObject;
+        int roomId;
         if (response.getResult() == 1) {
             Utils.snakebar(getResources().getString(R.string.add_room_success), mScrollView);
+            if(response.getObject()!=null){
+                placeObject =(PlaceObject)response.getObject();
+                roomId=placeObject.getPid();
+                if(photos!=null&&photos.size()!=0){
+                    requests.uploadRoomImages(this,getActivity(),roomId,photos);
+                }
+            }
             //finish();
            // startActivity(new Intent(getActivity(), IconTextTabsActivity.class));
         } else if (response.getResult() == 0)

@@ -360,7 +360,7 @@
                 />
 
             <Button
-                android:visibility="invisible"
+                android:visibility="visible"
                 android:id="@+id/bt_behost_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

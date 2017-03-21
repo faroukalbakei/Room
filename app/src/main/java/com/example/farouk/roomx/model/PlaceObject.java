@@ -80,6 +80,7 @@ public class PlaceObject extends SugarRecord{
     public PlaceObject() {
     }
 
+
     public PlaceObject(Long id) {
         this.id = id;
     }
