@@ -72,4 +72,14 @@
     <string name="add_room_success">تم إضافة الغرفة بنجاح</string>
     <string name="add_room_fail">الرجاء تعبئة البيانات الناقصة</string>
     <string name="current_location">مكانك الحالي</string>
+    <string name="visit_user_profile">زيارة الملف الشخصي لطالب الممتلك</string>
+    <string name="accept_text">قبول</string>
+    <string name="close">إغلاق</string>
+    <string name="refuse_text">رفض</string>
+
+       <string name="user_successfully_added">User successfully added!</string>
+      <string name="user_unable_to_add">Unable to add user!</string>
+      <string name="adding_user_to_db">Adding user to database.</string>
+    <string name="be_traveller">Be Traveller</string>
+    <string name="general_error">حدث خطأ ما</string>
 </resources>

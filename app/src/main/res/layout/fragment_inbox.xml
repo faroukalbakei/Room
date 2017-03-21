@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layoutDirection="locale"
 
-    tools:context="com.example.farouk.roomx.ui.chat.InboxFragment">
+    tools:context="com.dev.farouk.roomx.ui.chat.InboxFragment">
 
 
     <android.support.design.widget.AppBarLayout

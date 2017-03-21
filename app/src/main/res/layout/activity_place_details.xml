@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.example.farouk.roomx.ui.explore.PlaceDetailsActivity">
+        tools:context="com.dev.farouk.roomx.ui.explore.PlaceDetailsActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -28,7 +28,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/divider_color"
                 android:scaleType="fitXY"
-                android:src="@drawable/room"
+                android:src="@drawable/no_image_available"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true" />
             <ToggleButton
@@ -85,6 +85,7 @@
                 android:text="discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion discribtion"
                 android:textDirection="locale"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
+
             <RelativeLayout
 
                 android:layout_width="match_parent"

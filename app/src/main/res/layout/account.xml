@@ -13,13 +13,12 @@
     >
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:id="@+id/imv_acounting_icon"
-
         />
 
     <TextView
