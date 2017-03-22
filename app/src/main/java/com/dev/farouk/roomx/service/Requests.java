@@ -528,7 +528,7 @@ public class Requests {
             public void onResponse(Call<String> call, retrofit2.Response<String> response) {
 
                 pDialog.hide();
-                Log.d("response", response.body().toString());
+                Log.d("response", response.toString());
 
                 // Response Success or Fail
 /*                if (response.isSuccessful()) {
@@ -571,7 +571,7 @@ public class Requests {
 
         for (String filePath : imagePathList) {
             File file = new File(filePath);
-            builder.addFormDataPart("images", file.getName(),
+            builder.addFormDataPart("photolink[]", file.getName(),
                     RequestBody.create(MediaType.parse("image/*"), file));
         }
         MultipartBody requestBody = builder.build();
@@ -591,7 +591,7 @@ public class Requests {
             public void onResponse(Call<String> call, retrofit2.Response<String> response) {
 
                 pDialog.hide();
-                Log.d("response", response.body().toString());
+                Log.d("response", response.toString());
 
                 // Response Success or Fail
 /*                if (response.isSuccessful()) {

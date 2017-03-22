@@ -4,8 +4,11 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -53,6 +56,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.tangxiaolv.telegramgallery.GalleryActivity;
 import com.tangxiaolv.telegramgallery.GalleryConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.iwf.photopicker.PhotoPicker;
@@ -60,6 +64,7 @@ import pl.polak.clicknumberpicker.ClickNumberPickerListener;
 import pl.polak.clicknumberpicker.PickerClickType;
 import timber.log.Timber;
 
+import static android.app.Activity.RESULT_OK;
 import static me.iwf.photopicker.PhotoPreview.REQUEST_CODE;
 
 public class AddRoomFragment extends Fragment implements VolleyCallback,
@@ -68,6 +73,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
 
+    private static final int RESULT_LOAD_IMG = 1;
     Button add;
     Button save;
     EditText nameo;
@@ -88,7 +94,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     int AddPicNumber;
     Toolbar toolbar;
     String guestValue, roomValue, bedValue, bathroomValue;
-    Boolean tvv, wifi, airr, pooll, kitchenn;
+    int tvv =0, wifi=0, airr=0, pooll=0, kitchenn=0;
     String lang, lat;
     private String location;
     EditText price;
@@ -105,31 +111,17 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     private boolean isDataLoaded=false;
     private Requests requests;
     private List<String> photos;
+    private List<String> selectedPhotos = new ArrayList<>();
+    private String imgDecodableString;
+    private List<String> listOfImages;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View rootView = inflater.inflate(R.layout.activity_be_hostt, container, false);
-
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-/*        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle(getResources().getString(R.string.title_activity_edit_profile));
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });*/
         buildGoogleApiClient();
-/*        try {
-            // Loading map
-            initilizeMap();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
         requests = new Requests(getActivity());
 
         add = (Button)rootView.findViewById(R.id.bt_behost_add);
@@ -161,13 +153,6 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
             e.printStackTrace();
         }
         mMapView.getMapAsync(this);
-/*
-        ((WorkaroundMapFragment)getFragmentManager().findFragmentById(R.id.map)).setListener(new WorkaroundMapFragment.OnTouchListener() {
-            @Override
-            public void onTouch() {
-                mScrollView.requestDisallowInterceptTouchEvent(true);
-            }
-        });*/
 
         // check if map is created successfully or not
         if (mMapView == null) {
@@ -290,7 +275,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
                 .build();
         GalleryActivity.openActivity(getActivity(), 9, config);
     }*/
-
+/*
     public void openGallery(){
         PhotoPicker.builder()
                 .setPhotoCount(9)
@@ -298,8 +283,15 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
                 .setShowGif(true)
                 .setPreviewEnabled(false)
                 .start(getActivity(), PhotoPicker.REQUEST_CODE);
-    }
+    }*/
 
+    public void openGallery() {
+        // Create intent to Open Image applications like Gallery, Google Photos
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        // Start the Intent
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -326,11 +318,11 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     }
 
     private void onDoneClick() {
-        if (air.isChecked()) airr = true;
-        if (pool.isChecked()) pooll = true;
-        if (tv.isChecked()) tvv = true;
-        if (kitchen.isChecked()) kitchenn = true;
-        if (net.isChecked()) wifi = true;
+        if (air.isChecked()) airr = 1;
+        if (pool.isChecked()) pooll = 1;
+        if (tv.isChecked()) tvv = 1;
+        if (kitchen.isChecked()) kitchenn = 1;
+        if (net.isChecked()) wifi = 1;
         PlaceObject placeObject = new PlaceObject();
         placeObject.setName(nameo.getText().toString() + "");
         placeObject.setDescription(deproperty.getText().toString() + "");
@@ -349,8 +341,8 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
 
 
         if(Utils.isInternetAvailable(getActivity())){
-            //requests.addRoom(this, getActivity(), placeObject);
-            requests.uploadRoomImages(this,getActivity(),33,photos);
+              requests.addRoom(this, getActivity(), placeObject);
+            //requests.uploadRoomImages(this,getActivity(),33,selectedPhotos);
 
         }else
              Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
@@ -377,24 +369,76 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         super.onLowMemory();
         mMapView.onLowMemory();
     }
-
+/*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         Log.d("onActivityResult", "fragment");
-        try {
-            //list of photos of seleced
-            photos = (List<String>) data.getSerializableExtra(GalleryActivity.PHOTOS);
-            Timber.i("photos %s" ,photos.toString());
-            for (int i = 0; i < photos.size(); i++) {
-                AddPicNumber = photos.size();
-            }
-            save.setText(getString(R.string.NImages) + AddPicNumber);
-        } catch (Exception e) {
+        if (resultCode == RESULT_OK &&
+                (requestCode == PhotoPicker.REQUEST_CODE )) {
+            try {
+                //list of photos of seleced
+                List<String> photos = null;
+                if (data != null) {
+                    photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+                }
+                selectedPhotos.clear();
 
-            save.setText(getString(R.string.apictures));
+                if (photos != null) {
+
+                    selectedPhotos.addAll(photos);
+                }
+                save.setText(getString(R.string.NImages) + AddPicNumber);
+            } catch (Exception e) {
+
+                save.setText(getString(R.string.apictures));
+            }
         }
+    }*/
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d("onActivityResult", "fragment");
+
+        try {
+            // When an Image is picked
+            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
+                    && null != data) {
+                // Get the Image from data
+
+                Uri selectedImageUri = data.getData();
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                //Setting image to ImageView
+                Cursor cursor = getActivity().getContentResolver().query(selectedImageUri, filePathColumn, null, null, null);
+
+                if (cursor != null) {
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    imgDecodableString = cursor.getString(columnIndex);
+                    listOfImages = new ArrayList<>();
+                    listOfImages.add(imgDecodableString);
+                  //  requests.uploadRoomImages(this,getActivity(),33,listOfImages);
+                    //requests.uploadRoomImages(this, this, imgDecodableString);
+
+                    // Set the Image in ImageView after decoding the String
+//                    Picasso.with(getApplicationContext()).load(new File(imgDecodableString))
+//                            .into(profilePicImageview);
+                }
+
+
+            } else {
+                Toast.makeText(getActivity(), "You haven't picked Image",
+                        Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
+                    .show();
+        }
+
     }
 
     @Override
@@ -615,15 +659,15 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         int roomId;
         if (response.getResult() == 1) {
             Utils.snakebar(getResources().getString(R.string.add_room_success), mScrollView);
-            if(response.getObject()!=null){
+            //if(response.getObject()!=null){
                 placeObject =(PlaceObject)response.getObject();
                 roomId=placeObject.getPid();
-                if(photos!=null&&photos.size()!=0){
-                    requests.uploadRoomImages(this,getActivity(),roomId,photos);
+                if(listOfImages!=null&&listOfImages.size()!=0){
+                    Log.d("requests ","uploadImages");
+                    requests.uploadRoomImages(this,getActivity(),roomId,listOfImages);
                 }
-            }
-            //finish();
-           // startActivity(new Intent(getActivity(), IconTextTabsActivity.class));
+          //  }
+
         } else if (response.getResult() == 0)
             Utils.snakebar(getResources().getString(R.string.add_room_fail), mScrollView);
 

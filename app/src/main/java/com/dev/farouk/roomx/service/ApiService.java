@@ -1,6 +1,8 @@
 package com.dev.farouk.roomx.service;
 
 import com.dev.farouk.roomx.model.LoginResponse;
+import com.dev.farouk.roomx.model.User;
+import com.dev.farouk.roomx.model.UserResult;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -26,7 +28,7 @@ public interface ApiService {
     Call<String> uploadImage(@Part("token") RequestBody mtoken, @Part MultipartBody.Part file);
 
    // @Multipart
-    @POST("updateuserprofilepicture")
+    @POST("addphototoroom")
     Call<String> uploadRoomImages(@Body RequestBody data);
 
     @POST("authenticate")
