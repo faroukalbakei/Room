@@ -69,6 +69,8 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        exploreAdapter = new ExploreAdapter(getContext(),fragmentType);
+
 /*        recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
@@ -144,7 +146,6 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     @Override
     public void onSuccess(Response response) {
         Log.d("ExploreFragment", response.toString());
-        exploreAdapter = new ExploreAdapter(getContext(),fragmentType);
         PlaceObject object,placeObject = null;
         if(response.getResult()==1){
             if(fragmentType==FragmentType.MY_ROOMS.getValue()){
