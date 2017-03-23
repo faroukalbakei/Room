@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by Dev Abir on 2/5/2017.
@@ -34,6 +35,7 @@ public class RetroClient {
         return new Retrofit.Builder()
                 .baseUrl(Const.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
     }
 

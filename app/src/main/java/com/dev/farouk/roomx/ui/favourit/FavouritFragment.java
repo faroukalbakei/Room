@@ -22,6 +22,7 @@ import com.dev.farouk.roomx.ui.explore.ExploreAdapter;
 import com.dev.farouk.roomx.util.Const;
 import com.dev.farouk.roomx.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FavouritFragment extends Fragment implements VolleyCallback {
@@ -47,6 +48,8 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        exploreAdapter = new ExploreAdapter(getContext(), 0);
+
 /*        recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
@@ -103,17 +106,20 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
             placeObject.setIsFavourate(1);
             placeObject.save();
         }else if(response.getResult()==0){
+
+
             object = (PlaceObject) response.getObject();
             placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
             Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
             placeObject.setIsFavourate(0);
             placeObject.save();
         }else {
-            placeObjects = (List<PlaceObject>) response.getObject();
+            placeObjects=(List<PlaceObject>) response.getObject();
+
             if (placeObjects != null && placeObjects.size() < 1) {
                 emptyView.setVisibility(View.VISIBLE);
             } else emptyView.setVisibility(View.GONE);
-            exploreAdapter = new ExploreAdapter(placeObjects, getContext());
+            exploreAdapter.setPlaceList(placeObjects);
             exploreAdapter.callbackInfo(this);
             recyclerView.setAdapter(exploreAdapter);        }
 

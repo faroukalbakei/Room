@@ -82,5 +82,7 @@
     <string name="adding_user_to_db">Adding user to database.</string>
     <string name="be_traveller">كن مسافراً</string>
     <string name="general_error">حدث خطأ ما</string>
+    <string name="delete_success">تم حذف الغرفة بنجاح</string>
+    <string name="delete">حذف</string>
 
 </resources>

@@ -192,7 +192,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
             getReservationRequest();
         }else if (response.getResult()==0){
             alertDialog.dismiss();
-            Utils.snakebar(getString(R.string.general_error),emptyView);
+            Utils.snakebar(response.getMessage(),emptyView);
         }
     }
 

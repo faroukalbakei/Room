@@ -8,10 +8,16 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +31,9 @@ import com.dev.farouk.roomx.util.FragmentType;
 import com.dev.farouk.roomx.util.Utils;
 
 import java.util.List;
+
+import butterknife.OnClick;
+import timber.log.Timber;
 
 public class ExploreFragment extends Fragment implements VolleyCallback {
 
@@ -98,12 +107,8 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
         return rootView;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // setContentView(R.layout.fragment_explore);
 
-    }
+
 
 /*    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
@@ -139,14 +144,21 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     @Override
     public void onSuccess(Response response) {
         Log.d("ExploreFragment", response.toString());
-
+        exploreAdapter = new ExploreAdapter(getContext(),fragmentType);
         PlaceObject object,placeObject = null;
         if(response.getResult()==1){
-            object = (PlaceObject) response.getObject();
-            placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
-            Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
-            placeObject.setIsFavourate(1);
-            placeObject.save();
+            if(fragmentType==FragmentType.MY_ROOMS.getValue()){
+                exploreAdapter.onItemDismiss(response.getPosition());
+                checkAdapterIsEmpty();
+                Utils.snakebar(getResources().getString(R.string.delete_success),recyclerView);
+            }else{
+                object = (PlaceObject) response.getObject();
+                placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
+                Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
+                placeObject.setIsFavourate(1);
+                placeObject.save();
+            }
+
         }else if(response.getResult()==0){
             if(fragmentType==FragmentType.MY_ROOMS.getValue()){
                 emptyView.setVisibility(View.VISIBLE);
@@ -162,11 +174,19 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
             if (placeObjects != null && placeObjects.size() < 1) {
                 emptyView.setVisibility(View.VISIBLE);
             } else emptyView.setVisibility(View.GONE);
-            exploreAdapter = new ExploreAdapter(placeObjects, getContext());
+            exploreAdapter.setPlaceList(placeObjects);
             exploreAdapter.callbackInfo(this);
             recyclerView.setAdapter(exploreAdapter);
         }
 
 
+    }
+
+    private void checkAdapterIsEmpty() {
+        if (exploreAdapter.getItemCount() == 0) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
     }
 }

@@ -669,7 +669,9 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
           //  }
 
         } else if (response.getResult() == 0)
-            Utils.snakebar(getResources().getString(R.string.add_room_fail), mScrollView);
+            if(response.getMessage()!=null){
+                Utils.snakebar(getResources().getString(R.string.general_error), mScrollView);
+            }else Utils.snakebar(getResources().getString(R.string.add_room_fail), mScrollView);
 
 
     }

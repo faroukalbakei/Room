@@ -10,6 +10,7 @@ public class Response {
     String Message;
     String onError;
     private int result=-1;
+    private int position;
 
     public Response() {
     }
@@ -30,10 +31,16 @@ public class Response {
         this.result = result;
     }
 
+    public Response(String message, int result) {
+        Message = message;
+        this.result = result;
+    }
+
     public Response(boolean isValid, String message) {
         this.isValid = isValid;
         this.Message = message;
     }
+
     public Object getObject() {
         return object;
     }
@@ -81,5 +88,13 @@ public class Response {
                 ", isValid=" + isValid +
                 ", Message='" + Message + '\'' +
                 '}';
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public int getPosition() {
+        return position;
     }
 }

@@ -1,5 +1,7 @@
 package com.dev.farouk.roomx.service;
 
+import com.dev.farouk.roomx.model.ErrorResponse;
+import com.dev.farouk.roomx.model.ErrorResponse2;
 import com.dev.farouk.roomx.model.LoginResponse;
 import com.dev.farouk.roomx.model.User;
 import com.dev.farouk.roomx.model.UserResult;
