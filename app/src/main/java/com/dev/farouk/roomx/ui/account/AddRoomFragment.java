@@ -289,7 +289,8 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
                 .setShowCamera(true)
                 .setShowGif(true)
                 .setPreviewEnabled(false)
-                .start(getActivity(), PhotoPicker.REQUEST_CODE);
+                .start(getContext(),getParentFragment(),PhotoPicker.REQUEST_CODE);
+               // .start(getActivity(), PhotoPicker.REQUEST_CODE);
     }
 
 /*    public void openGallery() {
