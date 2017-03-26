@@ -98,7 +98,6 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         reservationAdapter=new ReservationAdapter(getContext(), fragmentType);
-        reservationAdapter.setResrvationList(reservationList);
         if (fragmentType == FragmentType.RESERVATION_REQUESTS.getValue()) {
             recyclerView.addOnItemTouchListener(
                     new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -184,6 +183,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
             if (reservationList.size() < 1) {
                 emptyView.setVisibility(View.VISIBLE);
             } else emptyView.setVisibility(View.GONE);
+            reservationAdapter.setResrvationList(reservationList);
             recyclerView.setAdapter(reservationAdapter);
         }
 /*        if (!response.isValid()) {

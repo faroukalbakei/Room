@@ -43,6 +43,7 @@ import java.util.Map;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -611,6 +612,71 @@ public class Requests {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                Log.d("onFailure", t.getMessage().toString());
+                pDialog.hide();
+            }
+        });
+    }
+    public void uploadRoomImages2(final VolleyCallback callback, final Context context, int roomId, final List<String> imagePathList) {
+        Log.d("uploadImage", imagePathList.toString());
+
+        /**
+         * Progressbar to Display if you need
+         */
+        pDialog = new ProgressDialog(context);
+        pDialog.setMessage("جاري رفع صور الغرفة...");
+        pDialog.show();
+        //Create Upload Server Client
+        ApiService service = RetroClient.getApiService();
+        List<MultipartBody.Part> partList= new ArrayList<>();
+        for (int i = 0; i < imagePathList.size(); i++) {
+            File file = new File(imagePathList.get(i));
+            RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("photolink[]", file.getName(), requestBody);
+           // MultipartBody.Part part = MultipartBody.Part.createFormData("photolink[]", file.getName());
+            partList.add(filePart);
+        }
+        //File creating from selected URL
+        RequestBody tokenBody =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), token);
+
+        RequestBody roomIdBody =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), String.valueOf(roomId));
+        // create RequestBody instance from file
+/*        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        MultipartBody.Part body =
+                MultipartBody.Part.createFormData("photolink", file.getName(), requestFile);*/
+
+        Call<ResponseBody> resultCall = service.uploadRoomImages(tokenBody,roomIdBody, partList);
+      //  Call<ResponseBody> resultCall = service.uploadRoomImages(tokenBody, partList);
+
+        resultCall.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+
+                pDialog.hide();
+                Log.d("response", response.toString());
+
+                // Response Success or Fail
+                if (response.isSuccessful()) {
+                    if (response.body() != null)
+                        Log.d("uploadImage", "success");
+                    Log.d("response", response.body().toString());
+
+                    callback.onSuccess(new Response(true));
+
+                } else {
+                    callback.onSuccess(new Response(false));
+                    Log.d("uploadImage", "fail");
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.d("onFailure", t.getMessage().toString());
                 pDialog.hide();
             }

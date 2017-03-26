@@ -1,6 +1,7 @@
 package com.dev.farouk.roomx.ui.account;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -271,11 +272,17 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
                 .limitPickPhoto(8)
                 .singlePhoto(false)
                 .hintOfPick("this is pick hint")
-                .filterMimeTypes(new String[]{"image*//*"})
+                .filterMimeTypes(new String[]{"image"})
                 .build();
         GalleryActivity.openActivity(getActivity(), 9, config);
+    }
+*/
+
+/*    public void openGallery(){
+        Intent intent = new Intent(this, AlbumSelectActivity.class);
+        intent.putExtra(ConstantsCustomGallery.INTENT_EXTRA_LIMIT, <LIMIT>); // set limit for image selection
+        startActivityForResult(intent, ConstantsCustomGallery.REQUEST_CODE);
     }*/
-/*
     public void openGallery(){
         PhotoPicker.builder()
                 .setPhotoCount(9)
@@ -283,15 +290,88 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
                 .setShowGif(true)
                 .setPreviewEnabled(false)
                 .start(getActivity(), PhotoPicker.REQUEST_CODE);
-    }*/
+    }
 
-    public void openGallery() {
+/*    public void openGallery() {
         // Create intent to Open Image applications like Gallery, Google Photos
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         // Start the Intent
         startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+    }*/
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("onActivityResult", "fragment");
+       // if (9 == requestCode && resultCode == Activity.RESULT_OK) {
+
+            // if (requestCode == ConstantsCustomGallery.REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
+
+        if (resultCode == RESULT_OK &&
+                (requestCode == PhotoPicker.REQUEST_CODE )) {
+            try {
+                //list of photos of seleced
+                List<String> photos = null;
+                if (data != null) {
+                    photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
+                }
+                selectedPhotos.clear();
+
+                if (photos != null) {
+                    listOfImages=selectedPhotos;
+                    selectedPhotos.addAll(photos);
+                }
+            } catch (Exception e) {
+
+            }
+        }
     }
+
+    /*    @Override
+        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+            super.onActivityResult(requestCode, resultCode, data);
+            Log.d("onActivityResult", "fragment");
+
+            try {
+                // When an Image is picked
+                if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
+                        && null != data) {
+                    // Get the Image from data
+
+                    Uri selectedImageUri = data.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    //Setting image to ImageView
+                    Cursor cursor = getActivity().getContentResolver().query(selectedImageUri, filePathColumn, null, null, null);
+
+                    if (cursor != null) {
+                        cursor.moveToFirst();
+
+                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                        imgDecodableString = cursor.getString(columnIndex);
+                        listOfImages = new ArrayList<>();
+                        listOfImages.add(imgDecodableString);
+                      //  requests.uploadRoomImages(this,getActivity(),33,listOfImages);
+                        //requests.uploadRoomImages(this, this, imgDecodableString);
+
+                        // Set the Image in ImageView after decoding the String
+    //                    Picasso.with(getApplicationContext()).load(new File(imgDecodableString))
+    //                            .into(profilePicImageview);
+                    }
+
+
+                } else {
+                    Toast.makeText(getActivity(), "You haven't picked Image",
+                            Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
+                        .show();
+            }
+
+        }*/
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -369,77 +449,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         super.onLowMemory();
         mMapView.onLowMemory();
     }
-/*
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d("onActivityResult", "fragment");
-        if (resultCode == RESULT_OK &&
-                (requestCode == PhotoPicker.REQUEST_CODE )) {
-            try {
-                //list of photos of seleced
-                List<String> photos = null;
-                if (data != null) {
-                    photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-                }
-                selectedPhotos.clear();
-
-                if (photos != null) {
-
-                    selectedPhotos.addAll(photos);
-                }
-                save.setText(getString(R.string.NImages) + AddPicNumber);
-            } catch (Exception e) {
-
-                save.setText(getString(R.string.apictures));
-            }
-        }
-    }*/
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.d("onActivityResult", "fragment");
-
-        try {
-            // When an Image is picked
-            if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
-                    && null != data) {
-                // Get the Image from data
-
-                Uri selectedImageUri = data.getData();
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-                //Setting image to ImageView
-                Cursor cursor = getActivity().getContentResolver().query(selectedImageUri, filePathColumn, null, null, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-
-                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                    imgDecodableString = cursor.getString(columnIndex);
-                    listOfImages = new ArrayList<>();
-                    listOfImages.add(imgDecodableString);
-                  //  requests.uploadRoomImages(this,getActivity(),33,listOfImages);
-                    //requests.uploadRoomImages(this, this, imgDecodableString);
-
-                    // Set the Image in ImageView after decoding the String
-//                    Picasso.with(getApplicationContext()).load(new File(imgDecodableString))
-//                            .into(profilePicImageview);
-                }
-
-
-            } else {
-                Toast.makeText(getActivity(), "You haven't picked Image",
-                        Toast.LENGTH_LONG).show();
-            }
-        } catch (Exception e) {
-            Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
-                    .show();
-        }
-
-    }
 
     @Override
     public void onPause() {
@@ -664,7 +674,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
                 roomId=placeObject.getPid();
                 if(listOfImages!=null&&listOfImages.size()!=0){
                     Log.d("requests ","uploadImages");
-                    requests.uploadRoomImages(this,getActivity(),roomId,listOfImages);
+                    requests.uploadRoomImages2(this,getActivity(),roomId,listOfImages);
                 }
           //  }
 
