@@ -24,7 +24,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
     private  int fragmentType;
     private  Context context;
-    private List<Reservation> reservations = new ArrayList<>();
+    private List<Reservation> reservations;
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -43,11 +43,15 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         }
     }
 
-    public ReservationAdapter(List<Reservation> reservations, Context context, int fragmentType) {
+    public void setResrvationList(List<Reservation> reservations) {
         this.reservations = reservations;
-        this.context = context;
-        this.fragmentType = fragmentType;
+
     }
+
+    public ReservationAdapter(Context context, int fragmentType) {
+        reservations = new ArrayList<>();
+        this.context = context;
+        this.fragmentType = fragmentType;}
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -71,7 +75,13 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
     }
 
-
+    public void onItemDismiss(int position) {
+        if (position != -1 && position < reservations.size()) {
+            reservations.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, getItemCount());
+        }
+    }
     @Override
     public int getItemCount() {
         return reservations.size();

@@ -839,7 +839,7 @@ public class Requests {
         VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
     }
 
-    public void doReservationReques(final VolleyCallback callback, final Context context, String apiMethod, final String reservationId, final int isAccepted) {
+    public void doReservationReques(final VolleyCallback callback, final Context context, String apiMethod, final String reservationId, final int isAccepted, final int mposition) {
         responseObject = new Response();
 /*        pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");
@@ -859,6 +859,7 @@ public class Requests {
                             JSONObject callNode = new JSONObject(responsee.toString());
                             responseObject.setResult(callNode.optInt("result"));
                             responseObject.setOnError(callNode.optString("error"));
+                            responseObject.setPosition(mposition);
                             responseObject.setMessage(callNode.optString("msj"));
                             Log.d("getResult", String.valueOf(responseObject.getResult()));
                             if (responseObject != null)

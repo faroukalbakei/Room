@@ -71,6 +71,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
     int fragmentType;
     AlertDialog alertDialog = null;
     private boolean isDataLoaded = false;
+    private ReservationAdapter reservationAdapter;
 
     public void setFragmentType(int fragmentType) {
         this.fragmentType = fragmentType;
@@ -96,7 +97,8 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
+        reservationAdapter=new ReservationAdapter(getContext(), fragmentType);
+        reservationAdapter.setResrvationList(reservationList);
         if (fragmentType == FragmentType.RESERVATION_REQUESTS.getValue()) {
             recyclerView.addOnItemTouchListener(
                     new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -104,7 +106,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
                         public void onItemClick(View view, int position) {
                             // do whatever
 
-                            showDiaog(reservationList.get(position));
+                            showDiaog(reservationList.get(position),position);
                         }
 
                         @Override
@@ -182,21 +184,25 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
             if (reservationList.size() < 1) {
                 emptyView.setVisibility(View.VISIBLE);
             } else emptyView.setVisibility(View.GONE);
-            recyclerView.setAdapter(new ReservationAdapter(reservationList, getContext(), fragmentType));
+            recyclerView.setAdapter(reservationAdapter);
         }
 /*        if (!response.isValid()) {
             emptyView.setVisibility(View.VISIBLE);
         }*/
         if (response.getResult() == 1) {
             alertDialog.dismiss();
+            Utils.snakebar(response.getMessage(),emptyView);
+            reservationAdapter.onItemDismiss(response.getPosition());
             getReservationRequest();
         }else if (response.getResult()==0){
             alertDialog.dismiss();
-            Utils.snakebar(response.getMessage(),emptyView);
+            Utils.snakebar(getString(R.string.general_error),emptyView);
         }
+
+        checkAdapterIsEmpty();
     }
 
-    public void showDiaog(final Reservation reservation) {
+    public void showDiaog(final Reservation reservation, final int position) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
 
@@ -216,7 +222,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         acceptLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doReserve(1, reservation.getId());
+                acceptReservation(1, reservation.getId(),position);
 
             }
         });
@@ -224,7 +230,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         refuseLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doReserve(0, reservation.getId());
+                acceptReservation(0, reservation.getId(),position);
 
 
             }
@@ -250,11 +256,19 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         ButterKnife.unbind(this);
     }
 
-    public void doReserve(int isAccepted, int reservationId) {
+    public void acceptReservation(int isAccepted, int reservationId, int position) {
         if (Utils.isInternetAvailable(getContext())) {
             Requests requests = new Requests(getContext());
-            requests.doReservationReques(this, getContext(), Const.acceptreservation, String.valueOf(reservationId), isAccepted);
+            requests.doReservationReques(this, getContext(), Const.acceptreservation, String.valueOf(reservationId), isAccepted, position);
         } else
             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+    }
+
+    private void checkAdapterIsEmpty() {
+        if (reservationAdapter.getItemCount() == 0) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
     }
 }

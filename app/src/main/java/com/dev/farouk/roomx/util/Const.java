@@ -17,7 +17,7 @@ public class Const {
     public static String getMyRoom_URL = "getmyrooms";
     public static String getReservation_URL="getuserreservations";
     public static String getReservationRequest_URL="getmyreservations";
-    public static String acceptreservation = "acceptreservation";
+    public static String acceptreservation = "acceptreservationandroid";
 
 
     public static final int REQUEST_EXTERNAL_STORAGE = 1;
