@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
@@ -62,6 +63,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
         CircleImageView userpic;
         ToggleButton likeToggleButton;
         RelativeLayout likeRelativeLayout, morevertLayout;
+        FrameLayout frameLayout;
 
         public MyViewHolder(final View view) {
             super(view);
@@ -77,6 +79,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
             likeRelativeLayout = (RelativeLayout) view.findViewById(R.id.relative_layout);
             moreAvert = (ImageView) view.findViewById(R.id.delete_context);
             morevertLayout = (RelativeLayout) view.findViewById(R.id.relative_context);
+            frameLayout=(FrameLayout)view.findViewById(R.id.frame_layout_place);
             if (fragmentType == FragmentType.MY_ROOMS.getValue()) {
                 moreAvert.setVisibility(View.VISIBLE);
             }
@@ -157,7 +160,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
                 }
             }
         });
-        holder.roompic.setOnClickListener(new View.OnClickListener() {
+        holder.frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 placeId = roomList.get(position).getPid();
@@ -168,13 +171,16 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
                 context.startActivity(intent);
             }
         });
-        holder.morevertLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mposition=position;
-                showPopup(v);
-            }
-        });
+        if (fragmentType == FragmentType.MY_ROOMS.getValue()) {
+            holder.morevertLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mposition=position;
+                    showPopup(v);
+                }
+            });
+        }
+
     }
 
     @Override

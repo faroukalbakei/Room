@@ -1,6 +1,7 @@
 package com.dev.farouk.roomx.app;
 
 import android.app.Application;
+import android.support.multidex.MultiDexApplication;
 import android.text.TextUtils;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -17,7 +18,7 @@ import java.net.CookiePolicy;
 /**
  * Created by hamdy on 6/6/15.
  */
-public class VolleySingleton extends Application {
+public class VolleySingleton extends MultiDexApplication {
 
     public static final String TAG = VolleySingleton.class
             .getSimpleName();

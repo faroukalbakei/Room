@@ -2,6 +2,7 @@ package com.dev.farouk.roomx.ui.explore;
 
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -31,6 +32,8 @@ import com.dev.farouk.roomx.model.RoomReservation;
 import com.dev.farouk.roomx.model.User;
 import com.dev.farouk.roomx.service.Requests;
 import com.dev.farouk.roomx.service.VolleyCallback;
+import com.dev.farouk.roomx.ui.account.ShowProfileActivity;
+import com.dev.farouk.roomx.util.ApiFunctions;
 import com.dev.farouk.roomx.util.Const;
 import com.dev.farouk.roomx.util.CustomListAdapterDialog;
 import com.dev.farouk.roomx.util.Utils;
@@ -199,6 +202,16 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
             @Override
             public void onClick(View v) {
                 showReserveDiaog();
+            }
+        });
+
+        hostedImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go = new Intent(getApplicationContext(), ShowProfileActivity.class);
+                go.putExtra(Const.profileType,ApiFunctions.profile_by_id.getValue());
+                go.putExtra(Const.userId, placeObject.getUserId());
+                startActivity(go);
             }
         });
         // }
