@@ -5,7 +5,7 @@ package com.dev.farouk.roomx.util;
  */
 
 public enum ApiFunctions {
-    delete_room(1), like_room(2),explore_list(3),profile_by_id(4),my_profile(5);
+    delete_room(1), like_room(2),explore_list(3),profile_by_id(4),my_profile(5),reservation_list(6),accept_reserve(7),update_profile(8);
 
     private final int value;
 

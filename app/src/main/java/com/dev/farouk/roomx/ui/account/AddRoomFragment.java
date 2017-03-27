@@ -75,7 +75,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         LocationListener {
 
     private static final int RESULT_LOAD_IMG = 1;
-    private static final int REQUEST_CODE_PICKER = 10 ;
+    private static final int REQUEST_CODE_PICKER = 10;
     Button add;
     Button save;
     EditText nameo;
@@ -96,7 +96,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     int AddPicNumber;
     Toolbar toolbar;
     String guestValue, roomValue, bedValue, bathroomValue;
-    int tvv =0, wifi=0, airr=0, pooll=0, kitchenn=0;
+    int tvv = 0, wifi = 0, airr = 0, pooll = 0, kitchenn = 0;
     String lang, lat;
     private String location;
     EditText price;
@@ -110,7 +110,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     Marker mCurrLocationMarker;
     private ScrollView mScrollView;
     CustomMapView mMapView;
-    private boolean isDataLoaded=false;
+    private boolean isDataLoaded = false;
     private Requests requests;
     private List<String> photos;
     private List<String> selectedPhotos = new ArrayList<>();
@@ -126,7 +126,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
 
         requests = new Requests(getActivity());
         listOfImages = new ArrayList<>();
-        add = (Button)rootView.findViewById(R.id.bt_behost_add);
+        add = (Button) rootView.findViewById(R.id.bt_behost_add);
         save = (Button) rootView.findViewById(R.id.bt_behost_save);
         pickergust = (pl.polak.clicknumberpicker.ClickNumberPickerView) rootView.findViewById(R.id.clickNumberPickerView3);
         pickerbed = (pl.polak.clicknumberpicker.ClickNumberPickerView) rootView.findViewById(R.id.clickNumberPickerView2);
@@ -197,7 +197,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         });
         add.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(!Permissions.checkWriteExternalPermission(getActivity()))
+                if (!Permissions.checkWriteExternalPermission(getActivity()))
                     Permissions.verifyStoragePermissions(getActivity());
                 else openGallery();
             }
@@ -226,7 +226,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
 
             @Override
             public void afterTextChanged(Editable s) {
-              //  Toast.makeText(getActivity(), vertical.getText(), Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getActivity(), vertical.getText(), Toast.LENGTH_LONG).show();
 
             }
         });
@@ -244,7 +244,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
             @Override
             public void afterTextChanged(Editable s) {
 
-              //  Toast.makeText(getActivity(), vertical.getText(), Toast.LENGTH_LONG).show();
+                //  Toast.makeText(getActivity(), vertical.getText(), Toast.LENGTH_LONG).show();
 
             }
         });
@@ -255,13 +255,13 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser&& isAdded() && !isDataLoaded)
-        {
+        if (isVisibleToUser && isAdded() && !isDataLoaded) {
 
             isDataLoaded = true;
             //getActivity().setTitle(getResources().getString(R.string.title_activity_add_room));
         }
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -286,11 +286,11 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-       // super.onActivityResult(requestCode, resultCode, data);
+        // super.onActivityResult(requestCode, resultCode, data);
 
         Log.d("onActivityResult", "fragment");
         if (requestCode == REQUEST_CODE_PICKER && resultCode == RESULT_OK && data != null) {
-            List<Image> images =  ImagePicker.getImages(data);
+            List<Image> images = ImagePicker.getImages(data);
 
             for (int i = 0; i < images.size(); i++) {
                 listOfImages.add(images.get(i).getPath());
@@ -312,6 +312,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
 
         super.onPrepareOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -324,7 +325,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         }
     }
 
-    public void initView(){
+    public void initView() {
         nameo.setText("");
         deproperty.setText("");
         price.setText("");
@@ -359,13 +360,23 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         placeObject.setPrice(price.getText().toString() + "");
 
 
+        if (
+                nameo.equals("") || deproperty.equals("") || price.equals("")
+                || lang.equals("") || lat.equals("")
+                || guestValue == null || bathroomValue == null || bedValue == null || roomValue == null
+                ) {
+            Utils.snakebar(getResources().getString(R.string.add_room_fail), mScrollView);
 
-        if(Utils.isInternetAvailable(getActivity())){
-              requests.addRoom(this, getActivity(), placeObject);
-            //requests.uploadRoomImages(this,getActivity(),33,selectedPhotos);
+        } else {
+            if (Utils.isInternetAvailable(getActivity())) {
+                requests.addRoom(this, getActivity(), placeObject);
+                //requests.uploadRoomImages(this,getActivity(),33,selectedPhotos);
 
-        }else
-             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+            } else
+                Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+        }
+
+
     }
 
     /**
@@ -376,12 +387,14 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+       // mGoogleApiClient.connect();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
+      //  mGoogleApiClient.disconnect();
     }
 
     @Override
@@ -390,16 +403,12 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         mMapView.onLowMemory();
     }
 
-
     @Override
     public void onPause() {
         super.onPause();
         mMapView.onPause();
+      //  mGoogleApiClient.disconnect();
 
-        //stop location updates when Activity is no longer active
-/*        if (mGoogleApiClient != null) {
-            LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-        }*/
     }
 
     @Override
@@ -454,11 +463,16 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
     }
 
     protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                    .addConnectionCallbacks( this)
+                    .addOnConnectionFailedListener( this)
+                    .addApi(LocationServices.API)
+                    .build();
+            mGoogleApiClient.connect();
+            Log.i("Api is",""+mGoogleApiClient);
+        }
+
     }
 
     @Override
@@ -480,11 +494,17 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-        if (ContextCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
+
+       // if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getActivity(),
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+            }
+/*        }else{
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-        }
+        }*/
+
     }
 
     @Override
@@ -610,18 +630,18 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         if (response.getResult() == 1) {
             Utils.snakebar(getResources().getString(R.string.add_room_success), mScrollView);
             //if(response.getObject()!=null){
-                placeObject =(PlaceObject)response.getObject();
-                roomId=placeObject.getPid();
-                if(listOfImages!=null&&listOfImages.size()!=0){
-                    Log.d("requests ","uploadImages");
-                    requests.uploadRoomImages2(this,getActivity(),roomId,listOfImages);
-                }
-          //  }
+            placeObject = (PlaceObject) response.getObject();
+            roomId = placeObject.getPid();
+            if (listOfImages != null && listOfImages.size() != 0) {
+                Log.d("requests ", "uploadImages");
+                requests.uploadRoomImages2(this, getActivity(), roomId, listOfImages);
+            }
+            //  }
             initView();
         } else if (response.getResult() == 0)
-            if(response.getMessage()!=null){
+            //if (response.getMessage() != null) {
                 Utils.snakebar(getResources().getString(R.string.general_error), mScrollView);
-            }else Utils.snakebar(getResources().getString(R.string.add_room_fail), mScrollView);
+        //   } else Utils.snakebar(getResources().getString(R.string.add_room_fail), mScrollView);
 
 
     }

@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Online"
-        android:layout_alignTop="@+id/img_avatar"
+        android:layout_centerVertical="true"
         android:paddingEnd="@dimen/big_font_size"
         android:layout_alignParentEnd="true"/>
 

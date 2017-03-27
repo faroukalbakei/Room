@@ -338,17 +338,17 @@ public class Requests {
 
                     @Override
                     public void onResponse(String response) {
-                        Log.d("response", response.toString());
+                        Log.d("getUserProfileById", response.toString());
                         pDialog.hide();
                         //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
                         responseObject = new Response();
 //                        List<User> user = Arrays.asList(gson.fromJson(response, User[].class));
                         UserResult userResult = (gson.fromJson(response, UserResult.class));
-                        Prefs.with(context).setUserInfo(userResult);
                         responseObject = new Response();
                         if (userResult != null) {
                             Log.d("user", userResult.getUser().toString());
                             responseObject.setObject(userResult.getUser());
+                            responseObject.setFunctionName(ApiFunctions.profile_by_id.getValue());
                             callback.onSuccess(responseObject);
                         } else
                             Log.d("null ", "user");
@@ -513,6 +513,7 @@ public class Requests {
                             JSONObject callNode = new JSONObject(responsee.toString());
                             if (callNode.has("user")) {
                                 Log.d("callNode", "true");
+                                responseObject.setFunctionName(ApiFunctions.update_profile.getValue());
                                 responseObject.setResult(1);
                                 callback.onSuccess(responseObject);
                             }
@@ -524,8 +525,35 @@ public class Requests {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                responseObject.setOnError(error.getMessage());
-                //pDialog.dismiss();
+                String json = null;
+                NetworkResponse response = error.networkResponse;
+                if (response != null && response.data != null) {
+                    switch (response.statusCode) {
+                        case 500:
+                        case 404:
+                        case 400:
+                            responseObject.setFunctionName(ApiFunctions.update_profile.getValue());
+                            responseObject.setResult(0);
+                            json = new String(response.data);
+                            Log.d("json", json + "");
+                            callback.onSuccess(responseObject);
+/*                            json = new String(response.data);
+                            Log.d("json", json + "");
+                            ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);
+                            Error msg = errorResponses.getError();
+                            String errorMesg = Utils.replaceNull(String.valueOf(msg.getRoomId())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getStart())) + "\n" +
+                                    Utils.replaceNull(String.valueOf(msg.getEnd())) + "\n"
+*//*                                    Utils.replaceNull(String.valueOf(msg.getPassword()))+"\n"+
+                                    Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*//*;
+                            // json = trimMessage(json, "message");
+                            if (json != null)
+                                callback.onSuccess(new Response(errorResponses.getResult()));
+                            Log.d("error", errorMesg + "");
+                            break;*/
+                    }
+                    //Additional cases
+                }
                 VolleyLog.d(TAG, "Error: " + error.getMessage());
                 pDialog.hide();
                 //login_button.setEnabled(true);
@@ -618,69 +646,6 @@ public class Requests {
         });
     }
 
-    public void uploadRoomImages(final VolleyCallback callback, final Context context, int roomId, final List<String> imagePathList) {
-        Log.d("uploadRoomImages", imagePathList.toString());
-
-        /**
-         * Progressbar to Display if you need
-         */
-        pDialog = new ProgressDialog(context);
-        pDialog.setMessage("upLoading...");
-        pDialog.show();
-        //Create Upload Server Client
-        ApiService service = RetroClient.getApiService();
-        MultipartBody.Builder builder = new MultipartBody.Builder();
-        builder.setType(MultipartBody.FORM);
-        builder.addFormDataPart("token", token);
-        builder.addFormDataPart("room_id", String.valueOf(roomId));
-
-        for (String filePath : imagePathList) {
-            File file = new File(filePath);
-            builder.addFormDataPart("photolink[]", file.getName(),
-                    RequestBody.create(MediaType.parse("image/*"), file));
-        }
-        MultipartBody requestBody = builder.build();
-
-/*        //File creating from selected URL
-        RequestBody tokenBody = RequestBody.create(MediaType.parse("multipart/form-data"), token);
-        // create RequestBody instance from file
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);*/
-/*
-        MultipartBody.Part body =
-                MultipartBody.Part.createFormData("photolink", file.getName(), requestFile);*/
-
-        Call<String> resultCall = service.uploadRoomImages(requestBody);
-
-        resultCall.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
-
-                pDialog.hide();
-                //  Log.d("response", response.body().toString());
-
-                // Response Success or Fail
-                if (response.isSuccessful()) {
-                    if (response.body() != null)
-                        Log.d("uploadImage", "success");
-                    Log.d("response", response.body().toString());
-
-                    callback.onSuccess(new Response(true));
-
-                } else {
-                    callback.onSuccess(new Response(false));
-                    Log.d("uploadImage", "fail");
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.d("onFailure", t.getMessage().toString());
-                pDialog.hide();
-            }
-        });
-    }
-
     public void uploadRoomImages2(final VolleyCallback callback, final Context context, int roomId, final List<String> imagePathList) {
         Log.d("uploadImage", imagePathList.toString());
 
@@ -747,55 +712,6 @@ public class Requests {
         });
     }
 
-
-    public void login2(final VolleyCallback callback, final Context context, final String email, final String passwrod) {
-        Log.d("email", email);
-
-        /**
-         * Progressbar to Display if you need
-         */
-        pDialog = new ProgressDialog(context);
-        pDialog.setMessage("upLoading...");
-        pDialog.show();
-        //Create Upload Server Client
-        ApiService service = RetroClient.getApiService();
-
-        //File creating from selected URL
-        RequestBody tokenBody =
-                RequestBody.create(
-                        MediaType.parse("multipart/form-data"), token);
-        // create RequestBody instance from file
-
-
-        Call<LoginResponse> resultCall = service.login(token, email, passwrod);
-
-        resultCall.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
-
-                pDialog.hide();
-
-                // Response Success or Fail
-                if (response.isSuccessful()) {
-                    if (response.body().getToken() != null)
-                        Log.d("getToken", response.body().getToken());
-                    callback.onSuccess(new Response(true));
-
-                } else {
-                    callback.onSuccess(new Response(false));
-                    Log.d("getToken", "fail");
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.d("onFailure", t.getMessage().toString());
-                pDialog.hide();
-            }
-        });
-    }
-
     public void getReservations(final VolleyCallback callback, final Context context, String apiMethod) {
 
         pDialog = new ProgressDialog(context);
@@ -833,6 +749,7 @@ public class Requests {
                             }
                             Log.i("reservationList", reservationList.toString());
                             responseObject.setObject(reservationList);
+                            responseObject.setFunctionName(ApiFunctions.reservation_list.getValue());
                         }
 
 
@@ -991,6 +908,7 @@ public class Requests {
                             responseObject.setOnError(callNode.optString("error"));
                             responseObject.setPosition(mposition);
                             responseObject.setMessage(callNode.optString("msj"));
+                            responseObject.setFunctionName(ApiFunctions.accept_reserve.getValue());
                             Log.d("getResult", String.valueOf(responseObject.getResult()));
                             if (responseObject != null)
                                 callback.onSuccess(responseObject);
@@ -1009,7 +927,10 @@ public class Requests {
                         case 500:
                         case 404:
                         case 400:
-                            callback.onSuccess(new Response(0));
+                            responseObject.setFunctionName(ApiFunctions.accept_reserve.getValue());
+                            responseObject.setResult(0);
+
+                            callback.onSuccess(responseObject);
 /*                            json = new String(response.data);
                             Log.d("json", json + "");
                             ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);

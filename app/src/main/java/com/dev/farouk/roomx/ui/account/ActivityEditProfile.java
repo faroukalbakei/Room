@@ -120,17 +120,17 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
         frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if(!Permissions.checkWriteExternalPermission(ActivityEditProfile.this))
+                if (!Permissions.checkWriteExternalPermission(ActivityEditProfile.this))
                     Permissions.verifyStoragePermissions(ActivityEditProfile.this);
                 else loadImagefromGallery();
 
             }
         });
 
-        if(Utils.isInternetAvailable(this)){
+        if (Utils.isInternetAvailable(this)) {
             requests = new Requests(this);
             requests.getUserProfile(this, this);
-        }else
+        } else
             Toast.makeText(getApplicationContext(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
 
     }
@@ -204,6 +204,9 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
         if (response.getResult() == 1) {
             Log.d("getResult", "1");
             Toast.makeText(this, getResources().getString(R.string.done_succefully), Toast.LENGTH_LONG);
+        } else if (response.getResult() == 0) {
+            Log.d("getResult", "0");
+            Toast.makeText(this, getResources().getString(R.string.general_error), Toast.LENGTH_LONG);
         }
         if (response.isValid()) {
             Log.d("isValid", String.valueOf(response.isValid()));
@@ -259,7 +262,10 @@ public class ActivityEditProfile extends AppCompatActivity implements VolleyCall
         user.setCity(cityEdittext.getText().toString() + "");
         user.setCountry(countryEdittext.getText().toString() + "");
         user.setDob(dobEdittext.getText().toString() + "");
-        requests.editProfile(this, this, user);
+        if (Utils.isInternetAvailable(this)) {
+            requests.editProfile(this, this, user);
+        } else
+            Toast.makeText(getApplicationContext(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
     }
 
     @Override

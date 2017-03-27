@@ -1,6 +1,8 @@
 package com.dev.farouk.roomx.ui.reservation;
 
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,8 @@ import com.dev.farouk.roomx.model.Response;
 import com.dev.farouk.roomx.model.User;
 import com.dev.farouk.roomx.service.Requests;
 import com.dev.farouk.roomx.service.VolleyCallback;
+import com.dev.farouk.roomx.ui.account.ShowProfileActivity;
+import com.dev.farouk.roomx.util.ApiFunctions;
 import com.dev.farouk.roomx.util.Const;
 import com.dev.farouk.roomx.util.FragmentType;
 import com.dev.farouk.roomx.util.RecyclerItemClickListener;
@@ -72,6 +76,9 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
     AlertDialog alertDialog = null;
     private boolean isDataLoaded = false;
     private ReservationAdapter reservationAdapter;
+    private ProgressDialog pDialog;
+    int mposition;
+    private User userResponse;
 
     public void setFragmentType(int fragmentType) {
         this.fragmentType = fragmentType;
@@ -97,15 +104,20 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        reservationAdapter=new ReservationAdapter(getContext(), fragmentType);
+        reservationAdapter = new ReservationAdapter(getContext(), fragmentType);
         if (fragmentType == FragmentType.RESERVATION_REQUESTS.getValue()) {
             recyclerView.addOnItemTouchListener(
                     new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                         @Override
                         public void onItemClick(View view, int position) {
                             // do whatever
+      /*                      pDialog = new ProgressDialog(getContext());
+                            pDialog.setMessage("Loading...");
+                            pDialog.show();*/
+                            getUserProfile(reservationList.get(position).getUserId());
+                            //showDiaog(reservationList.get(mposition), userResponse);
 
-                            showDiaog(reservationList.get(position),position);
+                            mposition = position;
                         }
 
                         @Override
@@ -169,40 +181,39 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
     }*/
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-
-    @Override
     public void onSuccess(Response response) {
-        reservationList = (List<Reservation>) response.getObject();
-        if (reservationList != null) {
-            Log.d("reservationList", reservationList.toString());
-            if (reservationList.size() < 1) {
-                emptyView.setVisibility(View.VISIBLE);
-            } else emptyView.setVisibility(View.GONE);
-            reservationAdapter.setResrvationList(reservationList);
-            recyclerView.setAdapter(reservationAdapter);
-        }
-/*        if (!response.isValid()) {
-            emptyView.setVisibility(View.VISIBLE);
-        }*/
-        if (response.getResult() == 1) {
-            alertDialog.dismiss();
-            Utils.snakebar(response.getMessage(),emptyView);
-            reservationAdapter.onItemDismiss(response.getPosition());
-            getReservationRequest();
-        }else if (response.getResult()==0){
-            alertDialog.dismiss();
-            Utils.snakebar(getString(R.string.general_error),emptyView);
+        if (response.getFunctionName() == ApiFunctions.reservation_list.getValue()) {
+            reservationList = (List<Reservation>) response.getObject();
+            if (reservationList != null) {
+                Log.d("reservationList", reservationList.toString());
+                if (reservationList.size() < 1) {
+                    emptyView.setVisibility(View.VISIBLE);
+                } else emptyView.setVisibility(View.GONE);
+                reservationAdapter.setResrvationList(reservationList);
+                recyclerView.setAdapter(reservationAdapter);
+            }
+        } else if (response.getFunctionName() == ApiFunctions.profile_by_id.getValue()) {
+            userResponse = (User) response.getObject();
+            Log.d("userResponse", userResponse.toString());
+            if (userResponse != null) {
+                showDiaog(reservationList.get(mposition), userResponse);
+            }
+        } else if (response.getFunctionName() == ApiFunctions.accept_reserve.getValue()) {
+            if (response.getResult() == 1) {
+                alertDialog.dismiss();
+                Utils.snakebar(response.getMessage(), emptyView);
+                reservationAdapter.onItemDismiss(response.getPosition());
+                getReservationRequest();
+            } else if (response.getResult() == 0) {
+                alertDialog.dismiss();
+                Utils.snakebar(getString(R.string.general_error), emptyView);
+            }
         }
 
         checkAdapterIsEmpty();
     }
 
-    public void showDiaog(final Reservation reservation, final int position) {
+    public void showDiaog(final Reservation reservation, User user) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
 
@@ -211,18 +222,29 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         View dialogView = inflater.inflate(R.layout.fragment_reservation_request, null);
         ButterKnife.bind(this, dialogView);
         dialogBuilder.setView(dialogView);
-        List<User> userList = User.find(User.class, "uId=?", String.valueOf(reservation.getUserId()));
-        User user = userList.get(0);
+        alertDialog = dialogBuilder.create();
+        alertDialog.show();
+/*        List<User> userList = User.find(User.class, "uId=?", String.valueOf(reservation.getUserId()));
+        User user = userList.get(0);*/
         Timber.i("user %s", user);
         textViewHostedName.setText(user.getName());
         Picasso.with(getContext()).load(user.getPhotolink()).into(hostedImage);
         tvResrvPlace.setText(reservation.getRoom().getName());
         tvResrvStartDate.setText(reservation.getStart());
         tvResrvEndDate.setText(reservation.getEnd());
+        visitProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go = new Intent(getActivity(), ShowProfileActivity.class);
+                go.putExtra(Const.profileType, ApiFunctions.profile_by_id.getValue());
+                go.putExtra(Const.userId, reservation.getUserId());
+                startActivity(go);
+            }
+        });
         acceptLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                acceptReservation(1, reservation.getId(),position);
+                acceptReservation(1, reservation.getId(), mposition);
 
             }
         });
@@ -230,7 +252,7 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         refuseLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                acceptReservation(0, reservation.getId(),position);
+                acceptReservation(0, reservation.getId(), mposition);
 
 
             }
@@ -244,8 +266,6 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
             }
         });
 
-        alertDialog = dialogBuilder.create();
-        alertDialog.show();
 
     }
 
@@ -260,6 +280,14 @@ public class ReservationsFragment extends Fragment implements VolleyCallback {
         if (Utils.isInternetAvailable(getContext())) {
             Requests requests = new Requests(getContext());
             requests.doReservationReques(this, getContext(), Const.acceptreservation, String.valueOf(reservationId), isAccepted, position);
+        } else
+            Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+    }
+
+    void getUserProfile(String userId) {
+        if (Utils.isInternetAvailable(getContext())) {
+            Requests requests = new Requests(getContext());
+            requests.getUserProfileById(this, getContext(), userId);
         } else
             Toast.makeText(getActivity(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
     }

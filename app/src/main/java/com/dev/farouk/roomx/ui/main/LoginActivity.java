@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.dev.farouk.roomx.R;
+import com.dev.farouk.roomx.app.Prefs;
 import com.dev.farouk.roomx.model.Response;
+import com.dev.farouk.roomx.model.UserResult;
 import com.dev.farouk.roomx.service.Requests;
 import com.dev.farouk.roomx.service.VolleyCallback;
 import com.dev.farouk.roomx.util.Utils;
@@ -42,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
     private DatabaseReference productsDatabaseReference;
     private ChildEventListener childEventListener;
     String isEnabled;
-
+    UserResult user;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,41 +53,60 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
                 /*for disk persistence*/
         //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
                 /*get instance of our productsDatabase*/
-        productsDatabase = FirebaseDatabase.getInstance();
+
+        if (Utils.isInternetAvailable(getBaseContext())) {
+            productsDatabase = FirebaseDatabase.getInstance();
         /*get a reference to the products node location*/
-        productsDatabaseReference = productsDatabase.getReference("enable");
+            productsDatabaseReference = productsDatabase.getReference("enable");
 
         /*add the Value event listener to update the data in real-time
         - displays the productsDatabase items in a list*/
-     //   addValueEventListener(productsDatabaseReference);
-        productsDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                System.out.println(snapshot.getValue().toString());  //prints "Do you have data? You'll love Firebase."
-                boolean isEnabled = (boolean) snapshot.getValue();
+            //   addValueEventListener(productsDatabaseReference);
 
-                if(isEnabled){
-                    setContentView(R.layout.activity_main);
+            user= Prefs.with(this).getUserInfo();
 
-                    Email = (EditText) findViewById(R.id.et_login_email);
-                    Password = (EditText) findViewById(R.id.et_login_password);
+            productsDatabaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    System.out.println(snapshot.getValue().toString());  //prints "Do you have data? You'll love Firebase."
+                    boolean isEnabled = (boolean) snapshot.getValue();
 
-                    Email.setText("farouk.h@hotmail.com");
-                    Password.setText("12345678");
-                }else if(!isEnabled){
-                    setContentView(R.layout.activity_not_enabled);
+                    if(isEnabled){
+                        setContentView(R.layout.activity_main);
+
+                        Email = (EditText) findViewById(R.id.et_login_email);
+                        Password = (EditText) findViewById(R.id.et_login_password);
+                        if(user!=null){
+                            Email.setText(user.getUser().getEmail());
+                            //Password.setText("12345678");
+                        }
+                    }else if(!isEnabled){
+                        setContentView(R.layout.activity_not_enabled);
+
+                    }
+                    Timber.i("isEnabled %s", isEnabled);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
-                Timber.i("isEnabled %s", isEnabled);
+
+            });
+        } else{
+            Toast.makeText(getApplicationContext(), "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+            setContentView(R.layout.activity_main);
+
+            Email = (EditText) findViewById(R.id.et_login_email);
+            Password = (EditText) findViewById(R.id.et_login_password);
+
+            if(user!=null){
+                Email.setText(user.getUser().getEmail());
+                //Password.setText("12345678");
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-
-        });
-
+        }
 
     }
 
