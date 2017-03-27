@@ -50,19 +50,13 @@
             android:value="com.dev.farouk.roomx.model" />
 
         <activity android:name="com.dev.farouk.roomx.ui.account.ShowProfileActivity" />
-        <activity android:name="com.tangxiaolv.telegramgallery.GalleryActivity" />
         <activity android:name="com.dev.farouk.roomx.ChatActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAZCOnuaNiTobD1sk-S5ZmLBNGDQBVw7ZE" />
 
-        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            />
 
-        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>
