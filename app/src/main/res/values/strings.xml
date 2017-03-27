@@ -84,4 +84,5 @@
     <string name="general_error">حدث خطأ ما</string>
     <string name="delete_success">تم حذف الغرفة بنجاح</string>
     <string name="delete">حذف</string>
+    <string name="not_enabled">نعتذر  التطبيق لا يعمل بسبب أعطال برمجية</string>
 </resources>

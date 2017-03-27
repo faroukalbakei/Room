@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="locale"
     android:orientation="vertical">
 <ScrollView
@@ -99,6 +100,8 @@
                     android:layout_height="50dp"
                     android:layout_marginEnd="16dp"
                     android:layout_alignParentEnd="true"
+                    app:civ_border_color="@color/colorPrimary"
+                    app:civ_border_width="1dp"
                     android:src="@drawable/smiling" />
 
                 <TextView
@@ -145,7 +148,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/ic_guests" />
 
                     <TextView
                         android:id="@+id/text_view_guest"
@@ -168,7 +171,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/ic_rooms" />
 
                     <TextView
                         android:id="@+id/text_view_room"
@@ -191,7 +194,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/ic_bed" />
 
                     <TextView
                         android:id="@+id/text_view_bed"
@@ -211,7 +214,7 @@
                     <ImageView
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/ic_shower" />
 
                     <TextView
                         android:id="@+id/text_view_bathroom"

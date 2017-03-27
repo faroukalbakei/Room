@@ -26,6 +26,7 @@ import com.dev.farouk.roomx.model.PlaceObject;
 import com.dev.farouk.roomx.model.Response;
 import com.dev.farouk.roomx.service.Requests;
 import com.dev.farouk.roomx.service.VolleyCallback;
+import com.dev.farouk.roomx.util.ApiFunctions;
 import com.dev.farouk.roomx.util.Const;
 import com.dev.farouk.roomx.util.FragmentType;
 import com.dev.farouk.roomx.util.Utils;
@@ -46,18 +47,19 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     Long placeId;
     private ExploreAdapter exploreAdapter;
     int fragmentType;
-    private boolean isDataLoaded=false;
+    private boolean isDataLoaded = false;
 
     public void setFragmentType(int fragmentType) {
         this.fragmentType = fragmentType;
     }
 
-    public static ExploreFragment newInstance(int fragmentType){
+    public static ExploreFragment newInstance(int fragmentType) {
         ExploreFragment fragment = new ExploreFragment();
         fragment.setFragmentType(fragmentType);
         return fragment;
 
     }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        exploreAdapter = new ExploreAdapter(getContext(),fragmentType);
+        exploreAdapter = new ExploreAdapter(getContext(), fragmentType);
 
 /*        recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
@@ -93,12 +95,12 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
         );*/
 
         String url;
-        if(fragmentType== FragmentType.MY_ROOMS.getValue()){
-            url= Const.getMyRoom_URL;
+        if (fragmentType == FragmentType.MY_ROOMS.getValue()) {
+            url = Const.getMyRoom_URL;
             //getActivity().setTitle(getResources().getString(R.string.title_activity_my_room));
-        }else{
+        } else {
             // getActivity().setTitle(getResources().getString(R.string.title_activity_explore));
-            url= Const.getExplore_URL;
+            url = Const.getExplore_URL;
         }
 
         if (Utils.isInternetAvailable(getContext())) {
@@ -110,12 +112,10 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     }
 
 
-
-
-/*    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
- *//*           if (isVisibleToUser && !isDataLoaded ) {
+    /*    @Override
+        public void setUserVisibleHint(boolean isVisibleToUser) {
+            super.setUserVisibleHint(isVisibleToUser);
+     *//*           if (isVisibleToUser && !isDataLoaded ) {
 
                 if(Utils.isInternetAvailable(getActivity())){
                     Requests requests = new Requests(getContext());
@@ -146,31 +146,36 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
     @Override
     public void onSuccess(Response response) {
         Log.d("ExploreFragment", response.toString());
-        PlaceObject object,placeObject = null;
-        if(response.getResult()==1){
-            if(fragmentType==FragmentType.MY_ROOMS.getValue()){
+        PlaceObject object, placeObject = null;
+        String message = null;
+        if (response.getResult() == 1) {
+            if (response.getFunctionName() == ApiFunctions.delete_room.getValue()) {
                 exploreAdapter.onItemDismiss(response.getPosition());
                 checkAdapterIsEmpty();
-                Utils.snakebar(getResources().getString(R.string.delete_success),recyclerView);
-            }else{
+                message = getResources().getString(R.string.delete_success);
+                Utils.snakebar(message, recyclerView);
+            } else if (response.getFunctionName() == ApiFunctions.like_room.getValue()) {
                 object = (PlaceObject) response.getObject();
-                placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
-                Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
+                placeObject = PlaceObject.findById(PlaceObject.class, object.getId());
+                Utils.snakebar(response.getMessage() + "", recyclerView);
                 placeObject.setIsFavourate(1);
                 placeObject.save();
             }
 
-        }else if(response.getResult()==0){
-            if(fragmentType==FragmentType.MY_ROOMS.getValue()){
-                emptyView.setVisibility(View.VISIBLE);
-            }else{
+        } else if (response.getResult() == 0) {
+            if (response.getFunctionName() == ApiFunctions.delete_room.getValue()) {
+                //message = getResources().getString(R.string.delete_success);
+                Utils.snakebar(response.getMessage(), recyclerView);
+            } else if (response.getFunctionName() == ApiFunctions.explore_list.getValue()) {
+                checkAdapterIsEmpty();
+            } else if (response.getFunctionName() == ApiFunctions.like_room.getValue()) {
                 object = (PlaceObject) response.getObject();
-                placeObject = PlaceObject.findById(PlaceObject.class,object.getId());
-                Toast.makeText(getActivity(),response.getMessage()+"",Toast.LENGTH_LONG).show();
+                placeObject = PlaceObject.findById(PlaceObject.class, object.getId());
+                Utils.snakebar(response.getMessage() + "", recyclerView);
                 placeObject.setIsFavourate(0);
                 placeObject.save();
             }
-        }else {
+        } else {
             placeObjects = (List<PlaceObject>) response.getObject();
             if (placeObjects != null && placeObjects.size() < 1) {
                 emptyView.setVisibility(View.VISIBLE);

@@ -21,6 +21,7 @@ import com.dev.farouk.roomx.model.UserResult;
 import com.dev.farouk.roomx.model.RoomPhoto;
 import com.dev.farouk.roomx.model.RoomReservation;
 import com.dev.farouk.roomx.model.User;
+import com.dev.farouk.roomx.util.ApiFunctions;
 import com.dev.farouk.roomx.util.Const;
 import com.dev.farouk.roomx.app.Prefs;
 import com.dev.farouk.roomx.app.VolleySingleton;
@@ -337,7 +338,7 @@ public class Requests {
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d(TAG, response.toString());
+                        Log.d("getPlacesList", response.toString());
                         responseObject = new Response();
                         JSONObject callNode = null;
                         String result = null;
@@ -390,6 +391,7 @@ public class Requests {
                             }
 
                             responseObject.setObject(posts);
+                            responseObject.setFunctionName(ApiFunctions.explore_list.getValue());
 
                         }
 
@@ -593,7 +595,7 @@ public class Requests {
             public void onResponse(Call<String> call, retrofit2.Response<String> response) {
 
                 pDialog.hide();
-              //  Log.d("response", response.body().toString());
+                //  Log.d("response", response.body().toString());
 
                 // Response Success or Fail
                 if (response.isSuccessful()) {
@@ -617,6 +619,7 @@ public class Requests {
             }
         });
     }
+
     public void uploadRoomImages2(final VolleyCallback callback, final Context context, int roomId, final List<String> imagePathList) {
         Log.d("uploadImage", imagePathList.toString());
 
@@ -628,12 +631,12 @@ public class Requests {
         pDialog.show();
         //Create Upload Server Client
         ApiService service = RetroClient.getApiService();
-        List<MultipartBody.Part> partList= new ArrayList<>();
+        List<MultipartBody.Part> partList = new ArrayList<>();
         for (int i = 0; i < imagePathList.size(); i++) {
             File file = new File(imagePathList.get(i));
             RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             MultipartBody.Part filePart = MultipartBody.Part.createFormData("photolink[]", file.getName(), requestBody);
-           // MultipartBody.Part part = MultipartBody.Part.createFormData("photolink[]", file.getName());
+            // MultipartBody.Part part = MultipartBody.Part.createFormData("photolink[]", file.getName());
             partList.add(filePart);
         }
         //File creating from selected URL
@@ -650,8 +653,8 @@ public class Requests {
         MultipartBody.Part body =
                 MultipartBody.Part.createFormData("photolink", file.getName(), requestFile);*/
 
-        Call<ResponseBody> resultCall = service.uploadRoomImages(tokenBody,roomIdBody, partList);
-      //  Call<ResponseBody> resultCall = service.uploadRoomImages(tokenBody, partList);
+        Call<ResponseBody> resultCall = service.uploadRoomImages(tokenBody, roomIdBody, partList);
+        //  Call<ResponseBody> resultCall = service.uploadRoomImages(tokenBody, partList);
 
         resultCall.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -754,7 +757,7 @@ public class Requests {
                             e.printStackTrace();
                         }
 
-                        if (result == "0" || response.length()<10) {
+                        if (result == "0" || response.length() < 10) {
                             //responseObject.setResult(Integer.parseInt(result));
 
                         } else {
@@ -870,7 +873,7 @@ public class Requests {
                                     Utils.replaceNull(String.valueOf(msg.getPhone()))+"\n"*/;
                             // json = trimMessage(json, "message");
                             if (json != null)
-                                callback.onSuccess(new Response(errorMesg,errorResponses.getResult()));
+                                callback.onSuccess(new Response(errorMesg, errorResponses.getResult()));
                             Log.d("error", errorMesg + "");
                             break;
                     }
@@ -1013,6 +1016,7 @@ public class Requests {
                             responseObject.setOnError(callNode.optString("error"));
                             responseObject.setMessage(callNode.optString("msj"));
                             responseObject.setObject(new PlaceObject(id));
+                            responseObject.setFunctionName(ApiFunctions.like_room.getValue());
                             Log.d("getResult", String.valueOf(responseObject.getResult()));
                             if (responseObject != null)
                                 callback.onSuccess(responseObject);
@@ -1093,7 +1097,7 @@ public class Requests {
                 String json = null;
                 Log.d("error", error.getMessage() + "");
                 String errorMesg = null;
-                int result ;
+                int result;
                 NetworkResponse response = error.networkResponse;
                 if (response != null && response.data != null) {
                     switch (response.statusCode) {
@@ -1102,19 +1106,19 @@ public class Requests {
                         case 400:
                             json = new String(response.data);
                             Log.d("json", json + "");
-                            if(json.length()>200){
-                                errorMesg=context.getResources().getString(R.string.general_error);
-                                result=0;
-                            }else {
+                            if (json.length() > 200) {
+                                errorMesg = context.getResources().getString(R.string.general_error);
+                                result = 0;
+                            } else {
                                 ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);
                                 Error msg = errorResponses.getError();
 /*                                errorMesg = Utils.replaceNull(String.valueOf(msg.getName())) + "\n" +
                                         Utils.replaceNull(String.valueOf(msg.getAirCondition())) + "\n" +
                                         Utils.replaceNull(String.valueOf(msg.getLocation())) + "\n";*/
-                                result=errorResponses.getResult();
+                                result = errorResponses.getResult();
                             }
                             if (json != null)
-                                callback.onSuccess(new Response(errorMesg,result));
+                                callback.onSuccess(new Response(errorMesg, result));
                             Log.d("error", errorMesg + "");
                             break;
                     }
@@ -1166,7 +1170,7 @@ public class Requests {
     }
 
 
-    public void deleteRoom(final VolleyCallback volleyCallback, Context context, final String room_id, final int delete, final int mposition) {
+    public void deleteRoom(final VolleyCallback volleyCallback, final Context context, final String room_id, final int delete, final int mposition) {
 
         responseObject = new Response();
 /*        pDialog = new ProgressDialog(context);
@@ -1189,6 +1193,7 @@ public class Requests {
                             responseObject.setOnError(callNode.optString("error"));
                             responseObject.setMessage(callNode.optString("msj"));
                             responseObject.setPosition(mposition);
+                            responseObject.setFunctionName(ApiFunctions.delete_room.getValue());
                             Log.d("getResult", String.valueOf(responseObject.getResult()));
                             if (responseObject != null)
                                 volleyCallback.onSuccess(responseObject);
@@ -1201,19 +1206,35 @@ public class Requests {
             @Override
             public void onErrorResponse(VolleyError error) {
                 String json = null;
+                String errorMesg = null;
+                int result;
                 NetworkResponse response = error.networkResponse;
                 if (response != null && response.data != null) {
                     switch (response.statusCode) {
+                        case 503:
                         case 500:
                         case 404:
                         case 400:
                             json = new String(response.data);
                             Log.d("json", json + "");
-                            ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);
-                            Error msg = errorResponses.getError();
-
-                            if (json != null)
-                                volleyCallback.onSuccess(new Response(errorResponses.getResult()));
+                            if (json.length() > 200) {
+                                errorMesg = context.getResources().getString(R.string.general_error);
+                                result = 0;
+                            } else {
+                                ErrorResponse2 errorResponses = gson.fromJson(json, ErrorResponse2.class);
+                                Error msg = errorResponses.getError();
+/*                                errorMesg = Utils.replaceNull(String.valueOf(msg.getName())) + "\n" +
+                                        Utils.replaceNull(String.valueOf(msg.getAirCondition())) + "\n" +
+                                        Utils.replaceNull(String.valueOf(msg.getLocation())) + "\n";*/
+                                result = errorResponses.getResult();
+                            }
+                            if (json != null) {
+                                responseObject.setFunctionName(ApiFunctions.delete_room.getValue());
+                                responseObject.setResult(result);
+                                responseObject.setMessage(errorMesg);
+                                volleyCallback.onSuccess(responseObject);
+                            }
+                            Log.d("error", errorMesg + "");
                             break;
                     }
                     //Additional cases

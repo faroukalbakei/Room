@@ -36,6 +36,9 @@ import com.dev.farouk.roomx.util.Const;
 import com.dev.farouk.roomx.util.CustomMapView;
 import com.dev.farouk.roomx.util.Permissions;
 import com.dev.farouk.roomx.util.Utils;
+import com.esafirm.imagepicker.features.ImagePicker;
+import com.esafirm.imagepicker.features.ImagePickerActivity;
+import com.esafirm.imagepicker.model.Image;
 import com.google.android.gms.location.LocationListener;
 import com.dev.farouk.roomx.R;
 import com.dev.farouk.roomx.model.PlaceObject;
@@ -54,19 +57,16 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.tangxiaolv.telegramgallery.GalleryActivity;
-import com.tangxiaolv.telegramgallery.GalleryConfig;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.iwf.photopicker.PhotoPicker;
 import pl.polak.clicknumberpicker.ClickNumberPickerListener;
 import pl.polak.clicknumberpicker.PickerClickType;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
-import static me.iwf.photopicker.PhotoPreview.REQUEST_CODE;
 
 public class AddRoomFragment extends Fragment implements VolleyCallback,
         OnMapReadyCallback,
@@ -75,6 +75,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         LocationListener {
 
     private static final int RESULT_LOAD_IMG = 1;
+    private static final int REQUEST_CODE_PICKER = 10 ;
     Button add;
     Button save;
     EditText nameo;
@@ -124,7 +125,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         buildGoogleApiClient();
 
         requests = new Requests(getActivity());
-
+        listOfImages = new ArrayList<>();
         add = (Button)rootView.findViewById(R.id.bt_behost_add);
         save = (Button) rootView.findViewById(R.id.bt_behost_save);
         pickergust = (pl.polak.clicknumberpicker.ClickNumberPickerView) rootView.findViewById(R.id.clickNumberPickerView3);
@@ -266,113 +267,38 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-/*
+
     public void openGallery() {
-        GalleryConfig config = new GalleryConfig.Build()
-                .limitPickPhoto(8)
-                .singlePhoto(false)
-                .hintOfPick("this is pick hint")
-                .filterMimeTypes(new String[]{"image"})
-                .build();
-        GalleryActivity.openActivity(getActivity(), 9, config);
-    }
-*/
-
-/*    public void openGallery(){
-        Intent intent = new Intent(this, AlbumSelectActivity.class);
-        intent.putExtra(ConstantsCustomGallery.INTENT_EXTRA_LIMIT, <LIMIT>); // set limit for image selection
-        startActivityForResult(intent, ConstantsCustomGallery.REQUEST_CODE);
-    }*/
-    public void openGallery(){
-        PhotoPicker.builder()
-                .setPhotoCount(9)
-                .setShowCamera(true)
-                .setShowGif(true)
-                .setPreviewEnabled(false)
-                .start(getContext(),getParentFragment(),PhotoPicker.REQUEST_CODE);
-               // .start(getActivity(), PhotoPicker.REQUEST_CODE);
+        ImagePicker.create(this)
+                .returnAfterFirst(true) // set whether pick or camera action should return immediate result or not. For pick image only work on single mode
+                .folderMode(true) // folder mode (false by default)
+                .folderTitle("Album") // folder selection title
+                .imageTitle("Tap to select") // image selection title
+                .single() // single mode
+                .multi() // multi mode (default mode)
+                .limit(10) // max images can be selected (99 by default)
+                .showCamera(true) // show camera or not (true by default)
+                .imageDirectory("Camera") // directory name for captured image  ("Camera" folder by default)
+                //.origin(images) // original selected images, used in multi mode
+                .start(REQUEST_CODE_PICKER); // start image picker activity with request code
     }
 
-/*    public void openGallery() {
-        // Create intent to Open Image applications like Gallery, Google Photos
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        // Start the Intent
-        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
-    }*/
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+       // super.onActivityResult(requestCode, resultCode, data);
 
         Log.d("onActivityResult", "fragment");
-       // if (9 == requestCode && resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_CODE_PICKER && resultCode == RESULT_OK && data != null) {
+            List<Image> images =  ImagePicker.getImages(data);
 
-            // if (requestCode == ConstantsCustomGallery.REQUEST_CODE && resultCode == Activity.RESULT_OK && data != null) {
-
-        if (resultCode == RESULT_OK &&
-                (requestCode == PhotoPicker.REQUEST_CODE )) {
-            try {
-                //list of photos of seleced
-                List<String> photos = null;
-                if (data != null) {
-                    photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS);
-                }
-                selectedPhotos.clear();
-
-                if (photos != null) {
-                    listOfImages=selectedPhotos;
-                    selectedPhotos.addAll(photos);
-                }
-            } catch (Exception e) {
-
+            for (int i = 0; i < images.size(); i++) {
+                listOfImages.add(images.get(i).getPath());
             }
+
         }
     }
 
-    /*    @Override
-        public void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            Log.d("onActivityResult", "fragment");
-
-            try {
-                // When an Image is picked
-                if (requestCode == RESULT_LOAD_IMG && resultCode == RESULT_OK
-                        && null != data) {
-                    // Get the Image from data
-
-                    Uri selectedImageUri = data.getData();
-                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-                    //Setting image to ImageView
-                    Cursor cursor = getActivity().getContentResolver().query(selectedImageUri, filePathColumn, null, null, null);
-
-                    if (cursor != null) {
-                        cursor.moveToFirst();
-
-                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                        imgDecodableString = cursor.getString(columnIndex);
-                        listOfImages = new ArrayList<>();
-                        listOfImages.add(imgDecodableString);
-                      //  requests.uploadRoomImages(this,getActivity(),33,listOfImages);
-                        //requests.uploadRoomImages(this, this, imgDecodableString);
-
-                        // Set the Image in ImageView after decoding the String
-    //                    Picasso.with(getApplicationContext()).load(new File(imgDecodableString))
-    //                            .into(profilePicImageview);
-                    }
-
-
-                } else {
-                    Toast.makeText(getActivity(), "You haven't picked Image",
-                            Toast.LENGTH_LONG).show();
-                }
-            } catch (Exception e) {
-                Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_LONG)
-                        .show();
-            }
-
-        }*/
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -396,6 +322,19 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void initView(){
+        nameo.setText("");
+        deproperty.setText("");
+        price.setText("");
+        air.setChecked(false);
+        pool.setChecked(false);
+        tv.setChecked(false);
+        kitchen.setChecked(false);
+        net.setChecked(false);
+        horzintl.setText("");
+        vertical.setText("");
     }
 
     private void onDoneClick() {
@@ -678,7 +617,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
                     requests.uploadRoomImages2(this,getActivity(),roomId,listOfImages);
                 }
           //  }
-
+          //  initView();
         } else if (response.getResult() == 0)
             if(response.getMessage()!=null){
                 Utils.snakebar(getResources().getString(R.string.general_error), mScrollView);

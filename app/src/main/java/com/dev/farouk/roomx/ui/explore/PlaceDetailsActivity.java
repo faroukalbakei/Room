@@ -135,7 +135,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         Log.d("placeObject", placeObject.toString());
         if(placeObject.getUser().getPhotolink()!=null) {
             Log.i(" photo user", placeObject.getUser().getPhotolink());
-            Picasso.with(this).load(placeObject.getUser().getPhotolink()).placeholder(R.drawable.ic_profile).resize(70, 70).into(hostedImage);
+            Picasso.with(this).load(placeObject.getUser().getPhotolink()).placeholder(R.drawable.no_image_available).resize(70, 70).into(hostedImage);
         }else{
             hostedImage.setImageResource(R.drawable.ic_profile);
         }

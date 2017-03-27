@@ -10,7 +10,8 @@ public class Response {
     String Message;
     String onError;
     private int result=-1;
-    private int position;
+    private int position=-1;
+    int functionName;
 
     public Response() {
     }
@@ -87,6 +88,10 @@ public class Response {
                 "object=" + object +
                 ", isValid=" + isValid +
                 ", Message='" + Message + '\'' +
+                ", onError='" + onError + '\'' +
+                ", result=" + result +
+                ", position=" + position +
+                ", functionName='" + functionName + '\'' +
                 '}';
     }
 
@@ -96,5 +101,13 @@ public class Response {
 
     public int getPosition() {
         return position;
+    }
+
+    public int getFunctionName() {
+        return functionName;
+    }
+
+    public void setFunctionName(int functionName) {
+        this.functionName = functionName;
     }
 }
