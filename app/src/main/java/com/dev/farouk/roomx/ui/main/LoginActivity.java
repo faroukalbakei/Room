@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
         super.onCreate(savedInstanceState);
         Utils.changeLang(getBaseContext(), "ar");
                 /*for disk persistence*/
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true);
                 /*get instance of our productsDatabase*/
         productsDatabase = FirebaseDatabase.getInstance();
         /*get a reference to the products node location*/
