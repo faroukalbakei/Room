@@ -14,6 +14,8 @@ import com.dev.farouk.roomx.model.Response;
 import com.dev.farouk.roomx.model.User;
 import com.dev.farouk.roomx.service.Requests;
 import com.dev.farouk.roomx.service.VolleyCallback;
+import com.dev.farouk.roomx.util.ApiFunctions;
+import com.dev.farouk.roomx.util.Const;
 import com.dev.farouk.roomx.util.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -38,6 +40,7 @@ public class ShowProfileActivity extends AppCompatActivity implements VolleyCall
     TextView emailTextview;
     @Bind(R.id.dob_textview)
     TextView dobTextview;
+    private int profileTpe;
 
 
     @Override
@@ -54,12 +57,27 @@ public class ShowProfileActivity extends AppCompatActivity implements VolleyCall
                 onBackPressed();
             }
         });
+        initViews();
 
-        if(Utils.isInternetAvailable(this)){
-            Requests requests = new Requests(this);
-            requests.getUserProfile(this, this);
-        }else
-             Toast.makeText(this, "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+            profileTpe = getIntent().getExtras().getInt(Const.profileType);
+            if (profileTpe== ApiFunctions.my_profile.getValue()) {
+                // Do something
+                if(Utils.isInternetAvailable(this)){
+                    Requests requests = new Requests(this);
+                    requests.getUserProfile(this, this);
+                }else
+                    Toast.makeText(this, "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+                Log.d("profileTpe", "my_profile");
+            } else if (profileTpe== ApiFunctions.profile_by_id.getValue()){
+                // Do something
+                Log.d("profileTpe", "profile_by_id");
+                if(Utils.isInternetAvailable(this)){
+                    Requests requests = new Requests(this);
+                    requests.getUserProfileById(this, this,getIntent().getExtras().getString(Const.userId));
+                }else
+                    Toast.makeText(this, "لا يوجد انترنت", Toast.LENGTH_LONG).show();
+            }
+
 
     }
 
@@ -67,7 +85,7 @@ public class ShowProfileActivity extends AppCompatActivity implements VolleyCall
     public void onSuccess(Response response) {
         User userResponse = (User) response.getObject();
         if (userResponse != null) {
-            Log.d("userResponse", userResponse.toString());
+            Log.d("ShowProfileActivity", userResponse.toString());
             userNameTextview.setText(userResponse.getName());
             mobileTextview.setText(userResponse.getPhone());
             emailTextview.setText(userResponse.getEmail());
@@ -75,10 +93,19 @@ public class ShowProfileActivity extends AppCompatActivity implements VolleyCall
             countryTextview.setText(userResponse.getCountry());
             dobTextview.setText(userResponse.getDob());
             if (userResponse.getPhotolink() != null) {
-                Picasso.with(this).load(userResponse.getPhotolink()).placeholder(R.drawable.ic_profile)
+                Picasso.with(this).load(userResponse.getPhotolink()).placeholder(R.drawable.no_image_available)
                         .into(profilePicImageview);
             }
         }
 
+    }
+
+    void initViews(){
+        userNameTextview.setText("");
+        mobileTextview.setText("");
+        emailTextview.setText("");
+        cityTextview.setText("");
+        countryTextview.setText("");
+        dobTextview.setText("");
     }
 }

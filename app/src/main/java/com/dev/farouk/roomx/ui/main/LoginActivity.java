@@ -85,32 +85,10 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
             }
 
         });
-        System.out.println(isEnabled);  //prints "Do you have data? You'll love Firebase."
 
 
     }
 
-    /*updates data in realtime, displays the data in a list*/
-    private void addValueEventListener(final DatabaseReference productsReference) {
-        /*add ValueEventListener to update data in realtime*/
-        productsReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                /*this is called when first passing the data and
-                * then whenever the data is updated*/
-                   /*get the data children*/
-                //isEnabled = (long) dataSnapshot.getValue();
-               // Timber.i("isEnabled %s", isEnabled);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                /*listener failed or was removed for security reasons*/
-            }
-        });
-
-    }
 
     @Override
     protected void onResume() {

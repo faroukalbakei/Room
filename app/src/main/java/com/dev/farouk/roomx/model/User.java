@@ -27,10 +27,10 @@ public class User  extends SugarRecord {
     private String photolink;
     @SerializedName("city")
     @Expose
-    private String city;
+    private String city="";
     @SerializedName("country")
     @Expose
-    private String country;
+    private String country="";
     @SerializedName("created_at")
     @Expose
     private String createdAt;

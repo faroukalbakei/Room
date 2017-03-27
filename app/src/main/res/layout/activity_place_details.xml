@@ -6,6 +6,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layoutDirection="locale"
     android:orientation="vertical">
+<!--    <include
+        android:id="@+id/trans_toolbar"
+        layout="@layout/transpernt_toolbar"/>-->
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -32,13 +35,20 @@
                 android:src="@drawable/no_image_available"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transp_color"
+                >
+
             <ToggleButton
                 android:id="@+id/like_toggle"
                 android:layout_marginEnd="16dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:padding="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="10dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:background="@drawable/toggle_selector"
@@ -55,6 +65,7 @@
                 android:background="@android:color/transparent"
                 android:src="@drawable/abc_ic_ab_back_material"
                  />
+            </RelativeLayout>
             <!--android:src="@drawable/abc_ic_ab_back_mtrl_am_alpha"-->
 
 

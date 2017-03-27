@@ -98,4 +98,5 @@
     </array>
 
     <color name="button_color">#0a4e73</color>
+    <color name="transp_color">#40FFFFFF</color>
 </resources>

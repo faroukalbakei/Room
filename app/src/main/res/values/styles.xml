@@ -51,4 +51,6 @@
         <item name="android:background">?attr/colorPrimary</item>
         <item name="android:layout_alignParentTop">true</item>
     </style>
+
+
 </resources>
