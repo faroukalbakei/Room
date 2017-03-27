@@ -67,6 +67,7 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/relative_context"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -82,7 +83,15 @@
             android:layout_alignParentTop="true"
             android:src="@mipmap/ic_launcher"
  />
-
+        <ImageView
+            android:visibility="invisible"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/ic_overflow_menu"
+            android:id="@+id/delete_context"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="3dp" />
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"

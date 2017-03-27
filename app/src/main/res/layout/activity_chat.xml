@@ -3,7 +3,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/white"
-    tools:context="com.example.farouk.roomx.ChatActivity">
+    tools:context="com.dev.farouk.roomx.ChatActivity">
 
 
     <android.support.v7.widget.RecyclerView
@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:layout_gravity="bottom"
-        android:background="@color/divider"
+        android:background="@color/divider_color"
         android:layout_above="@+id/senderContainer"/>
     <RelativeLayout
         android:id="@+id/senderContainer"

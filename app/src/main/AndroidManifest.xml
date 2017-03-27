@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.farouk.roomx">
+    package="com.dev.farouk.roomx">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +12,7 @@
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
-        android:name=".app.VolleySingleton"
+        android:name="com.dev.farouk.roomx.app.VolleySingleton"
         android:allowBackup="true"
         android:configChanges="layoutDirection|locale"
         android:icon="@drawable/roomx"
@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoActionBar">
         <activity
-            android:name=".ui.main.LoginActivity"
+            android:name="com.dev.farouk.roomx.ui.main.LoginActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,11 +29,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.SignUpActivity"
+            android:name="com.dev.farouk.roomx.ui.main.SignUpActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.main.IconTextTabsActivity" />
-        <activity android:name=".ui.explore.PlaceDetailsActivity" />
-        <activity android:name=".ui.account.ActivityEditProfile" />
+        <activity android:name="com.dev.farouk.roomx.ui.main.IconTextTabsActivity" />
+        <activity android:name="com.dev.farouk.roomx.ui.explore.PlaceDetailsActivity" />
+        <activity android:name="com.dev.farouk.roomx.ui.account.ActivityEditProfile" />
 
 
         <meta-data
@@ -47,16 +47,22 @@
             android:value="true" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.example.farouk.roomx.model" />
+            android:value="com.dev.farouk.roomx.model" />
 
-        <activity android:name=".ui.account.ShowProfileActivity" />
+        <activity android:name="com.dev.farouk.roomx.ui.account.ShowProfileActivity" />
         <activity android:name="com.tangxiaolv.telegramgallery.GalleryActivity" />
-        <activity android:name=".ChatActivity" />
+        <activity android:name="com.dev.farouk.roomx.ChatActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAZCOnuaNiTobD1sk-S5ZmLBNGDQBVw7ZE" />
 
+        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            />
+
+        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
     </application>
 
 </manifest>

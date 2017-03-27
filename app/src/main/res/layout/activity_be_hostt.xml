@@ -5,7 +5,7 @@
     android:id="@+id/activity_be_hostt"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.farouk.roomx.ui.account.AddRoomFragment">
+    tools:context="com.dev.farouk.roomx.ui.account.AddRoomFragment">
 
 
     <ScrollView
@@ -182,13 +182,13 @@
                 android:textDirection="locale"
                 android:textSize="20sp" />
 
-            <com.example.farouk.roomx.util.CustomMapView
+            <com.dev.farouk.roomx.util.CustomMapView
                 android:layout_marginTop="4dp"
                 android:id="@+id/map"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                class="com.example.farouk.roomx.util.WorkaroundMapFragment"
+                class="com.dev.farouk.roomx.util.WorkaroundMapFragment"
                 />
 
             <TextView

@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "944905069651",
-    "firebase_url": "https://river-interface-119616.firebaseio.com",
-    "project_id": "river-interface-119616",
-    "storage_bucket": "river-interface-119616.appspot.com"
+    "project_number": "633127580499",
+    "firebase_url": "https://roomx-1487178103063.firebaseio.com",
+    "project_id": "roomx-1487178103063",
+    "storage_bucket": "roomx-1487178103063.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:944905069651:android:e23b2c31e2c9b704",
+        "mobilesdk_app_id": "1:633127580499:android:014b40503646cffa",
         "android_client_info": {
-          "package_name": "com.example.farouk.roomx"
+          "package_name": "com.dev.farouk.roomx"
         }
       },
       "oauth_client": [
         {
-          "client_id": "944905069651-v7v4o6g0lobcld4n7ofv6dh767s156cr.apps.googleusercontent.com",
+          "client_id": "633127580499-t9p8q2bhh1u5rolhs5kjqidt8m5tkqna.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyARrkl166tunIrS9tusWAGGMQuFyXFOQ3Y"
+          "current_key": "AIzaSyA6xfqQdOcUcG0LgXazRRoZwVPzc2i61SQ"
         }
       ],
       "services": {
