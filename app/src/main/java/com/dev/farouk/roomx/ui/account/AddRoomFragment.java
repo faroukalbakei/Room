@@ -617,7 +617,7 @@ public class AddRoomFragment extends Fragment implements VolleyCallback,
                     requests.uploadRoomImages2(this,getActivity(),roomId,listOfImages);
                 }
           //  }
-          //  initView();
+            initView();
         } else if (response.getResult() == 0)
             if(response.getMessage()!=null){
                 Utils.snakebar(getResources().getString(R.string.general_error), mScrollView);

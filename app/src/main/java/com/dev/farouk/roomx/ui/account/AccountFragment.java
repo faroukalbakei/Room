@@ -22,6 +22,7 @@ import com.dev.farouk.roomx.R;
 import com.dev.farouk.roomx.model.ExtrasItem;
 import com.dev.farouk.roomx.model.User;
 import com.dev.farouk.roomx.ui.main.IconTextTabsActivity;
+import com.dev.farouk.roomx.util.ApiFunctions;
 import com.dev.farouk.roomx.util.Const;
 import com.dev.farouk.roomx.util.FragmentType;
 import com.dev.farouk.roomx.util.RecyclerTouchListener;
@@ -97,7 +98,9 @@ public class AccountFragment extends Fragment implements DatePickerDialog.OnDate
         tv_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ShowProfileActivity.class));
+                Intent go = new Intent(getActivity(), ShowProfileActivity.class);
+                go.putExtra(Const.profileType,ApiFunctions.my_profile.getValue());
+                startActivity(go);
             }
         });
 

@@ -328,6 +328,67 @@ public class Requests {
 
     }
 
+    public void getUserProfileById(final VolleyCallback callback, final Context context,final String userId) {
+        pDialog = new ProgressDialog(context);
+        pDialog.setMessage("Loading...");
+        pDialog.show();
+        StringRequest jsonObjReq = new StringRequest(Request.Method.POST,
+                Const.BASE_URL + "getuserprofile",
+                new com.android.volley.Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("response", response.toString());
+                        pDialog.hide();
+                        //Toast.makeText(LoginActivity.this, response.toString(), Toast.LENGTH_LONG).show();
+                        responseObject = new Response();
+//                        List<User> user = Arrays.asList(gson.fromJson(response, User[].class));
+                        UserResult userResult = (gson.fromJson(response, UserResult.class));
+                        Prefs.with(context).setUserInfo(userResult);
+                        responseObject = new Response();
+                        if (userResult != null) {
+                            Log.d("user", userResult.getUser().toString());
+                            responseObject.setObject(userResult.getUser());
+                            callback.onSuccess(responseObject);
+                        } else
+                            Log.d("null ", "user");
+
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                responseObject.setOnError(error.getMessage());
+                pDialog.hide();
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                //login_button.setEnabled(true);
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("Content-Type", "application/x-www-form-urlencoded");
+                params.put("Accept", "application/json");
+                return params;
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("token", token);
+                params.put("user_id", userId);
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        VolleySingleton.getInstance().addToRequestQueue(jsonObjReq);
+
+    }
+
     public void getPlacesList(final VolleyCallback callback, final Context context, String apiMethod) {
         pDialog = new ProgressDialog(context);
         pDialog.setMessage("Loading...");

@@ -18,6 +18,10 @@ public class Const {
     public static String getReservation_URL="getuserreservations";
     public static String getReservationRequest_URL="getmyreservations";
     public static String acceptreservation = "acceptreservationandroid";
+    public static  String profileType = "1";
+    public static  String userId = "";
+    public static  String my_profile = "1";
+    public static  String user_profile = "1";
 
 
     public static final int REQUEST_EXTERNAL_STORAGE = 1;
