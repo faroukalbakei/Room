@@ -196,8 +196,8 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         if (location != null&& location !=" " && !location.isEmpty()) {
             StringTokenizer tokens = new StringTokenizer(location, ",");
             if(tokens.hasMoreTokens()){
-                lang = Double.parseDouble(tokens.nextToken());
                 lat = Double.parseDouble(tokens.nextToken());
+                lang = Double.parseDouble(tokens.nextToken());
             }
         }
         buttonReserve.setOnClickListener(new View.OnClickListener() {

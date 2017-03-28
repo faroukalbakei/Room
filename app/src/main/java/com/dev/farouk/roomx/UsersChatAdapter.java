@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.dev.farouk.roomx.FireChatHelper.ChatHelper;
 import com.dev.farouk.roomx.model.Userf;
 import com.dev.farouk.roomx.FireChatHelper.ExtraIntent;
+import com.dev.farouk.roomx.util.Utils;
 
 import java.util.List;
 
@@ -129,16 +130,28 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
 
             Userf user = mUsers.get(getLayoutPosition());
 
-            String chatRef = user.createUniqueChatRef(mCurrentUserCreatedAt,mCurrentUserEmail);
-            Log.i("mCurrentUserCreatedAt", String.valueOf(mCurrentUserCreatedAt));
-            Log.i("mCurrentUserEmail",mCurrentUserEmail);
-            Intent chatIntent = new Intent(mContextViewHolder, ChatActivity.class);
-            chatIntent.putExtra(ExtraIntent.EXTRA_CURRENT_USER_ID, mCurrentUserId);
-            chatIntent.putExtra(ExtraIntent.EXTRA_RECIPIENT_ID, user.getRecipientId());
-            chatIntent.putExtra(ExtraIntent.EXTRA_CHAT_REF, chatRef);
+            if(user!=null){
+                String chatRef = user.createUniqueChatRef(mCurrentUserCreatedAt,mCurrentUserEmail);
+                if(chatRef!=null){
+                    Log.i("mCurrentUserCreatedAt", String.valueOf(mCurrentUserCreatedAt));
+                    Log.i("mCurrentUserEmail",mCurrentUserEmail);
+                    Intent chatIntent = new Intent(mContextViewHolder, ChatActivity.class);
+                    chatIntent.putExtra(ExtraIntent.EXTRA_CURRENT_USER_ID, mCurrentUserId);
+                    chatIntent.putExtra(ExtraIntent.EXTRA_RECIPIENT_ID, user.getRecipientId());
+                    chatIntent.putExtra(ExtraIntent.EXTRA_CHAT_REF, chatRef);
 
-            // Start new activity
-            mContextViewHolder.startActivity(chatIntent);
+                    // Start new activity
+                    mContextViewHolder.startActivity(chatIntent);
+                }else{
+                    Log.i("mCurrentUserCreatedAt", "null");
+                    Utils.snakebar(mContext.getResources().getString(R.string.general_error),mStatusConnection);
+                }
+
+            }else{
+                Log.i("Userf", "null");
+                Utils.snakebar(mContext.getResources().getString(R.string.general_error),mStatusConnection);
+            }
+
 
         }
     }

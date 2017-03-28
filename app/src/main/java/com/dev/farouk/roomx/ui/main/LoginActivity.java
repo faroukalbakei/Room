@@ -158,7 +158,7 @@ public class LoginActivity extends AppCompatActivity implements VolleyCallback {
             startActivity(intent);
         } else {
             snackbar = Snackbar
-                    .make(Email.getRootView(), response.getMessage(), Snackbar.LENGTH_LONG)
+                    .make(Email, response.getMessage(), Snackbar.LENGTH_LONG)
                     .setAction("", new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
