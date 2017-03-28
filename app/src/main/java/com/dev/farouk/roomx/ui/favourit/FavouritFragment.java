@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.dev.farouk.roomx.model.PlaceObject;
 import com.dev.farouk.roomx.model.Response;
 import com.dev.farouk.roomx.service.Requests;
 import com.dev.farouk.roomx.service.VolleyCallback;
+import com.dev.farouk.roomx.ui.explore.Callback;
 import com.dev.farouk.roomx.ui.explore.ExploreAdapter;
 import com.dev.farouk.roomx.util.Const;
 import com.dev.farouk.roomx.util.Utils;
@@ -25,7 +27,7 @@ import com.dev.farouk.roomx.util.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavouritFragment extends Fragment implements VolleyCallback {
+public class FavouritFragment extends Fragment implements VolleyCallback ,Callback{
 
     private final static String API_KEY = "7e8f60e325cd06e164799af1e317d7a7";
 
@@ -120,8 +122,19 @@ public class FavouritFragment extends Fragment implements VolleyCallback {
                 emptyView.setVisibility(View.VISIBLE);
             } else emptyView.setVisibility(View.GONE);
             exploreAdapter.setPlaceList(placeObjects);
-            exploreAdapter.callbackInfo(this);
+            exploreAdapter.callbackInfo(this,this);
             recyclerView.setAdapter(exploreAdapter);        }
 
+    }
+
+    @Override
+    public void likeRoom(int po) {
+        Log.d("fav placeId", String.valueOf(placeObjects.get(po).getPid()));
+
+        if (Utils.isInternetAvailable(getContext())) {
+            Requests requests = new Requests(getContext());
+            requests.addToWishList(this, getContext(), String.valueOf(placeObjects.get(po).getPid()), placeObjects.get(po).getId());
+        } else
+            Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
     }
 }

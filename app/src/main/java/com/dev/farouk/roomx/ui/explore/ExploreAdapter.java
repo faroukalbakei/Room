@@ -45,7 +45,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHolder> implements PopupMenu.OnMenuItemClickListener {
 
 
-    private List <PlaceObject> roomList;
+    private List<PlaceObject> roomList;
 
     Context context;
     VolleyCallback volleyCallback;
@@ -54,12 +54,12 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
     private Integer placeId;
     int fragmentType;
     int mposition;
+    Callback callback;
 
 
-
-    public class MyViewHolder extends RecyclerView.ViewHolder  {
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, tag, date, city, detale;
-        public ImageView roompic,moreAvert;
+        public ImageView roompic, moreAvert;
         CircleImageView userpic;
         ToggleButton likeToggleButton;
         RelativeLayout likeRelativeLayout, morevertLayout;
@@ -79,27 +79,48 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
             likeRelativeLayout = (RelativeLayout) view.findViewById(R.id.relative_layout);
             moreAvert = (ImageView) view.findViewById(R.id.delete_context);
             morevertLayout = (RelativeLayout) view.findViewById(R.id.relative_context);
-            frameLayout=(FrameLayout)view.findViewById(R.id.frame_layout_place);
+            frameLayout = (FrameLayout) view.findViewById(R.id.frame_layout_place);
             if (fragmentType == FragmentType.MY_ROOMS.getValue()) {
                 moreAvert.setVisibility(View.VISIBLE);
             }
+            likeToggleButton.setOnClickListener(new View.OnClickListener()
+
+            {
+                @Override
+                public void onClick (View v){
+                    //if (v.getId() == holder.likeToggleButton.getId()) {
+                        Log.d("fav placeId", String.valueOf(placeObject.getPid()));
+
+                        if (Utils.isInternetAvailable(context)) {
+                            Requests requests = new Requests(context);
+                            requests.addToWishList(volleyCallback, context, String.valueOf(placeObject.getPid()), placeObject.getId());
+                        } else
+                            Toast.makeText(context, "لا يوجد انترنت", Toast.LENGTH_LONG);
+
+
+                   // }
+                }
+            });
 
         }
 
 
     }
 
-    public ExploreAdapter( Context context, int fragmentType) {
+    public ExploreAdapter(Context context, int fragmentType) {
         roomList = new ArrayList<>();
         this.context = context;
-        this.fragmentType=fragmentType;
+        this.fragmentType = fragmentType;
     }
-    public void setPlaceList(List <PlaceObject> placeObjects) {
+
+    public void setPlaceList(List<PlaceObject> placeObjects) {
         this.roomList = placeObjects;
 
     }
-    public void callbackInfo(VolleyCallback volleyCallback) {
+
+    public void callbackInfo(VolleyCallback volleyCallback,Callback callback) {
         this.volleyCallback = volleyCallback;
+        this.callback=callback;
     }
 
     @Override
@@ -148,7 +169,10 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
         holder.likeToggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (v.getId() == holder.likeToggleButton.getId()) {
+                Log.d("fav position", String.valueOf(position));
+                callback.likeRoom(position);
+/*                if (v.getId() == holder.likeToggleButton.getId()) {
+                    Log.d("fav placeId", String.valueOf(placeObject.getPid()));
 
                     if (Utils.isInternetAvailable(context)) {
                         Requests requests = new Requests(context);
@@ -157,7 +181,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
                         Toast.makeText(context, "لا يوجد انترنت", Toast.LENGTH_LONG);
 
 
-                }
+                }*/
             }
         });
         holder.frameLayout.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +199,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
             holder.morevertLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mposition=position;
+                    mposition = position;
                     showPopup(v);
                 }
             });
@@ -195,6 +219,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
             notifyItemRangeChanged(position, getItemCount());
         }
     }
+
     public void showPopup(View v) {
         PopupMenu popup = new PopupMenu(context, v);
         // This activity implements OnMenuItemClickListener
@@ -218,7 +243,7 @@ public class ExploreAdapter extends RecyclerView.Adapter<ExploreAdapter.MyViewHo
 
         if (Utils.isInternetAvailable(context)) {
             Requests requests = new Requests(context);
-            requests.deleteRoom(volleyCallback, context, String.valueOf(placeObject.getPid()), 1,mposition);
+            requests.deleteRoom(volleyCallback, context, String.valueOf(placeObject.getPid()), 1, mposition);
         } else
             Toast.makeText(context, "لا يوجد انترنت", Toast.LENGTH_LONG);
     }

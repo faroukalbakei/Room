@@ -36,7 +36,7 @@ import java.util.List;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-public class ExploreFragment extends Fragment implements VolleyCallback {
+public class ExploreFragment extends Fragment implements VolleyCallback, Callback {
 
     private RecyclerView recyclerView;
     private ExploreAdapter mAdapter;
@@ -181,11 +181,11 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
                 emptyView.setVisibility(View.VISIBLE);
             } else emptyView.setVisibility(View.GONE);
             exploreAdapter.setPlaceList(placeObjects);
-            exploreAdapter.callbackInfo(this);
+            exploreAdapter.callbackInfo(this,this);
             recyclerView.setAdapter(exploreAdapter);
         }
 
-
+        checkAdapterIsEmpty();
     }
 
     private void checkAdapterIsEmpty() {
@@ -194,5 +194,16 @@ public class ExploreFragment extends Fragment implements VolleyCallback {
         } else {
             emptyView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void likeRoom(int po) {
+        Log.d("fav placeId", String.valueOf(placeObjects.get(po).getPid()));
+
+        if (Utils.isInternetAvailable(getContext())) {
+            Requests requests = new Requests(getContext());
+            requests.addToWishList(this, getContext(), String.valueOf(placeObjects.get(po).getPid()), placeObjects.get(po).getId());
+        } else
+            Toast.makeText(getContext(), "لا يوجد انترنت", Toast.LENGTH_LONG);
     }
 }
