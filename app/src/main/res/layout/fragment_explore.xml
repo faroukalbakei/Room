@@ -7,17 +7,25 @@
     android:id="@+id/activity_explore"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:layoutDirection="locale"
     tools:context="com.dev.farouk.roomx.ui.explore.ExploreFragment">
 
-    <android.support.design.widget.AppBarLayout
+    <TextView
+        android:id="@+id/empty_list_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:text="@string/empty_list"
+
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_main" />
-
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </FrameLayout>

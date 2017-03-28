@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
         // Set presence text color
         if(fireChatUser.getConnection().equals(ONLINE)) {
             // Green color
-            holder.getStatusConnection().setTextColor(Color.parseColor("#00FF00"));
+            holder.getStatusConnection().setTextColor(Color.parseColor("#4CAF50"));
         }else {
             // Red color
             holder.getStatusConnection().setTextColor(Color.parseColor("#FF0000"));
@@ -129,7 +130,8 @@ public class UsersChatAdapter extends RecyclerView.Adapter<UsersChatAdapter.View
             Userf user = mUsers.get(getLayoutPosition());
 
             String chatRef = user.createUniqueChatRef(mCurrentUserCreatedAt,mCurrentUserEmail);
-
+            Log.i("mCurrentUserCreatedAt", String.valueOf(mCurrentUserCreatedAt));
+            Log.i("mCurrentUserEmail",mCurrentUserEmail);
             Intent chatIntent = new Intent(mContextViewHolder, ChatActivity.class);
             chatIntent.putExtra(ExtraIntent.EXTRA_CURRENT_USER_ID, mCurrentUserId);
             chatIntent.putExtra(ExtraIntent.EXTRA_RECIPIENT_ID, user.getRecipientId());

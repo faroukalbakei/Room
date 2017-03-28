@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="?dialogPreferredPadding"
+    android:background="@color/white"
     >
 
         <EditText
@@ -39,6 +40,6 @@
         android:layout_height="wrap_content"
         android:text="@string/mdtp_ok"
         android:textColor="@color/white"
-        android:background="@color/button_color"
+        android:background="@color/colorPrimary"
         />
 </LinearLayout>

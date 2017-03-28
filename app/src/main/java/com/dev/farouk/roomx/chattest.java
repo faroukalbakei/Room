@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class chattest extends Fragment {
 
@@ -187,6 +188,7 @@ public class chattest extends Fragment {
 
                     if(dataSnapshot.getKey().equals(mCurrentUserUid)){
                         Userf currentUser = dataSnapshot.getValue(Userf.class);
+                        Timber.i("dataSnapshot %s" ,dataSnapshot.getValue());
                         mUsersChatAdapter.setCurrentUserInfo(userUid, currentUser.getEmail(), currentUser.getCreatedAt());
                     }else {
                         Userf recipient = dataSnapshot.getValue(Userf.class);
